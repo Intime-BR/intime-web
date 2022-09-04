@@ -1,11 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HeaderApp } from "./components/Header/header";
 import { Dashboard } from "./pages/Dashboard/dashboard";
-import { ActiveRoom } from "./pages/Active-Room/active-room";
-import DynamicLineChart from "./components/MiddleContent/lineChart";
-import { Login } from "./pages/Login/login";
-import SuggestionsCard from "./components/MiddleContent/suggestionsCard";
-import user from "./assets/others/user_face_template.svg";
+import { ActiveRoom } from "./pages/ActiveRoom/activeRoom";
+import Login from "./pages/Login/login";
 
 const AppRoute = () => {
   return (

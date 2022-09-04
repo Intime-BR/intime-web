@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import LoginScreen from '../../components/Login/LoginScreen';
+import styled from "styled-components";
+import LoginScreen from "../../components/Login/LoginScreen";
 
 const Login = () => {
   return <LoginScreen />;

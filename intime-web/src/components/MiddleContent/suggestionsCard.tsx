@@ -5,6 +5,7 @@ type DynamicSuggestionsCardProps = {
   className?: string;
   children: any;
 };
+
 // PASSANDO AS PROPS CORRETAS ELE MONTA OS VALORES DE FORMA DINAMICA
 const DynamicSuggestionsCard = ({
   className,
@@ -25,6 +26,7 @@ export default styled(DynamicSuggestionsCard)`
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 13px;
+  /* background: ${(props) => props.theme.colors.primary}; */
   background: #fafafa;
   overflow-y: auto;
   ::-webkit-scrollbar {
