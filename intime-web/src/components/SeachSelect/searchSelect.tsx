@@ -4,25 +4,6 @@ import { Aluno } from "../../interfaces/interfaces";
 
 const { Option } = Select;
 
-// const data: Array<Aluno> = [
-//   {
-//     id: 1,
-//     name: "ISTEVO",
-//   },
-//   {
-//     id: 2,
-//     name: "NICOLLI",
-//   },
-//   {
-//     id: 3,
-//     name: "BIG BIG",
-//   },
-//   {
-//     id: 4,
-//     name: "QUEIJO",
-//   },
-// ];
-
 type DataSelectProps = {
   className?: string;
   onChange?: (value: any, option: any) => void;
@@ -38,7 +19,7 @@ const DataSelect = ({
   data,
   placeHolder,
 }: DataSelectProps) => (
-  <div className={`${className} col-md-3`}>
+  <div className={`${className}`}>
     <Select
       className="select"
       showSearch
@@ -58,8 +39,8 @@ const DataSelect = ({
 );
 
 export default styled(DataSelect)`
-  width: 25%;
-  margin-bottom: 8px;
+  width: 100%;
+  height: 100%;
   .select {
     width: 100%;
     height: 100%;

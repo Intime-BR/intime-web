@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import DataTable from "../../components/DataTable/dataTable";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
+import BaseContainer from "../../components/BaseContainer/baseContainer";
 
 export function ActiveRoom() {
   return (
@@ -48,15 +49,23 @@ export function ActiveRoom() {
           </div>
         </div>
       </div>
-      <div className=" m-b-5 p-4 align-items-center justify-content-between">
-        <div className="row">
-          <SearchSelect placeHolder="Selecion a Matrícula" />
-          <SearchSelect placeHolder="Selecion o Status" />
-          <SearchSelect placeHolder="Selecion a Turma" />
-          <SearchSelect placeHolder="Selecion a Disciplina" />
+      <BaseContainer className="container-fluid justify-self-center mt-3">
+        <div className="row p-3">
+          <div className="col-3">
+            <SearchSelect placeHolder="Selecion a Matrícula" />
+          </div>
+          <div className="col-3">
+            <SearchSelect placeHolder="Selecion o Status" />
+          </div>
+          <div className="col-3">
+            <SearchSelect placeHolder="Selecion a Turma" />
+          </div>
+          <div className="col-3">
+            <SearchSelect placeHolder="Selecion a Disciplina" />
+          </div>
         </div>
         <DataTable />
-      </div>
+      </BaseContainer>
     </div>
   );
 }
