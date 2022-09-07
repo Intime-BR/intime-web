@@ -4,7 +4,6 @@ import { DashboardOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 import DataTable from "../../components/DataTable/dataTable";
-import DataSelect from "../../components/SeachSelect/searchSelect";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
 
 export function ActiveRoom() {
@@ -50,15 +49,13 @@ export function ActiveRoom() {
         </div>
       </div>
       <div className=" m-b-5 p-4 align-items-center justify-content-between">
-        <div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <SearchSelect />
-            <SearchSelect />
-            <SearchSelect />
-            <SearchSelect />
-          </div>
-          <DataTable />
+        <div className="row">
+          <SearchSelect />
+          <SearchSelect />
+          <SearchSelect />
+          <SearchSelect />
         </div>
+        <DataTable />
       </div>
     </div>
   );

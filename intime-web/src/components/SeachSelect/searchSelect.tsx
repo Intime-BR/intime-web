@@ -24,7 +24,7 @@ const { Option } = Select;
 // ];
 
 type DataSelectProps = {
-  className?: String;
+  className?: string;
   onChange?: (value: any, option: any) => void;
   onSearch?: (value: String) => void;
   data?: Array<any>;
@@ -36,21 +36,30 @@ const DataSelect = ({
   onSearch,
   data,
 }: DataSelectProps) => (
-  <Select
-    className="select"
-    showSearch
-    placeholder="Select a person"
-    optionFilterProp="children"
-    onChange={onChange}
-    onSearch={onSearch}
-    filterOption={(input: any, option: any) =>
-      option.children?.toString().toLowerCase().includes(input.toLowerCase())
-    }
-  >
-    {data?.map((item: Aluno) => {
-      return <Option value={item.id}>{item.name}</Option>;
-    })}
-  </Select>
+  <div className={`${className} col-md-3`}>
+    <Select
+      className="select"
+      showSearch
+      placeholder="Select a person"
+      optionFilterProp="children"
+      onChange={onChange}
+      onSearch={onSearch}
+      filterOption={(input: any, option: any) =>
+        option.children?.toString().toLowerCase().includes(input.toLowerCase())
+      }
+    >
+      {data?.map((item: Aluno) => {
+        return <Option value={item.id}>{item.name}</Option>;
+      })}
+    </Select>
+  </div>
 );
 
-export default styled(DataSelect)``;
+export default styled(DataSelect)`
+  width: 25%;
+  margin-bottom: 8px;
+  .select {
+    width: 100%;
+    height: 100%;
+  }
+`;
