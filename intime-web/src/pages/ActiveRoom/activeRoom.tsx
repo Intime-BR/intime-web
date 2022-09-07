@@ -50,10 +50,10 @@ export function ActiveRoom() {
       </div>
       <div className=" m-b-5 p-4 align-items-center justify-content-between">
         <div className="row">
-          <SearchSelect />
-          <SearchSelect />
-          <SearchSelect />
-          <SearchSelect />
+          <SearchSelect placeHolder="Selecion a Matrícula" />
+          <SearchSelect placeHolder="Selecion o Status" />
+          <SearchSelect placeHolder="Selecion a Turma" />
+          <SearchSelect placeHolder="Selecion a Disciplina" />
         </div>
         <DataTable />
       </div>

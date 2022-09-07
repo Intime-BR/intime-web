@@ -28,6 +28,7 @@ type DataSelectProps = {
   onChange?: (value: any, option: any) => void;
   onSearch?: (value: String) => void;
   data?: Array<any>;
+  placeHolder?: String;
 };
 
 const DataSelect = ({
@@ -35,12 +36,13 @@ const DataSelect = ({
   onChange,
   onSearch,
   data,
+  placeHolder,
 }: DataSelectProps) => (
   <div className={`${className} col-md-3`}>
     <Select
       className="select"
       showSearch
-      placeholder="Select a person"
+      placeholder={placeHolder}
       optionFilterProp="children"
       onChange={onChange}
       onSearch={onSearch}

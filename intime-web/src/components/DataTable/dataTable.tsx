@@ -1,6 +1,7 @@
 import { EditFilled, ExclamationCircleOutlined } from "@ant-design/icons";
 import { Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import styled from "styled-components";
 import { Aluno } from "../../interfaces/interfaces";
 
 type DataTableProps = {
@@ -8,7 +9,7 @@ type DataTableProps = {
   data?: Array<{}>;
 };
 
-const DataTable = () => {
+const DataTable = ({ className }: DataTableProps) => {
   const data: Aluno[] = [
     {
       id: 1,
@@ -104,9 +105,9 @@ const DataTable = () => {
     },
   ];
   return (
-    <>
+    <div>
       <Table columns={columns} dataSource={data} />
-    </>
+    </div>
   );
 };
-export default DataTable;
+export default styled(DataTable)``;
