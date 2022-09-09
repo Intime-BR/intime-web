@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
-import { ChartsEstimate } from "../../components/ChartsEstimate/chartsEstimate";
+
 import DynamicLineChart from "../../components/MiddleContent/lineChart";
 import DynamicSuggestionsCard from "../../components/MiddleContent/suggestionsCard";
 import SuggestionCardContent from "../../components/MiddleContent/suggestionCardContent";
@@ -9,6 +9,7 @@ import { PresenceForSubject } from "../../components/BottomCharts/ChartPresenceF
 import { ProgressBarElementor } from "../../components/BottomCharts/ChartProgressBar";
 import { DailyAbsence } from "../../components/BottomCharts/ChartDailyAbsence";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
+import ChartsEstimate from "../../components/ChartsEstimate/chartsEstimate";
 
 export function Dashboard() {
   return (
@@ -42,8 +43,43 @@ export function Dashboard() {
           </div>
         </div>
       </div>
-
-      <ChartsEstimate />
+      <BaseContainer
+        color="transparent"
+        border="none"
+        className="row m-4"
+        shadow="none"
+      >
+        <div className="col-md-3">
+          <ChartsEstimate
+            title={"Presentes"}
+            content={"451 alunos"}
+            variation={"+0.7%"}
+            up={true}
+          />
+        </div>
+        <div className="col-md-3">
+          <ChartsEstimate
+            title={"Faltas"}
+            content={"451 alunos"}
+            variation={"-0,1%"}
+            up={false}
+          />
+        </div>
+        <div className="col-md-3">
+          <ChartsEstimate
+            title={"Pendentes"}
+            content={"451 alunos"}
+            variation={"+0.7%"}
+          />
+        </div>
+        <div className="col-md-3">
+          <ChartsEstimate
+            title={"Matéria Destaque"}
+            content={"451 alunos"}
+            variation={"+0.7%"}
+          />
+        </div>
+      </BaseContainer>
       <BaseContainer
         color="transparent"
         border="none"
