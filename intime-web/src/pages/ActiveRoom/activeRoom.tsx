@@ -49,7 +49,10 @@ export function ActiveRoom() {
           </div>
         </div>
       </div>
-      <BaseContainer className="container-fluid justify-self-center mt-3">
+      <BaseContainer
+        color="#fff"
+        className="container-fluid justify-self-center mt-3 mb-3"
+      >
         <div className="row p-3">
           <div className="col-3">
             <SearchSelect placeHolder="Selecion a Matrícula" />

@@ -1,30 +1,40 @@
-import react, { PureComponent } from 'react';
-import styled from 'styled-components';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import react, { PureComponent } from "react";
+import styled from "styled-components";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const data = [
   {
-    name: 'Segunda',
+    name: "Segunda",
     Faltas: 2400,
   },
   {
-    name: 'Terça',
+    name: "Terça",
     Faltas: 1398,
   },
   {
-    name: 'Quarta',
+    name: "Quarta",
     Faltas: 1398,
   },
   {
-    name: 'Quinta',
+    name: "Quinta",
     Faltas: 1398,
   },
   {
-    name: 'Sexta',
+    name: "Sexta",
     Faltas: 1398,
   },
   {
-    name: 'Sabado',
+    name: "Sabado",
     Faltas: 1398,
   },
 ];
@@ -35,8 +45,12 @@ type DynamicLineChartProps = {
 
 const DynamicLineChart = ({ className }: DynamicLineChartProps) => {
   return (
-    <div className={`${className} col-md-6 col-sm-12`}>
-      <ResponsiveContainer className="chart-container" width="100%" height="100%">
+    <div className={`${className}`}>
+      <ResponsiveContainer
+        className="chart-container"
+        width="100%"
+        height="100%"
+      >
         <BarChart
           className="bar-chart"
           width={400}
@@ -54,7 +68,12 @@ const DynamicLineChart = ({ className }: DynamicLineChartProps) => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Faltas" fill="#8884d8" radius={[5, 5, 0, 0]} barSize={24} />
+          <Bar
+            dataKey="Faltas"
+            fill="#8884d8"
+            radius={[5, 5, 0, 0]}
+            barSize={24}
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -68,6 +87,8 @@ export default styled(DynamicLineChart)`
   max-height: 400px;
   padding-bottom: 1%;
   background: #fafafa;
+  width: 100%;
+  height: 100%;
   .chart-container {
     width: 100%;
     height: 100%;

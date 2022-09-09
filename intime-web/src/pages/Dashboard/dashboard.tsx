@@ -8,6 +8,7 @@ import image from "../../assets/others/user_face_template.svg";
 import { PresenceForSubject } from "../../components/BottomCharts/ChartPresenceForSubject";
 import { ProgressBarElementor } from "../../components/BottomCharts/ChartProgressBar";
 import { DailyAbsence } from "../../components/BottomCharts/ChartDailyAbsence";
+import BaseContainer from "../../components/BaseContainer/baseContainer";
 
 export function Dashboard() {
   return (
@@ -43,38 +44,47 @@ export function Dashboard() {
       </div>
 
       <ChartsEstimate />
-      <div className="row m-4 justify-content-between">
-        <DynamicLineChart />
-        <DynamicSuggestionsCard>
-          <SuggestionCardContent
-            image={image}
-            name={"Estevao Boaventura"}
-            desc={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. "
-            }
-            status={"Pendente"}
-            date={"24 de maio, 2022"}
-          />
-          <SuggestionCardContent
-            image={image}
-            name={"Estevao Boaventura"}
-            desc={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. "
-            }
-            status={"Pendente"}
-            date={"24 de maio, 2022"}
-          />
-          <SuggestionCardContent
-            image={image}
-            name={"Estevao Boaventura"}
-            desc={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. "
-            }
-            status={"Pendente"}
-            date={"24 de maio, 2022"}
-          />
-        </DynamicSuggestionsCard>
-      </div>
+      <BaseContainer
+        color="transparent"
+        border="none"
+        className="row m-4"
+        shadow="none"
+      >
+        <div className="col-md-6">
+          <DynamicLineChart />
+        </div>
+        <div className="col-md-6">
+          <DynamicSuggestionsCard>
+            <SuggestionCardContent
+              image={image}
+              name={"Estevao Boaventura"}
+              desc={
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. "
+              }
+              status={"Pendente"}
+              date={"24 de maio, 2022"}
+            />
+            <SuggestionCardContent
+              image={image}
+              name={"Estevao Boaventura"}
+              desc={
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. "
+              }
+              status={"Pendente"}
+              date={"24 de maio, 2022"}
+            />
+            <SuggestionCardContent
+              image={image}
+              name={"Estevao Boaventura"}
+              desc={
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. "
+              }
+              status={"Pendente"}
+              date={"24 de maio, 2022"}
+            />
+          </DynamicSuggestionsCard>
+        </div>
+      </BaseContainer>
 
       <div className="row" style={{ margin: "15px" }}>
         <ProgressBarElementor />

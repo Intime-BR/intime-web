@@ -12,7 +12,7 @@ const DynamicSuggestionsCard = ({
   children,
 }: DynamicSuggestionsCardProps) => {
   return (
-    <div className={`${className} col-md-5 col-sm-12`}>
+    <div className={`${className}`}>
       <div className="title-div">Justificativa de faltas pendentes</div>
       {children}
     </div>
