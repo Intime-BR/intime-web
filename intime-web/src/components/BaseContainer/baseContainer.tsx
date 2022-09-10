@@ -28,7 +28,8 @@ const BaseContainer = ({
 
 export default styled(BaseContainer)`
   width: 95%;
-  height: 100%;
+  height: auto;
+  margin-right: 1%;
   box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.08);
   border-radius: 6px;
 `;

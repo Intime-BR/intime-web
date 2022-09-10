@@ -10,10 +10,15 @@ import { ProgressBarElementor } from "../../components/BottomCharts/ChartProgres
 import { DailyAbsence } from "../../components/BottomCharts/ChartDailyAbsence";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
 import ChartsEstimate from "../../components/ChartsEstimate/chartsEstimate";
+import styled from "styled-components";
 
-export function Dashboard() {
+type DashBoardProps = {
+  className?: string;
+};
+
+const Dashboard = ({ className }: DashBoardProps) => {
   return (
-    <div>
+    <div className={className}>
       <div
         className="page-header border"
         style={{
@@ -46,50 +51,50 @@ export function Dashboard() {
       <BaseContainer
         color="transparent"
         border="none"
-        className="row m-4"
+        className="row justify-content-center estimate-chart-container"
         shadow="none"
       >
-        <div className="col-md-3">
+        <div className="col-md-3 mt-3">
           <ChartsEstimate
             title={"Presentes"}
             content={"451 alunos"}
-            variation={"+0.7%"}
+            variation={"0.7"}
             up={true}
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 mt-3">
           <ChartsEstimate
             title={"Faltas"}
             content={"451 alunos"}
-            variation={"-0,1%"}
+            variation={"-0.1"}
             up={false}
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 mt-3">
           <ChartsEstimate
             title={"Pendentes"}
             content={"451 alunos"}
-            variation={"+0.7%"}
+            variation={"-0.7"}
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 mt-3">
           <ChartsEstimate
             title={"Matéria Destaque"}
             content={"451 alunos"}
-            variation={"+0.7%"}
+            variation={"0.7"}
           />
         </div>
       </BaseContainer>
       <BaseContainer
         color="transparent"
         border="none"
-        className="row m-4"
+        className="row justify-content-center middle-charts-container"
         shadow="none"
       >
-        <div className="col-md-6">
+        <div className="col-md-6 mt-3">
           <DynamicLineChart />
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 mt-3">
           <DynamicSuggestionsCard>
             <SuggestionCardContent
               image={image}
@@ -129,4 +134,17 @@ export function Dashboard() {
       </div>
     </div>
   );
-}
+};
+
+export default styled(Dashboard)`
+  width: 100%;
+  height: 100%;
+  .estimate-chart-container {
+    margin-left: 30px;
+    padding: 4px;
+  }
+  .middle-charts-container {
+    margin-left: 30px;
+    padding: 4px;
+  }
+`;
