@@ -29,7 +29,7 @@ const BaseContainer = ({
 export default styled(BaseContainer)`
   width: 95%;
   height: auto;
-  margin-right: 1%;
+  margin: 0 auto;
   box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.08);
   border-radius: 6px;
 `;
