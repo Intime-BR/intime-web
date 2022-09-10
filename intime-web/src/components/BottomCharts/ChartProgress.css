@@ -19,7 +19,7 @@ input{
     background-color: rgba(245, 240, 240, 0);
     border-style: solid;
     border-color: gray;
-    border-width: 0px 0px 4px 0px; /* 25px top, 10px right, 4px bottom and 35px left */
+    border-width: 0px 0px 4px 0px;
     width: 90%;
     border-radius: 8px;
 }

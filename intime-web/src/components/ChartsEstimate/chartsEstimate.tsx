@@ -181,11 +181,19 @@ const ChartEstimate = ({
             {content}
           </span>
           <span
-            style={{ fontSize: "16px", padding: 0, color: "#3943ad" }}
+            style={{
+              fontSize: "16px",
+              padding: 0,
+              color: Number(variation) > 0 ? "#4A9231" : "#FF0000",
+            }}
             className="d-flex align-items-center justify-content-between variation"
           >
-            {variation}
-            {up ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
+            {`${variation}%`}
+            {Number(variation) > 0 ? (
+              <ArrowUpOutlined />
+            ) : (
+              <ArrowDownOutlined />
+            )}
           </span>
         </div>
       </div>
@@ -195,8 +203,9 @@ const ChartEstimate = ({
 
 export default styled(ChartEstimate)`
   width: 100%;
-  height: 100%;
-  /* margin: 10; */
+  height: auto;
+  margin: 0;
+  padding: 0;
   .content {
     width: 100%;
     height: 100%;
