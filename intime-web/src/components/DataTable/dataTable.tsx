@@ -1,11 +1,14 @@
-import { EditFilled, ExclamationCircleOutlined, UserOutlined } from "@ant-design/icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  EditFilled,
+  ExclamationCircleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import styled from "styled-components";
 import { Aluno } from "../../interfaces/interfaces";
-import { Avatar } from 'antd';
-import { Badge } from 'antd';
+import { Avatar } from "antd";
+import { Badge } from "antd";
 
 type DataTableProps = {
   className?: String;
@@ -152,10 +155,21 @@ const DataTable = ({ className }: DataTableProps) => {
       title: "Aluno",
       dataIndex: "student",
       key: "student",
-      render: (text) => <div className="d-flex align-items-center">
-        <Avatar style={{ backgroundColor: 'rgba(39, 52, 182, 0.8)', color:"white", display:"flex", justifyContent:"center", alignItems:"center" }} icon={<UserOutlined />} />
-              <span style={{marginLeft:'8px'}}>{text}</span>
-        </div>,
+      render: (text) => (
+        <div className="d-flex align-items-center">
+          <Avatar
+            style={{
+              backgroundColor: "rgba(39, 52, 182, 0.8)",
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            icon={<UserOutlined />}
+          />
+          <span style={{ marginLeft: "8px" }}>{text}</span>
+        </div>
+      ),
     },
     {
       title: "Matrícula",
@@ -172,7 +186,7 @@ const DataTable = ({ className }: DataTableProps) => {
           {status?.map((tag) => {
             return (
               <Tag className="rounded" color={handleTagColor(tag)} key={tag}>
-                    <Badge status="default" />
+                <Badge status="default" />
                 {tag}
               </Tag>
             );
@@ -192,7 +206,7 @@ const DataTable = ({ className }: DataTableProps) => {
       key: "subject",
       render: (text) => <a>{text}</a>,
     },
-    
+
     {
       title: "Ações",
       key: "action",
