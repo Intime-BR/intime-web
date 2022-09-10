@@ -50,6 +50,7 @@ export function ActiveRoom() {
         </div>
       </div>
       <BaseContainer
+      
         color="#fff"
         className="container-fluid justify-self-center mt-3 mb-3"
       >

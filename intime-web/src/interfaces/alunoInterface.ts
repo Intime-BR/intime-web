@@ -1,8 +1,8 @@
 export interface AlunoInterface {
   id: Number;
-  name: String;
+  student: String;
   enrollment: Number;
   classroom?: String;
   subject?: String;
-  tags?: string[];
+  status?: string[];
 }
