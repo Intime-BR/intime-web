@@ -42,3 +42,7 @@
   margin: 5px;
   border-radius: 10px;
 }
+
+.ant-menu-dark .ant-menu-item, .ant-menu-dark .ant-menu-item > a{
+  color: #868585;
+}

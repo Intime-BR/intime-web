@@ -5,9 +5,9 @@ import DynamicLineChart from "../../components/MiddleContent/lineChart";
 import DynamicSuggestionsCard from "../../components/MiddleContent/suggestionsCard";
 import SuggestionCardContent from "../../components/MiddleContent/suggestionCardContent";
 import image from "../../assets/others/user_face_template.svg";
-import { PresenceForSubject } from "../../components/BottomCharts/ChartPresenceForSubject";
-import { ProgressBarElementor } from "../../components/BottomCharts/ChartProgressBar";
-import { DailyAbsence } from "../../components/BottomCharts/ChartDailyAbsence";
+import PresenceForSubject  from "../../components/BottomCharts/ChartPresenceForSubject";
+import ProgressBarElementor from "../../components/BottomCharts/ChartProgressBar";
+import DailyAbsence  from "../../components/BottomCharts/ChartDailyAbsence";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
 import ChartsEstimate from "../../components/ChartsEstimate/chartsEstimate";
 import styled from "styled-components";
@@ -127,11 +127,23 @@ const Dashboard = ({ className }: DashBoardProps) => {
         </div>
       </BaseContainer>
 
-      <div className="row" style={{ margin: "15px" }}>
+      <BaseContainer
+        color="transparent"
+        border="none"
+        className="row justify-content-center middle-charts-container"
+        shadow="none"
+      
+      >
+        <div className="col-md-6 mt-3 mb-3" >
         <ProgressBarElementor />
-        <PresenceForSubject />
+        </div>
+        <div className="col-md-3 mt-3 mb-3">
         <DailyAbsence />
-      </div>
+        </div>
+        <div className="col-md-3 mt-3 mb-3">
+        <PresenceForSubject />
+        </div>
+      </BaseContainer>
     </div>
   );
 };

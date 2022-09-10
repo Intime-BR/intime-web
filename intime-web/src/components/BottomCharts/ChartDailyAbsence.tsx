@@ -1,46 +1,89 @@
-import { ArrowUpOutlined } from "@ant-design/icons";
-import React from "react";
-import { Chart } from "react-google-charts";
-import './ChartDailyAbsence.css';
- 
-export const data = [
-  ["Ausência diária", "Faltas por dia"],
-  ["Ausência diária", 4],
-  ["Ainda não bateram", 2],
-  ["Presença", 10],
+import { Card, Progress } from "antd";
+import styled from "styled-components";
+import React, { PureComponent } from 'react';
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+
+
+const data = [
+  { name: 'Group A', value: 400 },
+  { name: 'Group B', value: 300 },
+  { name: 'Group C', value: 300 },
+  { name: 'Group D', value: 200 },
 ];
- 
-export const options = {
-  title: "",
-  pieHole: 0.6,
-  is3D: false,
-  colors: ['#fd7273', '#eeb930','#6aa556'],
- 
-};
- 
-export function DailyAbsence() {
-  return (
-    <div className="col-md-3">
-      <div className="ausencia">
-        <div>
-          <h4>Ausênsia diária</h4>
-          <label style={{color: "gray"}}>Média geral da escola</label>
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+type DailyAbsence = {
+    className?: string;
+    room?: string;
+    percentValue?: number;
+    color?: string;
+  };
+  
+  const DailyAbsence = ({
+    className,
+    room,
+    percentValue,
+    color
+  }: DailyAbsence) => {
+    return (
+      <div className={className}>
+        <div className="title-div d-flex justify-content-between">
+          <span>Ausência diária</span> 
+          <span style={{color:"#9E7BE9"}}>12,5%</span> 
         </div>
-        <div>
-          <span style={{fontSize: '16px', padding:0, color:'#6470E8'}} className='d-flex align-items-center justify-content-between'>
-              +0,7
-              <ArrowUpOutlined  />
-          </span>
-        </div>
-      </div>
-      <Chart
-        chartType="PieChart"
-        width="100%"
-        height="400px"
-        data={data}
-        options={options}
-      />
+        <p>
+        Média geral da escola 
+        </p>
+        <PieChart width={300} height={280} >
+        <Pie
+          data={data}
+          innerRadius={60}
+          outerRadius={80}
+          fill="#8884d8"
+          paddingAngle={5}
+          dataKey="value"
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        
+      </PieChart>
     </div>
-  );
-}
+    );
+  };
+  
+  export default styled(DailyAbsence)`
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border-radius: 16px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    padding: 20px;
+    .content {
+      width: 100%;
+      height: 100%;
+      > h4 {
+        font-size: 18px;
+        font-family: "Poppins";
+      }
+      > .students {
+        font-size: 16px;
+        padding: 0;
+      }
+      > .variation {
+        font-size: 16px;
+        padding: 0px;
+      }
+    }
+  
+    .title-div {
+      min-width: 100%;
+      height: auto;
+      font-size: 18px;
+      font-weight: 500;
+    }
+  `;
+  
 
