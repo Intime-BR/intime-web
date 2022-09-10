@@ -140,11 +140,9 @@ export default styled(Dashboard)`
   width: 100%;
   height: 100%;
   .estimate-chart-container {
-    margin-left: 30px;
-    padding: 4px;
+    margin: 0 auto;
   }
   .middle-charts-container {
-    margin-left: 30px;
-    padding: 4px;
+    margin: 0 auto;
   }
 `;
