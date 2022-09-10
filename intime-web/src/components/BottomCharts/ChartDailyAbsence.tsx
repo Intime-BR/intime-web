@@ -3,13 +3,13 @@ import styled from "styled-components";
 import React, { PureComponent } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 
+
 const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
+  { name: "Group A", value: 400, color:'#0088FE' },
+  { name: "Group B", value: 300, color:'#00C49F' },
+  { name: "Group C", value: 300, color:'#FFBB28'},
+  { name: "Group D", value: 200, color:'#FF8042'},
 ];
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 type DailyAbsence = {
   className?: string;
@@ -44,7 +44,7 @@ const DailyAbsence = ({
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
+                fill={entry.color}
               />
             ))}
           </Pie>
