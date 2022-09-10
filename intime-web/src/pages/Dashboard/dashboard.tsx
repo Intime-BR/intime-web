@@ -80,7 +80,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <div className="col-md-3 col-sm-12 mt-3">
           <ChartsEstimate
             title={"Matéria Destaque"}
-            content={"451 alunos"}
+            content={"Framework"}
             variation={"0.7"}
           />
         </div>
