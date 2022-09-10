@@ -31,6 +31,7 @@ export function ActiveRoom() {
           <div className="m-b-5">
             <Button
               type="default"
+              style={{background:'transparent', borderRadius: '8px', color:"#484D58", padding:'20px 30px'}}
               className="d-flex justify-content-center align-items-center"
             >
               <Link
@@ -50,6 +51,7 @@ export function ActiveRoom() {
         </div>
       </div>
       <BaseContainer
+      
         color="#fff"
         className="container-fluid justify-self-center mt-3 mb-3"
       >

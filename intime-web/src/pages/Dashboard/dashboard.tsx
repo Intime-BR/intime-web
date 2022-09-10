@@ -39,7 +39,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
           </div>
           <div className="m-b-5">
             <Button
-              type="primary"
+            style={{background:'#6470E8', borderRadius: '8px', color:"white", padding:'20px 30px'}}
               className="d-flex justify-content-center align-items-center"
             >
               <FilterOutlined />
