@@ -1,7 +1,5 @@
-import { Card, Progress } from "antd";
 import styled from "styled-components";
-import React, { PureComponent } from "react";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell, Label } from "recharts";
 
 
 const data = [
@@ -41,6 +39,7 @@ const DailyAbsence = ({
             paddingAngle={5}
             dataKey="value"
           >
+            <Label className="value-label" value="12,5%" position="center" />
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
@@ -84,5 +83,15 @@ export default styled(DailyAbsence)`
     height: auto;
     font-size: 18px;
     font-weight: 500;
+  }
+
+  .value-label {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 52px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.01em;
   }
 `;

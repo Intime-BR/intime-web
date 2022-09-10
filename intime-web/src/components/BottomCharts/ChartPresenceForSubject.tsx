@@ -1,10 +1,9 @@
-import React, { PureComponent } from 'react';
-import { ResponsiveContainer, PieChart, Pie, Legend } from 'recharts';
-import styled from 'styled-components';
+import { ResponsiveContainer, PieChart, Pie } from "recharts";
+import styled from "styled-components";
 
 const data = [
-  { name: 'Group A', value: 400, color:"#8884d8"},
-  { name: 'Group B', value: 300 , color:"#17192E" },
+  { name: "Group A", value: 400, color: "#8884d8" },
+  { name: "Group B", value: 300, color: "#17192E" },
 ];
 
 type PresenceForSubject = {
@@ -14,9 +13,7 @@ type PresenceForSubject = {
   color?: string;
 };
 
-
-const COLORS = ['#17192E','#8884d8'];
-
+const COLORS = ["#17192E", "#8884d8"];
 
 const PresenceForSubject = ({
   className,
@@ -26,17 +23,20 @@ const PresenceForSubject = ({
 }: PresenceForSubject) => {
   return (
     <div className={className}>
-        <div className="title-div">
-          <span>Presença por matéria</span> 
-        </div>
-        <p>
-        Matéria destaque em presenças concluídas
-        </p>
-        <div style={{ width: '100%', height: 280 }}>
+      <div className="title-div">
+        <span>Presença por matéria</span>
+      </div>
+      <p>Matéria destaque em presenças concluídas</p>
+      <div style={{ width: "100%", height: 280 }}>
         <ResponsiveContainer>
           <PieChart>
-          {data.map((entry, index) => (
-            <Pie dataKey="value" data={data} fill={COLORS[index % COLORS.length]} label />
+            {data.map((entry, index) => (
+              <Pie
+                dataKey="value"
+                data={data}
+                fill={COLORS[index % COLORS.length]}
+                label
+              />
             ))}
           </PieChart>
         </ResponsiveContainer>
@@ -46,13 +46,13 @@ const PresenceForSubject = ({
 };
 
 export default styled(PresenceForSubject)`
-   width: 100%;
-    height: auto;
-    margin: 0;
-    border-radius: 16px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    background-color: white;
-    padding: 20px;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  padding: 20px;
   .content {
     width: 100%;
     height: 100%;
