@@ -50,22 +50,21 @@ export function ActiveRoom() {
         </div>
       </div>
       <BaseContainer
-      
         color="#fff"
         className="container-fluid justify-self-center mt-3 mb-3"
       >
         <div className="row p-3">
           <div className="col-3">
-            <SearchSelect placeHolder="Selecion a Matrícula" />
+            <SearchSelect placeHolder="Selecione a Matrícula" />
           </div>
           <div className="col-3">
-            <SearchSelect placeHolder="Selecion o Status" />
+            <SearchSelect placeHolder="Selecione o Status" />
           </div>
           <div className="col-3">
-            <SearchSelect placeHolder="Selecion a Turma" />
+            <SearchSelect placeHolder="Selecione a Turma" />
           </div>
           <div className="col-3">
-            <SearchSelect placeHolder="Selecion a Disciplina" />
+            <SearchSelect placeHolder="Selecione a Disciplina" />
           </div>
         </div>
         <DataTable />
