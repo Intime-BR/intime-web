@@ -56,16 +56,16 @@ export function ActiveRoom() {
         className="container-fluid justify-self-center mt-3 mb-3"
       >
         <div className="row p-3">
-          <div className="col-3">
+          <div className="col-sm-12 col-lg-3 col-md-6 mt-3 mb-3">
             <SearchSelect placeHolder="Selecione a Matrícula" />
           </div>
-          <div className="col-3">
+          <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-3">
             <SearchSelect placeHolder="Selecione o Status" />
           </div>
-          <div className="col-3">
+          <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-3">
             <SearchSelect placeHolder="Selecione a Turma" />
           </div>
-          <div className="col-3">
+          <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-3">
             <SearchSelect placeHolder="Selecione a Disciplina" />
           </div>
         </div>
