@@ -76,7 +76,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
         className="row justify-content-center estimate-chart-container"
         shadow="none"
       >
-        <div className="col-md-3 col-sm-12 mt-3">
+        <div className="col-md-6 col-lg-3 col-sm-12 mt-3 chartEstimate">
           <ChartsEstimate
             title={"Presentes"}
             content={"451 alunos"}
@@ -84,7 +84,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
             up={true}
           />
         </div>
-        <div className="col-md-3 col-sm-12 mt-3">
+        <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
             title={"Faltas"}
             content={"451 alunos"}
@@ -92,14 +92,14 @@ const Dashboard = ({ className }: DashBoardProps) => {
             up={false}
           />
         </div>
-        <div className="col-md-3 col-sm-12 mt-3">
+        <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
             title={"Pendentes"}
             content={"451 alunos"}
             variation={"-0.7"}
           />
         </div>
-        <div className="col-md-3 col-sm-12 mt-3">
+        <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
             title={"Matéria Destaque"}
             content={"Framework"}
@@ -113,10 +113,10 @@ const Dashboard = ({ className }: DashBoardProps) => {
         className="row justify-content-center middle-charts-container"
         shadow="none"
       >
-        <div className="col-md-6 col-sm-12 mt-3">
+        <div className="col-md-12 col-lg-6 col-sm-12 mt-3">
           <DynamicLineChart />
         </div>
-        <div className="col-md-6 col-sm-12 mt-3">
+        <div className="col-md-12 col-lg-6 col-sm-12 col-sm-12 mt-3">
           <DynamicSuggestionsCard>
             <SuggestionCardContent
               image="https://joeschmoe.io/api/v1/random"
@@ -155,13 +155,13 @@ const Dashboard = ({ className }: DashBoardProps) => {
         className="row justify-content-center middle-charts-container"
         shadow="none"
       >
-        <div className="col-md-6 col-sm-12 mt-3 mb-3">
+        <div className="col-md-12 col-lg-6 col-sm-12 mt-3 mb-3">
           <ProgressBarElementor />
         </div>
-        <div className="col-md-3 col-sm-6 mt-3 mb-3">
+        <div className="col-md-6 col-lg-3 col-sm-12 mt-3 mb-3">
           <DailyAbsence />
         </div>
-        <div className="col-md-3 col-sm-6 mt-3 mb-3">
+        <div className="col-md-6 col-lg-3 col-sm-12 mt-3 mb-3">
           <PresenceForSubject />
         </div>
       </BaseContainer>
@@ -198,4 +198,5 @@ export default styled(Dashboard)`
   .middle-charts-container {
     margin: 0 auto;
   }
+
 `;

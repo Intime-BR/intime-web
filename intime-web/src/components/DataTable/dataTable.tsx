@@ -139,6 +139,8 @@ const DataTable = ({ className }: DataTableProps) => {
     },
   ];
 
+
+
   const handleTagColor = (tag: String) => {
     switch (tag) {
       case "Presente":
@@ -185,7 +187,7 @@ const DataTable = ({ className }: DataTableProps) => {
         <>
           {status?.map((tag) => {
             return (
-              <Tag className="rounded" color={handleTagColor(tag)} key={tag}>
+              <Tag className="rounded" style={{padding:'2px 10px', fontSize:'13px'}} color={handleTagColor(tag)} key={tag}>
                 <Badge status="default" />
                 {tag}
               </Tag>
