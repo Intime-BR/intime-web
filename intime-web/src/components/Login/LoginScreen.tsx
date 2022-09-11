@@ -1,13 +1,12 @@
-import mobilehand from '../../assets/others/mobilehand.png';
-import logo_purple from '../../assets/logos/logo_purple.svg';
-import ball1 from '../../assets/geometry/Ball1.svg';
-import ball2 from '../../assets/geometry/Ball2.svg';
-import ball3 from '../../assets/geometry/Ball3.svg';
-import Form from 'react-bootstrap/Form';
-import styled from 'styled-components';
-import VerticallyCenterModal from '../CenterModal/VerticallyCenterModal';
-import react, { useState } from 'react';
-import locker from '../../assets/others/pwd_change.svg';
+import phones from "../../assets/others/phones.svg";
+import logo_purple from "../../assets/logos/logo_purple.svg";
+import bottomBall from "../../assets/others/bottomBall.svg";
+import styled from "styled-components";
+import react, { useState } from "react";
+import BaseContainer from "../BaseContainer/baseContainer";
+import { Button, Form, Input } from "antd";
+import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
+import { RequiredMark } from "antd/lib/form/Form";
 
 type LoginProps = {
   className?: string;
@@ -15,143 +14,66 @@ type LoginProps = {
 
 const Login = ({ className }: LoginProps) => {
   const [visibility, setVisibility] = useState<boolean>(false);
+
+  const [form] = Form.useForm();
+  const [requiredMark, setRequiredMarkType] =
+    useState<RequiredMark>("optional");
+
+  const onRequiredTypeChange = ({
+    requiredMarkValue,
+  }: {
+    requiredMarkValue: RequiredMark;
+  }) => {
+    setRequiredMarkType(requiredMarkValue);
+  };
+
   return (
-    <section className={`${className} row`}>
-      <div className="col-md-4 login_side1">
-        <p className="h2 text_side1_1">Manter a pontualidade nunca foi tão fácil.</p>
-        <p className="h4 text_side1_2 h-25">Gerencie as turmas e receba feedbacks de performance e desenvolvimento.</p>
-        <img src={mobilehand} alt="Mobile Hand" className="img" />
-
-        <img
-          src={ball1}
-          alt="ball"
-          style={{
-            width: '7%',
-            position: 'absolute',
-            top: '0',
-            left: '0',
-          }}
-        />
-        <img
-          src={ball2}
-          alt="ball"
-          style={{
-            width: '6%',
-            position: 'absolute',
-            top: '142px',
-            left: '412px',
-          }}
-        />
-        <img
-          src={ball3}
-          alt="ball"
-          style={{
-            width: '8%',
-            position: 'absolute',
-            bottom: '0',
-            left: '512px',
-            zIndex: '',
-          }}
-        />
-      </div>
-      <div className="col-md-8 login_side2">
-        <div className="login">
-          <img src={logo_purple} alt="Logo Intime" className="logo" />
-          <p
-            style={{
-              fontFamily: 'poppins',
-              color: '#484D58',
-              fontWeight: '700',
-              marginTop: '64px',
-              fontSize: '42px',
-            }}
-          >
-            Seja Bem Vindo!
-          </p>
-          <p
-            style={{
-              fontFamily: 'inter',
-              color: '#484D58',
-              fontWeight: '700',
-              marginTop: '-20px',
-              fontSize: '32px',
-            }}
-          >
-            Faça login para gerenciar suas informações.
-          </p>
-          <Form style={{ marginTop: '80px' }}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label style={{ fontSize: '24px' }}>Informe seu e-mail</Form.Label>
-              <Form.Control
-                type="email"
-                size="lg"
-                style={{
-                  backgroundColor: '#94A3B84D',
-                }}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword" style={{ marginTop: '64px' }}>
-              <Form.Label style={{ fontSize: '24px' }}>Informe sua senha</Form.Label>
-              <Form.Control
-                type="password"
-                size="lg"
-                style={{
-                  backgroundColor: '#94A3B84D',
-                }}
-              />
-            </Form.Group>
-            <button type="submit" className="w-100 btn-entrar">
-              Entrar Agora
-            </button>
-          </Form>
-          <div
-            style={{
-              textAlign: 'center',
-              marginTop: '24px',
-            }}
-          >
-            {/* Component that was used for render the modal */}
-            <button type="button" className="pwdModalBtn" onClick={() => setVisibility(!visibility)}>
-              Esqueci minha senha?
-            </button>
+    <div className={className}>
+      <div className="row">
+        <div className=" col-lg-4 col-md-6 col-sm-12">
+          <div className="left-side">
+            <h4 className="left-title text-white">
+              Manter a pontualidade nunca foi tão fácil.
+            </h4>
+            <hr className="hr" />
+            <p className="desc-text">
+              Gerencie as turmas e receba feedbacks de performance e
+              desenvolvimento.
+            </p>
+            <img className="phones" src={phones} />
+            <img className="bottom-ball" src={bottomBall} alt="" />
+          </div>
+        </div>
+        <div className="col-lg-8 col-md-6 col-sm-12">
+          <div className="right-side">
+            <div className="container login-card">
+              <img className="logo" src={logo_purple} alt="" />
+              <p className="title mt-4">Seja bem-vindo!</p>
+              <p className="desc">Faça login para gerenciar suas informações</p>
+              <Form
+                form={form}
+                layout="vertical"
+                initialValues={{ requiredMarkValue: requiredMark }}
+                onValuesChange={onRequiredTypeChange}
+                requiredMark={requiredMark}
+              >
+                <Form.Item label="Informe seu email" required>
+                  <Input />
+                </Form.Item>
+                <Form.Item label="Informe sua senha" required>
+                  <Input />
+                </Form.Item>
+                <Form.Item>
+                  <button className="login-button" type="button">
+                    Entrar agora
+                  </button>
+                </Form.Item>
+              </Form>
+            </div>
           </div>
         </div>
       </div>
-      <VerticallyCenterModal
-        className="login-modal"
-        isVisible={visibility}
-        title="Recuperação de Senha"
-        close={() => setVisibility(!visibility)}
-      >
-        <div className="modalText">
-          <img src={locker} alt="Cadeado" />
-          <h5>Informe seu email para modificar sua senha</h5>
-          <Form style={{ width: '90%' }}>
-            <Form.Group className="" controlId="formBasicEmail">
-              <Form.Label style={{ fontSize: '18px', marginBottom: '-7px' }}>E-mail</Form.Label>
-              <Form.Control
-                type="email"
-                size="lg"
-                style={{
-                  backgroundColor: '#94A3B84D',
-                  width: '100%',
-                }}
-              />
-            </Form.Group>
-            <button
-              type="button"
-              className="w-100 btn-entrar"
-              style={{
-                height: '52px',
-              }}
-            >
-              Verificar
-            </button>
-          </Form>
-        </div>
-      </VerticallyCenterModal>
-    </section>
+    </div>
   );
 };
 
@@ -159,111 +81,82 @@ export default styled(Login)`
   width: 100%;
   height: 100%;
 
-  * {
-    padding: 0;
-    margin: 0;
-    overflow-y: hidden;
+  .left-side {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    height: 100%;
+    color: white;
+    background: rgba(75, 82, 157, 0.8);
+  }
+  .right-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
   }
 
-  .text_side1_1 {
-    font-family: 'Poppins', sans-serif;
-    width: 80%;
-  }
-
-  .text_side1_2 {
-    width: 80%;
-    font-family: 'Inter', sans-serif;
-  }
-
-  .pwdModalBtn {
-    background-color: transparent;
-    color: #383838;
-    border: none;
-    transition: 0.3s;
-  }
-
-  .pwdModalBtn:hover {
-    transition: 0.3s;
-    color: rgb(88, 88, 216);
-    text-decoration: underline;
-  }
-
-  .img {
+  .login-card {
+    width: 75%;
     height: 50%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+  }
+  .phones {
+    object-fit: cover;
+    margin-bottom: -12px;
+    margin-top: 70px;
+    width: 340px;
+    height: 370px;
+  }
+
+  .bottom-ball {
+    width: 100%;
+    height: auto;
+  }
+
+  .hr {
+    width: 90%;
+  }
+
+  .desc-text {
+    font-size: 18px;
+    max-width: 90%;
   }
 
   .logo {
-    width: 25%;
+    width: 120px;
   }
 
-  .login {
-    margin-top: 42px;
-    width: 70%;
+  .login-button {
+    color: #ffffff;
+    font-size: 16px;
+    width: 100%;
+    height: 40px;
+    background: ${(props) => props.theme.colors.lightPrimary};
+    border: 1px solid #ffffff;
+    border-radius: 6px;
   }
 
-  .btn-entrar {
-    transition: 0.2s;
-    margin-top: 42px;
-    height: 58px;
-    border-radius: 10px;
-    border: none;
-    font-size: 18px;
-    color: white;
-    background-color: #2734b6cc;
-  }
-
-  .btn-entrar:hover {
-    background-color: #5d66c4cc;
-    transition: 0.2s;
-  }
-
-  .modalText {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .modalText img {
-    width: 15%;
-  }
-  .modalText h5 {
-    margin-top: 10px;
-    margin-bottom: 30px;
+  .title {
     font-weight: 600;
+    font-size: 24px;
+    color: #484d58;
+    margin: 0;
   }
 
-  .form-control {
-    border: transparent solid 2px !important;
+  .desc {
+    font-weight: 400;
+    font-size: 18px;
+    color: #484d58;
+    margin: 0;
+    margin-bottom: 24px;
   }
 
-  .form-control:focus {
-    border: solid 2px !important;
-    border-color: #86b7fe !important;
-    box-shadow: 0 0 2px rgb(13 110 253 / 25%) !important;
-    outline: 0 !important;
-  }
-
-  .login_side1 {
-    background-color: #17192e;
-    height: 100vh;
-    color: #fafafa;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .login_side2 {
-    z-index: +2;
-    background-color: #fafafa;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .left-title {
+    padding: 45px 45px 0px 45px;
   }
 `;
