@@ -14,6 +14,7 @@ import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import { useState } from "react";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
 import CommomText from "../../components/CommomText/commomText";
+import "./dashboard.css"
 
 type DashBoardProps = {
   className?: string;
@@ -181,7 +182,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <CommomText>Selecione um período</CommomText>
         <div className="row">
           <div className="col-md-12">
-            <DatePicker className="w-100" onChange={handleDateChange} />
+            <DatePicker placeholder="Selecione o período" className="w-100" onChange={handleDateChange} />
           </div>
         </div>
       </Drawer>
