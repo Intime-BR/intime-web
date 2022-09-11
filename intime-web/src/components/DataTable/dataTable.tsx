@@ -139,8 +139,6 @@ const DataTable = ({ className }: DataTableProps) => {
     },
   ];
 
-
-
   const handleTagColor = (tag: String) => {
     switch (tag) {
       case "Presente":
@@ -169,7 +167,9 @@ const DataTable = ({ className }: DataTableProps) => {
             }}
             icon={<UserOutlined />}
           />
-          <span style={{ marginLeft: "8px" }}>{text}</span>
+          <span className="text-nowrap" style={{ marginLeft: "8px" }}>
+            {text}
+          </span>
         </div>
       ),
     },
@@ -187,7 +187,12 @@ const DataTable = ({ className }: DataTableProps) => {
         <>
           {status?.map((tag) => {
             return (
-              <Tag className="rounded" style={{padding:'2px 10px', fontSize:'13px'}} color={handleTagColor(tag)} key={tag}>
+              <Tag
+                className="rounded"
+                style={{ padding: "2px 10px", fontSize: "13px" }}
+                color={handleTagColor(tag)}
+                key={tag}
+              >
                 <Badge status="default" />
                 {tag}
               </Tag>
@@ -226,7 +231,7 @@ const DataTable = ({ className }: DataTableProps) => {
   ];
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      <Table scroll={{ x: true }} columns={columns} dataSource={data} />
     </div>
   );
 };
