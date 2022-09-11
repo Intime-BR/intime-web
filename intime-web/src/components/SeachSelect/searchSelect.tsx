@@ -40,7 +40,7 @@ const DataSelect = ({
 
 export default styled(DataSelect)`
   width: 100%;
-  height: 100%;
+  height: auto;
   .select {
     width: 100%;
     height: 100%;

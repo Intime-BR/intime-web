@@ -1,22 +1,38 @@
-import { Button } from "antd";
+import { Button, DatePicker, Drawer, Space } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 
 import DynamicLineChart from "../../components/MiddleContent/lineChart";
 import DynamicSuggestionsCard from "../../components/MiddleContent/suggestionsCard";
 import SuggestionCardContent from "../../components/MiddleContent/suggestionCardContent";
-import image from "../../assets/others/user_face_template.svg";
-import PresenceForSubject  from "../../components/BottomCharts/ChartPresenceForSubject";
+import PresenceForSubject from "../../components/BottomCharts/ChartPresenceForSubject";
 import ProgressBarElementor from "../../components/BottomCharts/ChartProgressBar";
-import DailyAbsence  from "../../components/BottomCharts/ChartDailyAbsence";
+import DailyAbsence from "../../components/BottomCharts/ChartDailyAbsence";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
 import ChartsEstimate from "../../components/ChartsEstimate/chartsEstimate";
 import styled from "styled-components";
+import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
+import { useState } from "react";
+import SearchSelect from "../../components/SeachSelect/searchSelect";
+import CommomText from "../../components/CommomText/commomText";
 
 type DashBoardProps = {
   className?: string;
 };
 
 const Dashboard = ({ className }: DashBoardProps) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const { RangePicker } = DatePicker;
+
+  const handleModalVisibility = () => setIsVisible(!isVisible);
+
+  const handleDateChange = (
+    value: DatePickerProps["value"] | RangePickerProps["value"],
+    dateString: [string, string] | string
+  ) => {
+    console.log("Selected Time: ", value);
+    console.log("Formatted Selected Time: ", dateString);
+  };
+
   return (
     <div className={className}>
       <div
@@ -39,8 +55,14 @@ const Dashboard = ({ className }: DashBoardProps) => {
           </div>
           <div className="m-b-5">
             <Button
-            style={{background:'#6470E8', borderRadius: '8px', color:"white", padding:'20px 30px'}}
+              style={{
+                background: "#6470E8",
+                borderRadius: "8px",
+                color: "white",
+                padding: "20px 30px",
+              }}
               className="d-flex justify-content-center align-items-center"
+              onClick={handleModalVisibility}
             >
               <FilterOutlined />
               <span>Filtros</span>
@@ -132,18 +154,37 @@ const Dashboard = ({ className }: DashBoardProps) => {
         border="none"
         className="row justify-content-center middle-charts-container"
         shadow="none"
-      
       >
-        <div className="col-md-6 col-sm-12 mt-3 mb-3" >
-        <ProgressBarElementor />
+        <div className="col-md-6 col-sm-12 mt-3 mb-3">
+          <ProgressBarElementor />
         </div>
         <div className="col-md-3 col-sm-6 mt-3 mb-3">
-        <DailyAbsence />
+          <DailyAbsence />
         </div>
         <div className="col-md-3 col-sm-6 mt-3 mb-3">
-        <PresenceForSubject />
+          <PresenceForSubject />
         </div>
       </BaseContainer>
+      <Drawer
+        title="Filtros"
+        visible={isVisible}
+        onClose={handleModalVisibility}
+      >
+        <CommomText>
+          Utilize os filtros para encontrar dados específicos.
+        </CommomText>
+        <div className="row mb-3">
+          <div className="col-md-12">
+            <SearchSelect placeHolder={"Selecione a turma"} />
+          </div>
+        </div>
+        <CommomText>Selecione um período</CommomText>
+        <div className="row">
+          <div className="col-md-12">
+            <DatePicker className="w-100" onChange={handleDateChange} />
+          </div>
+        </div>
+      </Drawer>
     </div>
   );
 };
