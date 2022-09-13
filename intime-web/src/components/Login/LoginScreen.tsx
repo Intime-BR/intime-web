@@ -41,7 +41,9 @@ const Login = ({ className }: LoginProps) => {
               desenvolvimento.
             </p>
             <img className="phones" src={phones} />
-            <img className="bottom-ball" src={bottomBall} alt="" />
+            <div className="ball-container">
+              <img className="bottom-ball" src={bottomBall} alt="" />
+            </div>
           </div>
         </div>
         <div className="col-lg-8 col-md-6 col-sm-12">
@@ -81,6 +83,11 @@ export default styled(Login)`
   width: 100%;
   height: 100%;
 
+  .row {
+    height: 100vh;
+    background: rgba(250, 250, 250, 0.602);
+  }
+
   .left-side {
     width: 100%;
     height: 100vh;
@@ -102,20 +109,31 @@ export default styled(Login)`
   }
 
   .login-card {
+    box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    padding: 24px;
+    margin-top: 15px;
     width: 75%;
-    height: 50%;
+    min-height: 50%;
+    height: auto;
   }
   .phones {
-    object-fit: cover;
-    margin-bottom: -12px;
-    margin-top: 70px;
-    width: 340px;
-    height: 370px;
+    object-fit: contain;
+    margin-top: 42px;
+    margin-bottom: -18px;
+    width: 80%;
+    height: 80%;
+  }
+
+  .ball-container {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
   }
 
   .bottom-ball {
     width: 100%;
-    height: auto;
   }
 
   .hr {
