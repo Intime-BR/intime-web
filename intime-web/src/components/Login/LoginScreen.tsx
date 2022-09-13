@@ -82,6 +82,7 @@ const Login = ({ className }: LoginProps) => {
 export default styled(Login)`
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
 
   .row {
     height: 100vh;
