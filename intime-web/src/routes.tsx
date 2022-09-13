@@ -7,16 +7,16 @@ import Login from "./pages/Login/login";
 const AppRoute = () => {
   return (
     <Router>
-      {/* <HeaderApp>
+      <HeaderApp>
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/active-room" element={<ActiveRoom />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
-      </HeaderApp> */}
-      <Routes>
+      </HeaderApp>
+      {/* <Routes>
         <Route path="/login" element={<Login />} />
-      </Routes>
+      </Routes> */}
     </Router>
   );
 };
