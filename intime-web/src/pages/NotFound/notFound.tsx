@@ -2,6 +2,7 @@ import styled from "styled-components";
 import LoginScreen from "../../components/Login/LoginScreen";
 import Cat from "../../assets/others/cat.svg";
 import LogoPurple from "../../assets/others/logopurple.svg";
+import { Link } from "react-router-dom";
 
 type NotFound = {
   className?: string;
@@ -20,7 +21,9 @@ const NotFound = ({ className }: NotFound) => {
             <p>Oops! Parece que você se perdeu.</p>
             <p>Não conseguimos encontrar o que você está procurando.</p>
 
+            <Link to="/dashboard">
             <button>Dashboard</button>
+            </Link>
           </div>
 
           <div className="image col-lg-6 col-sm-12">
