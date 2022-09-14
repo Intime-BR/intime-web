@@ -6,8 +6,71 @@ import { Link } from "react-router-dom";
 import DataTable from "../../components/DataTable/dataTable";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
+import styled from "styled-components";
 
-export function ActiveRoom() {
+const ActiveRoom = () => {
+  const handleData = () => {
+    return [
+      {
+        id: 1,
+        student: "Estevão Boaventura",
+        enrollment: 12000604,
+        classroom: "3B1",
+        subject: "Matemática",
+        status: ["Presente"],
+        financialResponsable: "Sirleia Gomes de Souza",
+        pedagogicalResponsable: "Geraldo Fernando Gomes",
+        phoneNumber: "31999999999",
+        homePhoneNumber: "31999999999",
+        address: {
+          cep: "30575180",
+          logradouro: "Modestinda de Souza",
+          complementos: "120",
+          bairro: "Industrial",
+          localidade: "Contagem",
+        },
+      },
+      {
+        id: 2,
+        student: "Nicolle",
+        enrollment: 12002097,
+        classroom: "3B1",
+        subject: "Portugues",
+        status: ["Ausente"],
+        financialResponsable: "Sirleia Gomes de Souza",
+        pedagogicalResponsable: "Geraldo Fernando Gomes",
+        phoneNumber: "31999999999",
+        homePhoneNumber: "31999999999",
+        address: {
+          cep: "30575180",
+          logradouro: "Modestinda de Souza",
+          complementos: "120",
+          bairro: "Industrial",
+          localidade: "Contagem",
+        },
+      },
+      {
+        id: 3,
+        student: "Derick",
+        enrollment: 12000522,
+        classroom: "3B1",
+        subject: "Portugues",
+        status: ["Pendente"],
+        financialResponsable: "Sirleia Gomes de Souza",
+        pedagogicalResponsable: "Geraldo Fernando Gomes",
+        phoneNumber: "31999999999",
+        homePhoneNumber: "31999999999",
+        address: {
+          cep: "30575180",
+          logradouro: "Modestinda de Souza",
+          complementos: "120",
+          bairro: "Industrial",
+          localidade: "Contagem",
+        },
+      },
+    ];
+  };
+
   return (
     <div>
       <div
@@ -31,7 +94,12 @@ export function ActiveRoom() {
           <div className="m-b-5">
             <Button
               type="default"
-              style={{background:'transparent', borderRadius: '8px', color:"#484D58", padding:'20px 30px'}}
+              style={{
+                background: "transparent",
+                borderRadius: "8px",
+                color: "#484D58",
+                padding: "20px 30px",
+              }}
               className="d-flex justify-content-center align-items-center"
             >
               <Link
@@ -51,7 +119,6 @@ export function ActiveRoom() {
         </div>
       </div>
       <BaseContainer
-      
         color="#fff"
         className="container-fluid justify-self-center mt-3 mb-3"
       >
@@ -69,8 +136,10 @@ export function ActiveRoom() {
             <SearchSelect placeHolder="Selecione a Disciplina" />
           </div>
         </div>
-        <DataTable />
+        <DataTable data={handleData()} />
       </BaseContainer>
     </div>
   );
-}
+};
+
+export default styled(ActiveRoom)``;

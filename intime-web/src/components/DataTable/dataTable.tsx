@@ -1,3 +1,5 @@
+import styled from "styled-components";
+import { Aluno } from "../../interfaces/interfaces";
 import {
   EditFilled,
   ExclamationCircleOutlined,
@@ -5,149 +7,23 @@ import {
 } from "@ant-design/icons";
 import { Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import styled from "styled-components";
-import { Aluno } from "../../interfaces/interfaces";
 import { Avatar } from "antd";
 import { Badge } from "antd";
+import { useEffect, useState } from "react";
+import { modalVisibility } from "../../utils/exports";
+import DataTableModal from "./dataTableModal";
 
 type DataTableProps = {
-  className?: String;
-  data?: Array<{}>;
+  data?: Aluno[];
 };
 
-const DataTable = ({ className }: DataTableProps) => {
-  const data: Aluno[] = [
-    {
-      id: 1,
-      student: "Estevão Boaventura",
-      enrollment: 12000604,
-      classroom: "3B1",
-      subject: "Matemática",
-      status: ["Presente"],
-    },
-    {
-      id: 2,
-      student: "Nicolle",
-      enrollment: 12002097,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Ausente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-    {
-      id: 3,
-      student: "Derick",
-      enrollment: 12000522,
-      classroom: "3B1",
-      subject: "Portugues",
-      status: ["Pendente"],
-    },
-  ];
+const DataTable = ({ data }: DataTableProps) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [aluno, setAluno] = useState<Aluno>();
 
-  const handleTagColor = (tag: String) => {
-    switch (tag) {
-      case "Presente":
-        return "#2EB73C";
-      case "Pendente":
-        return "#EBAA02";
-      case "Ausente":
-        return "rgba(255, 0, 0, 0.66)";
-    }
+  const handleCurrentAluno = (data: Aluno) => {
+    setIsVisible(modalVisibility(isVisible));
+    setAluno(data);
   };
 
   const columns: ColumnsType<Aluno> = [
@@ -220,18 +96,44 @@ const DataTable = ({ className }: DataTableProps) => {
       render: (_, record) => (
         <Space size="middle">
           <a>
-            <EditFilled />
+            <EditFilled onClick={() => handleCurrentAluno(record)} />
           </a>
           <a>
-            <ExclamationCircleOutlined />
+            <ExclamationCircleOutlined
+              onClick={() => console.log("INFO BUTTON")}
+            />
           </a>
         </Space>
       ),
     },
   ];
+
+  const handleTagColor = (tag: String) => {
+    switch (tag) {
+      case "Presente":
+        return "#2EB73C";
+      case "Pendente":
+        return "#EBAA02";
+      case "Ausente":
+        return "rgba(255, 0, 0, 0.66)";
+    }
+  };
+
+  const handleData = (data: Aluno) => {};
+
   return (
     <div>
       <Table scroll={{ x: true }} columns={columns} dataSource={data} />
+      <DataTableModal
+        title="Editar Dados"
+        isVisible={isVisible}
+        onCancel={() => setIsVisible(modalVisibility(isVisible))}
+        onOk={() => setIsVisible(modalVisibility(isVisible))}
+        okButtonText="Salvar"
+        width={1000}
+      >
+        <p>{aluno?.student}</p>
+      </DataTableModal>
     </div>
   );
 };
