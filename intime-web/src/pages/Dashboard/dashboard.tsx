@@ -14,7 +14,7 @@ import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import { useState } from "react";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
 import CommomText from "../../components/CommomText/commomText";
-import "./dashboard.css"
+import "./dashboard.css";
 
 type DashBoardProps = {
   className?: string;
@@ -46,9 +46,9 @@ const Dashboard = ({ className }: DashBoardProps) => {
       >
         <div className="d-sm-flex m-b-5 align-items-center justify-content-between">
           <div className="media align-items-center m-b-6">
-            <div className="media-body m-l-15">
-              <h5 className="mb-0">Dados Gerais</h5>
-              <span className="text-gray font-size-13">
+            <div className="media-body header-content">
+              <h5 className="mb-0 title">Dados Gerais</h5>
+              <span className="text-gray description">
                 Consulte os dados de todas as turmas em tempo real, analise as
                 estatísticas e melhore o desempenho escolar.
               </span>
@@ -182,7 +182,11 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <CommomText>Selecione um período</CommomText>
         <div className="row">
           <div className="col-md-12">
-            <DatePicker placeholder="Selecione o período" className="w-100" onChange={handleDateChange} />
+            <DatePicker
+              placeholder="Selecione o período"
+              className="w-100"
+              onChange={handleDateChange}
+            />
           </div>
         </div>
       </Drawer>
@@ -199,5 +203,15 @@ export default styled(Dashboard)`
   .middle-charts-container {
     margin: 0 auto;
   }
-
+  .title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+  }
+  .description {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+  }
+  .header-content{
+    padding: 0px 12px;
+  }
 `;

@@ -27,7 +27,7 @@ const BaseContainer = ({
 };
 
 export default styled(BaseContainer)`
-  width: 95%;
+  width: 97%;
   height: auto;
   margin: 0 auto;
   box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.08);

@@ -6,10 +6,15 @@ import { Link } from "react-router-dom";
 import DataTable from "../../components/DataTable/dataTable";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
+import styled from "styled-components";
 
-export function ActiveRoom() {
+type ActiveRoom = {
+  className?: string;
+};
+
+const ActiveRoom = ({ className }: ActiveRoom) => {
   return (
-    <div>
+    <div className={className}>
       <div
         className="page-header border"
         style={{
@@ -20,9 +25,9 @@ export function ActiveRoom() {
       >
         <div className="d-sm-flex m-b-5 align-items-center justify-content-between">
           <div className="media align-items-center m-b-5">
-            <div className="media-body m-l-15">
-              <h5 className="mb-0">Análise de presenças</h5>
-              <span className="text-gray font-size-13">
+            <div className="media-body header-content">
+              <h5 className="mb-0 title">Análise de presenças</h5>
+              <span className="text-gray description">
                 Visualize e gerencie os dados de cada turma, filtrando seus
                 alunos e corrigindo pendências justificadas.
               </span>
@@ -31,7 +36,12 @@ export function ActiveRoom() {
           <div className="m-b-5">
             <Button
               type="default"
-              style={{background:'transparent', borderRadius: '8px', color:"#484D58", padding:'20px 30px'}}
+              style={{
+                background: "transparent",
+                borderRadius: "8px",
+                color: "#484D58",
+                padding: "20px 30px",
+              }}
               className="d-flex justify-content-center align-items-center"
             >
               <Link
@@ -51,7 +61,6 @@ export function ActiveRoom() {
         </div>
       </div>
       <BaseContainer
-      
         color="#fff"
         className="container-fluid justify-self-center mt-3 mb-3"
       >
@@ -73,4 +82,20 @@ export function ActiveRoom() {
       </BaseContainer>
     </div>
   );
-}
+};
+
+export default styled(ActiveRoom)`
+  width: 100%;
+  height: 100%;
+  .title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+  }
+  .description {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+  }
+  .header-content{
+    padding: 0px;
+  }
+`;
