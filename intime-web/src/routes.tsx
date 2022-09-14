@@ -3,6 +3,7 @@ import { HeaderApp } from "./components/Header/header";
 import Dashboard from "./pages/Dashboard/dashboard";
 import { ActiveRoom } from "./pages/ActiveRoom/activeRoom";
 import Login from "./pages/Login/login";
+import NotFound from "./pages/NotFound/notFound";
 
 const AppRoute = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoute = () => {
       </HeaderApp>
       {/* <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes> */}
     </Router>
   );
