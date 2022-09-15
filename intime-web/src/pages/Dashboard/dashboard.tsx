@@ -15,6 +15,7 @@ import { useState } from "react";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
 import CommomText from "../../components/CommomText/commomText";
 import "./dashboard.css";
+import { modalVisibility } from "../../utils/exports";
 
 type DashBoardProps = {
   className?: string;
@@ -23,8 +24,6 @@ type DashBoardProps = {
 const Dashboard = ({ className }: DashBoardProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const { RangePicker } = DatePicker;
-
-  const handleModalVisibility = () => setIsVisible(!isVisible);
 
   const handleDateChange = (
     value: DatePickerProps["value"] | RangePickerProps["value"],
@@ -63,7 +62,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
                 padding: "20px 30px",
               }}
               className="d-flex justify-content-center align-items-center"
-              onClick={handleModalVisibility}
+              onClick={() => setIsVisible(modalVisibility(isVisible))}
             >
               <FilterOutlined />
               <span>Filtros</span>
@@ -169,7 +168,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
       <Drawer
         title="Filtros"
         visible={isVisible}
-        onClose={handleModalVisibility}
+        onClose={() => setIsVisible(modalVisibility(isVisible))}
       >
         <CommomText>
           Utilize os filtros para encontrar dados específicos.
@@ -203,6 +202,7 @@ export default styled(Dashboard)`
   .middle-charts-container {
     margin: 0 auto;
   }
+
   .title {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
