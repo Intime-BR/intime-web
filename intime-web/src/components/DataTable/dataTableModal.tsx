@@ -9,7 +9,7 @@ type DataTableModalProps = {
   onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onOk?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   okButtonText?: String;
-  children?: any;
+  children?: JSX.Element | JSX.Element[];
   width?: string | number;
 };
 

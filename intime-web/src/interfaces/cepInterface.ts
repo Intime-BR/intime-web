@@ -5,4 +5,5 @@ export interface CepInterface {
   bairro?: String;
   localidade?: String;
   uf?: String;
+  numero?: String;
 }

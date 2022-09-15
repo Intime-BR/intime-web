@@ -28,6 +28,7 @@ const ActiveRoom = () => {
           complementos: "120",
           bairro: "Industrial",
           localidade: "Contagem",
+          numero: "56",
         },
       },
       {
@@ -46,6 +47,7 @@ const ActiveRoom = () => {
           logradouro: "Modestinda de Souza",
           complementos: "120",
           bairro: "Industrial",
+          numero: "56",
           localidade: "Contagem",
         },
       },
@@ -65,6 +67,7 @@ const ActiveRoom = () => {
           logradouro: "Modestinda de Souza",
           complementos: "120",
           bairro: "Industrial",
+          numero: "56",
           localidade: "Contagem",
         },
       },
