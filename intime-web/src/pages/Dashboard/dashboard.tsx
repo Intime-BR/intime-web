@@ -55,13 +55,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
           </div>
           <div className="m-b-5">
             <Button
-              style={{
-                background: "#6470E8",
-                borderRadius: "8px",
-                color: "white",
-                padding: "20px 30px",
-              }}
-              className="d-flex justify-content-center align-items-center"
+              className="filter-button d-flex justify-content-center align-items-center"
               onClick={() => setIsVisible(modalVisibility(isVisible))}
             >
               <FilterOutlined />
@@ -202,7 +196,6 @@ export default styled(Dashboard)`
   .middle-charts-container {
     margin: 0 auto;
   }
-
   .title {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
@@ -213,5 +206,12 @@ export default styled(Dashboard)`
   }
   .header-content{
     padding: 0px 12px;
+  }
+
+  .filter-button{
+    background: ${(props)=> props.theme.colors.primary};
+    border-radius: 8px;
+    color: white;
+    padding: 20px 30px;
   }
 `;

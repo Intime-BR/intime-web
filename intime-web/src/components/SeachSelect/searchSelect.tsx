@@ -48,7 +48,7 @@ export default styled(DataSelect)`
 
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     position: relative;
-    background-color: #fff;
+    background-color: ${(props) => props.theme.colors.white};
     border: 1px solid #d9d9d9;
     border-radius: 6px;
     border-radius: 5px;
@@ -60,4 +60,5 @@ export default styled(DataSelect)`
     height: 40px;
     padding: 5px 11px;
   }
+  
 `;
