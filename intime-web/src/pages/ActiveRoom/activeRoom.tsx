@@ -8,13 +8,74 @@ import SearchSelect from "../../components/SeachSelect/searchSelect";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
 import styled from "styled-components";
 
-type ActiveRoom = {
-  className?: string;
-};
+const ActiveRoom = () => {
+  const handleData = () => {
+    return [
+      {
+        id: 1,
+        student: "Estevão Boaventura",
+        enrollment: 12000604,
+        classroom: "3B1",
+        subject: "Matemática",
+        status: ["Presente"],
+        financialResponsable: "Sirleia Gomes de Souza",
+        pedagogicalResponsable: "Geraldo Fernando Gomes",
+        phoneNumber: "31999999999",
+        homePhoneNumber: "31999999999",
+        address: {
+          cep: "30575180",
+          logradouro: "Modestinda de Souza",
+          complementos: "120",
+          bairro: "Industrial",
+          localidade: "Contagem",
+          numero: "56",
+        },
+      },
+      {
+        id: 2,
+        student: "Nicolle",
+        enrollment: 12002097,
+        classroom: "3B1",
+        subject: "Portugues",
+        status: ["Ausente"],
+        financialResponsable: "Sirleia Gomes de Souza",
+        pedagogicalResponsable: "Geraldo Fernando Gomes",
+        phoneNumber: "31999999999",
+        homePhoneNumber: "31999999999",
+        address: {
+          cep: "30575180",
+          logradouro: "Modestinda de Souza",
+          complementos: "120",
+          bairro: "Industrial",
+          numero: "56",
+          localidade: "Contagem",
+        },
+      },
+      {
+        id: 3,
+        student: "Derick",
+        enrollment: 12000522,
+        classroom: "3B1",
+        subject: "Portugues",
+        status: ["Pendente"],
+        financialResponsable: "Sirleia Gomes de Souza",
+        pedagogicalResponsable: "Geraldo Fernando Gomes",
+        phoneNumber: "31999999999",
+        homePhoneNumber: "31999999999",
+        address: {
+          cep: "30575180",
+          logradouro: "Modestinda de Souza",
+          complementos: "120",
+          bairro: "Industrial",
+          numero: "56",
+          localidade: "Contagem",
+        },
+      },
+    ];
+  };
 
-const ActiveRoom = ({ className }: ActiveRoom) => {
   return (
-    <div className={className}>
+    <div>
       <div
         className="page-header border"
         style={{
@@ -25,9 +86,9 @@ const ActiveRoom = ({ className }: ActiveRoom) => {
       >
         <div className="d-sm-flex m-b-5 align-items-center justify-content-between">
           <div className="media align-items-center m-b-5">
-            <div className="media-body header-content">
-              <h5 className="mb-0 title">Análise de presenças</h5>
-              <span className="text-gray description">
+            <div className="media-body m-l-15">
+              <h5 className="mb-0">Análise de presenças</h5>
+              <span className="text-gray font-size-13">
                 Visualize e gerencie os dados de cada turma, filtrando seus
                 alunos e corrigindo pendências justificadas.
               </span>
@@ -71,7 +132,7 @@ const ActiveRoom = ({ className }: ActiveRoom) => {
             <SearchSelect placeHolder="Selecione a Disciplina" />
           </div>
         </div>
-        <DataTable />
+        <DataTable data={handleData()} />
       </BaseContainer>
     </div>
   );

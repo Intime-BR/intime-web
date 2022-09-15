@@ -1,3 +1,5 @@
+import { Cep } from "./interfaces";
+
 export interface AlunoInterface {
   id: Number;
   student: String;
@@ -5,4 +7,9 @@ export interface AlunoInterface {
   classroom?: String;
   subject?: String;
   status?: string[];
+  financialResponsable?: String;
+  pedagogicalResponsable?: String;
+  phoneNumber?: String;
+  homePhoneNumber?: String;
+  address?: Cep;
 }
