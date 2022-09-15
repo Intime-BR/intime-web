@@ -36,13 +36,7 @@ const ActiveRoom = ({ className }: ActiveRoom) => {
           <div className="m-b-5">
             <Button
               type="default"
-              style={{
-                background: "transparent",
-                borderRadius: "8px",
-                color: "#484D58",
-                padding: "20px 30px",
-              }}
-              className="d-flex justify-content-center align-items-center"
+              className="to-dash-button d-flex justify-content-center align-items-center"
             >
               <Link
                 to={"/dashboard"}
@@ -61,7 +55,6 @@ const ActiveRoom = ({ className }: ActiveRoom) => {
         </div>
       </div>
       <BaseContainer
-        color="#fff"
         className="container-fluid justify-self-center mt-3 mb-3"
       >
         <div className="row p-3">
@@ -97,5 +90,14 @@ export default styled(ActiveRoom)`
   }
   .header-content{
     padding: 0px;
+  }
+  .to-dash-button{
+    background: transparent;
+    border-radius: 8px;
+    color: ${(props)=> props.theme.colors.textGray};
+    padding: 20px 30px;
+  }
+  .container-fluid{
+    color: ${(props)=> props.theme.colors.white}
   }
 `;

@@ -155,26 +155,26 @@ export default styled(Login)`
   }
 
   .login-button {
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.white};
     font-size: 16px;
     width: 100%;
     height: 40px;
     background: ${(props) => props.theme.colors.lightPrimary};
-    border: 1px solid #ffffff;
+    border: 1px solid ${(props) => props.theme.colors.white};
     border-radius: 6px;
   }
 
   .title {
     font-weight: 600;
     font-size: 24px;
-    color: #484d58;
+    color: ${(props) => props.theme.colors.textGray};
     margin: 0;
   }
 
   .desc {
     font-weight: 400;
     font-size: 18px;
-    color: #484d58;
+    color: ${(props) => props.theme.colors.textGray};
     margin: 0;
     margin-bottom: 24px;
   }

@@ -165,6 +165,7 @@ const DataTable = ({ className }: DataTableProps) => {
               justifyContent: "center",
               alignItems: "center",
             }}
+            className="avatar"
             icon={<UserOutlined />}
           />
           <span className="text-nowrap" style={{ marginLeft: "8px" }}>
