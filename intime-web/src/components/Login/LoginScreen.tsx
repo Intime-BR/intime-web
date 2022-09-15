@@ -71,6 +71,10 @@ const Login = ({ className }: LoginProps) => {
                   </button>
                 </Form.Item>
               </Form>
+
+              <div className="text-center">
+                <a className="forgetPassword">Esqueci minha senha?</a>
+              </div>
             </div>
           </div>
         </div>
@@ -177,5 +181,10 @@ export default styled(Login)`
 
   .left-title {
     padding: 45px 45px 0px 45px;
+  }
+
+  .forgetPassword {
+    color: ${(props) => props.theme.colors.textGray};
+    text-decoration: underline;
   }
 `;

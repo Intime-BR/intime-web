@@ -45,9 +45,9 @@ const Dashboard = ({ className }: DashBoardProps) => {
       >
         <div className="d-sm-flex m-b-5 align-items-center justify-content-between">
           <div className="media align-items-center m-b-6">
-            <div className="media-body m-l-15">
-              <h5 className="mb-0">Dados Gerais</h5>
-              <span className="text-gray font-size-13">
+            <div className="media-body header-content">
+              <h5 className="mb-0 title">Dados Gerais</h5>
+              <span className="text-gray description">
                 Consulte os dados de todas as turmas em tempo real, analise as
                 estatísticas e melhore o desempenho escolar.
               </span>
@@ -201,5 +201,17 @@ export default styled(Dashboard)`
   }
   .middle-charts-container {
     margin: 0 auto;
+  }
+
+  .title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+  }
+  .description {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+  }
+  .header-content{
+    padding: 0px 12px;
   }
 `;

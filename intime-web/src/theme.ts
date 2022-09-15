@@ -20,6 +20,8 @@ export const theme = {
 
     white: "#FFFFFF",
 
-    sideBarItem:"#5689EC"
+    sideBarItem:"#5689EC",
+    
+    textGray: "#5E5E5E"
   },
 };
