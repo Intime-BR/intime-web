@@ -7,13 +7,15 @@ import BaseContainer from "../BaseContainer/baseContainer";
 import { Button, Form, Input } from "antd";
 import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
 import { RequiredMark } from "antd/lib/form/Form";
+import ForgotPasswordModal from "./forgotPasswordModal";
+import { modalVisibility } from "../../utils/exports";
 
 type LoginProps = {
   className?: string;
 };
 
 const Login = ({ className }: LoginProps) => {
-  const [visibility, setVisibility] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] =
@@ -73,7 +75,27 @@ const Login = ({ className }: LoginProps) => {
               </Form>
 
               <div className="text-center">
-                <a className="forgetPassword">Esqueci minha senha?</a>
+                <a
+                  className="forgetPassword"
+                  onClick={() => setIsVisible(modalVisibility(isVisible))}
+                >
+                  Esqueci minha senha?
+                </a>
+                <ForgotPasswordModal
+                  isVisible={isVisible}
+                  onCancel={() => setIsVisible(modalVisibility(isVisible))}
+                  onOk={() => setIsVisible(modalVisibility(isVisible))}
+                  okButtonText="Salvar"
+                  width={1200}
+                >
+                  <div className="d-flex justify-content-center align-items-center flex-column">
+                    <h4>Recuperação de senha</h4>
+                    <p>
+                      Para redefinir sua senha, informe o e-mail cadastrado na
+                      sua conta e lhe enviaremos um link com as instruções
+                    </p>
+                  </div>
+                </ForgotPasswordModal>
               </div>
             </div>
           </div>
