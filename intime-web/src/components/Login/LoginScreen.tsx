@@ -4,16 +4,19 @@ import bottomBall from "../../assets/others/bottomBall.svg";
 import styled from "styled-components";
 import react, { useState } from "react";
 import BaseContainer from "../BaseContainer/baseContainer";
-import { Button, Form, Input } from "antd";
+import { Form, Input } from "antd";
 import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
 import { RequiredMark } from "antd/lib/form/Form";
+import ForgotPasswordModal from "./forgotPasswordModal";
+import { modalVisibility } from "../../utils/exports";
+import BaseButton from "../Button/baseButton";
 
 type LoginProps = {
   className?: string;
 };
 
 const Login = ({ className }: LoginProps) => {
-  const [visibility, setVisibility] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] =
@@ -66,14 +69,65 @@ const Login = ({ className }: LoginProps) => {
                   <Input />
                 </Form.Item>
                 <Form.Item>
-                  <button className="login-button" type="button">
-                    Entrar agora
-                  </button>
+                  <BaseButton text="Entrar agora" />
                 </Form.Item>
               </Form>
 
               <div className="text-center">
-                <a className="forgetPassword">Esqueci minha senha?</a>
+                <a
+                  className="forgetPassword"
+                  onClick={() => setIsVisible(modalVisibility(isVisible))}
+                >
+                  Esqueci minha senha?
+                </a>
+                <ForgotPasswordModal
+                  isVisible={isVisible}
+                  onCancel={() => setIsVisible(modalVisibility(isVisible))}
+                  onOk={() => setIsVisible(modalVisibility(isVisible))}
+                  okButtonText="Salvar"
+                  width={800}
+                >
+                  <div className="d-flex justify-content-center align-items-center flex-column text-center">
+                    <p
+                      className=""
+                      style={{
+                        fontSize: "32px",
+                        fontWeight: "400",
+                        marginTop: "48px",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      Recuperação de senha
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "400",
+                        marginBottom: "56px",
+                        width: "90%",
+                      }}
+                    >
+                      Para redefinir sua senha, informe o e-mail cadastrado na
+                      sua conta e lhe enviaremos um link com as instruções
+                    </p>
+                    <div className="col-md-10">
+                      <Form
+                        form={form}
+                        layout="vertical"
+                        initialValues={{ requiredMarkValue: requiredMark }}
+                        onValuesChange={onRequiredTypeChange}
+                        requiredMark={requiredMark}
+                      >
+                        <Form.Item label="Email">
+                          <Input />
+                        </Form.Item>
+                      </Form>
+                      <div style={{ marginTop: "64px", marginBottom: "72px" }}>
+                        <BaseButton text="Verificar" />
+                      </div>
+                    </div>
+                  </div>
+                </ForgotPasswordModal>
               </div>
             </div>
           </div>
@@ -154,7 +208,7 @@ export default styled(Login)`
     width: 120px;
   }
 
-  .login-button {
+  /* .login-button {
     color: ${(props) => props.theme.colors.white};
     font-size: 16px;
     width: 100%;
@@ -162,7 +216,7 @@ export default styled(Login)`
     background: ${(props) => props.theme.colors.lightPrimary};
     border: 1px solid ${(props) => props.theme.colors.white};
     border-radius: 6px;
-  }
+  } */
 
   .title {
     font-weight: 600;
