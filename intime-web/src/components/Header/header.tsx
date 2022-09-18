@@ -40,12 +40,16 @@ export const HeaderApp: React.FC<Children> = (props) => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
+          style={{justifyContent:"space-between"}}
           items={[
             {
               key: "1",
+              className: "icon-style",
               icon: (
                 <Link to="/dashboard">
-                  <DashboardOutlined />
+                  <div className="icon-style dash">
+                    <DashboardOutlined />
+                  </div>
                 </Link>
               ),
               label: "Dashboard",
@@ -54,7 +58,9 @@ export const HeaderApp: React.FC<Children> = (props) => {
               key: "2",
               icon: (
                 <Link to="/active-room">
-                  <UserOutlined />
+                  <div className="icon-style">
+                    <UserOutlined />
+                  </div>
                 </Link>
               ),
               label: "Salas ativas",
