@@ -8,17 +8,17 @@ import NotFound from "./pages/NotFound/notFound";
 const AppRoute = () => {
   return (
     <Router>
-      {/* <HeaderApp>
+      <HeaderApp>
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/active-room" element={<ActiveRoom />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
-      </HeaderApp> */}
-      <Routes>
+      </HeaderApp>
+      {/* <Routes>
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/*" element={<NotFound />} /> */}
-      </Routes>
+        {/* <Route path="/*" element={<NotFound />} /> 
+      </Routes> */}
     </Router>
   );
 };
