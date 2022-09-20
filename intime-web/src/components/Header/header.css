@@ -43,9 +43,8 @@
 
 .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: #5689EC;
-  /* width: 90%;
-  margin: 5px;
-  border-radius: 10px; */
+ /* border-radius: 10px;
+ width: 95%; */
 }
 
 .ant-menu-dark .ant-menu-item, .ant-menu-dark .ant-menu-item > a{
