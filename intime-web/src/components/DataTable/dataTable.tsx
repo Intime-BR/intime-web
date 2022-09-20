@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Aluno } from "../../interfaces/interfaces";
+import { Aluno, Metrics } from "../../interfaces/interfaces";
 import {
   EditFilled,
   ExclamationCircleOutlined,
@@ -15,6 +15,7 @@ import { modalVisibility } from "../../utils/exports";
 import DataTableModal from "./dataTableModal";
 import CommomText from "../CommomText/commomText";
 import { RequiredMark } from "antd/lib/form/Form";
+import StudentMetric from "../StudentMetric/studentMetric";
 
 type DataTableProps = {
   className?: string;
@@ -24,6 +25,7 @@ type DataTableProps = {
 const DataTable = ({ className, data }: DataTableProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [aluno, setAluno] = useState<Aluno>();
+
 
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] =
@@ -41,6 +43,78 @@ const DataTable = ({ className, data }: DataTableProps) => {
     setIsVisible(modalVisibility(isVisible));
     setAluno(data);
   };
+
+  const metrics: Metrics[] = [
+    {
+      subject: "Matemática",
+      availableClasses: 40,
+      presences: 22,
+      absences: 10,
+      pendences: 8,
+      percent: 35,
+      status:"normal"
+    },
+
+    {
+      subject: "Português",
+      availableClasses: 40,
+      presences: 8,
+      absences: 13,
+      pendences: 19,
+      percent: 12,
+      status:'exception'
+    },
+
+    {
+      subject: "DevWeb",
+      availableClasses: 40,
+      presences: 37,
+      absences: 3,
+      pendences: 0,
+      percent: 100,
+      status:"success"
+    },
+
+    {
+      subject: "Framework",
+      availableClasses: 40,
+      presences: 22,
+      absences: 10,
+      pendences: 8,
+      percent: 70,
+      status:"normal"
+    },
+
+    {
+      subject: "Framework",
+      availableClasses: 40,
+      presences: 22,
+      absences: 10,
+      pendences: 8,
+      percent: 70,
+      status:"normal"
+    },
+
+    {
+      subject: "Framework",
+      availableClasses: 40,
+      presences: 22,
+      absences: 10,
+      pendences: 8,
+      percent: 70,
+      status:"normal"
+    },
+
+    {
+      subject: "Framework",
+      availableClasses: 40,
+      presences: 22,
+      absences: 10,
+      pendences: 8,
+      percent: 70,
+      status:"normal"
+    },
+  ]
 
   const columns: ColumnsType<Aluno> = [
     {
@@ -302,7 +376,18 @@ const DataTable = ({ className, data }: DataTableProps) => {
               </Form>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Métricas" key="2">
-              Content of Tab Pane 2
+              <div className="row">
+                {
+                  metrics.map((item) => {
+                    return(
+                      <StudentMetric 
+                      metrics={item}
+                      />
+                    )
+                  })
+                }
+              
+              </div>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Pendentes" key="3">
               Content of Tab Pane 3
