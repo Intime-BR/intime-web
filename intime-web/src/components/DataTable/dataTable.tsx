@@ -26,7 +26,6 @@ const DataTable = ({ className, data }: DataTableProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [aluno, setAluno] = useState<Aluno>();
 
-
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] =
     useState<RequiredMark>("optional");
@@ -52,7 +51,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
       absences: 10,
       pendences: 8,
       percent: 35,
-      status:"normal"
+      status: "normal",
     },
 
     {
@@ -62,7 +61,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
       absences: 13,
       pendences: 19,
       percent: 12,
-      status:'exception'
+      status: "exception",
     },
 
     {
@@ -72,7 +71,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
       absences: 3,
       pendences: 0,
       percent: 100,
-      status:"success"
+      status: "success",
     },
 
     {
@@ -82,7 +81,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
       absences: 10,
       pendences: 8,
       percent: 70,
-      status:"normal"
+      status: "normal",
     },
 
     {
@@ -92,7 +91,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
       absences: 10,
       pendences: 8,
       percent: 70,
-      status:"normal"
+      status: "normal",
     },
 
     {
@@ -102,7 +101,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
       absences: 10,
       pendences: 8,
       percent: 70,
-      status:"normal"
+      status: "normal",
     },
 
     {
@@ -112,9 +111,9 @@ const DataTable = ({ className, data }: DataTableProps) => {
       absences: 10,
       pendences: 8,
       percent: 70,
-      status:"normal"
+      status: "normal",
     },
-  ]
+  ];
 
   const columns: ColumnsType<Aluno> = [
     {
@@ -219,7 +218,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
         onCancel={() => setIsVisible(modalVisibility(isVisible))}
         onOk={() => setIsVisible(modalVisibility(isVisible))}
         okButtonText="Salvar"
-        width={1200}
+        width="70%"
       >
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex">
@@ -236,10 +235,10 @@ const DataTable = ({ className, data }: DataTableProps) => {
               }}
             />
             <div className="">
-              <p className="m-0" style={{ fontSize: "12px" }}>
+              <p className="m-0" style={{ fontSize: "14px" }}>
                 Visualize o relatório da aluno(a) {aluno?.student}.
               </p>
-              <p className="m-0" style={{ fontSize: "12px" }}>
+              <p className="m-0" style={{ fontSize: "14px" }}>
                 Aqui você encontra dados específicos de cada matéria.
               </p>
             </div>
@@ -264,7 +263,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
               <CommomText
                 style={{ fontSize: "16px", margin: "0", padding: "0" }}
               >
-                Matricula: {aluno?.enrollment}
+                Matrícula: {aluno?.enrollment}
               </CommomText>
               <CommomText
                 style={{ fontSize: "16px", margin: "0", padding: "0" }}
@@ -377,23 +376,10 @@ const DataTable = ({ className, data }: DataTableProps) => {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Métricas" key="2">
               <div className="row">
-                {
-                  metrics.map((item) => {
-                    return(
-                      <StudentMetric 
-                      metrics={item}
-                      />
-                    )
-                  })
-                }
-              
+                {metrics.map((item) => {
+                  return <StudentMetric metrics={item} />;
+                })}
               </div>
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Pendentes" key="3">
-              Content of Tab Pane 3
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Feedbacks" key="3">
-              Content of Tab Pane 3
             </Tabs.TabPane>
           </Tabs>
         </div>

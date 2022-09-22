@@ -11,6 +11,7 @@ type DataTableModalProps = {
   okButtonText?: String;
   children?: JSX.Element | JSX.Element[];
   width?: string | number;
+  height?: string | number;
 };
 
 const DataTableModal = ({
@@ -21,7 +22,7 @@ const DataTableModal = ({
   onCancel,
   okButtonText,
   children,
-  width,
+  width
 }: DataTableModalProps) => {
   return (
     <Modal
