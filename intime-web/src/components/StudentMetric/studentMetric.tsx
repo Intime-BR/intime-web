@@ -10,71 +10,57 @@ type StudentMetricProps = {
 
 const StudentMetric = ({ className, metrics }: StudentMetricProps) => {
   return (
-    <div className={`${className} col-md-3`}>
-      <Card className="rounded mt-3">
+    <div className={`${className} col-lg-4 col-md-6 col-sm-12`}>
+      <Card className="rounded mt-5">
         <h6 className="text-center">{metrics?.subject}</h6>
         <p className="classes">Aulas totais: {metrics?.availableClasses}</p>
-        <div className="d-flex justify-content-between align-items-center">
-          <div className="row">
-            <div className="col-md-12 mt-3 align-items-center">
+        <div className="d-flex justify-content-between align-items-center flex-wrap">
+          <div className="d-flex flex-wrap">
+            <div className=" mt-3 align-items-center">
               <Tag
-                className="rounded"
-                style={{ fontSize: "12px" }}
+                className="rounded text-center"
+                style={{ fontSize: "12px", width: "112px" }}
                 color="#4A9231"
                 key="Presença"
               >
-                <Badge status="default" />
-                Presente
+                Presente:
+                <span style={{ marginLeft: "4px" }}>{metrics?.presences}</span>
               </Tag>
-
-              <span>{metrics?.presences}</span>
             </div>
 
-            <div className="col-md-12 mt-3 d-flex  align-items-center">
+            <div className=" mt-3 d-flex  align-items-center">
               <Tag
-                className=" rounded"
-                style={{ fontSize: "12px" }}
+                className=" rounded text-center"
+                style={{ fontSize: "12px", width: "112px" }}
                 color="#D1CC44"
                 key="Pendentes"
               >
-                <Badge status="default" />
-                Pendentes
+                Pendentes:
+                <span style={{ marginLeft: "4px" }}>{metrics?.pendences}</span>
               </Tag>
-
-              <span>{metrics?.pendences}</span>
             </div>
 
-            <div className="col-md-12 mt-3 align-items-center">
+            <div className=" mt-3 align-items-center">
               <Tag
-                className="rounded"
-                style={{ fontSize: "12px" }}
+                className="rounded text-center"
+                style={{ fontSize: "12px", width: "112px" }}
                 color="#db3232"
                 key="Faltas"
               >
-                <Badge status="default" />
-                Faltas
+                Faltas:
+                <span style={{ marginLeft: "4px" }}>{metrics?.absences}</span>
               </Tag>
-              <span>{metrics?.absences}</span>
             </div>
           </div>
 
-          <div className="mt-3">
-            <Progress
-              type="circle"
-              percent={metrics?.percent}
-              width={90}
-              status={metrics?.status}
-            />
+          <div className="mt-3 w-100">
+            <div className="d-flex justify-content-between">
+              <span>Índice de reprovaçao</span>
+              <span>{metrics?.percent}%</span>
+            </div>
+            <Progress percent={metrics?.percent} showInfo={false} />
           </div>
         </div>
-
-        {/* <div className="mt-3">
-          <div className="d-flex justify-content-between align-items-center">
-            <span>Índice de reprovação</span>
-            <span>{metrics?.percent} %</span>
-          </div>
-          <Progress percent={100} showInfo={false} />
-        </div> */}
       </Card>
     </div>
   );

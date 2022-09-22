@@ -8,7 +8,12 @@ import SearchSelect from "../../components/SeachSelect/searchSelect";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
 import styled from "styled-components";
 
-const ActiveRoom = () => {
+type ActiveRoomProps = {
+  className?: string;
+}
+
+
+const ActiveRoom = ({className} : ActiveRoomProps) => {
   const handleData = () => {
     return [
       {
@@ -75,7 +80,7 @@ const ActiveRoom = () => {
   };
 
   return (
-    <div>
+    <div className={className}>
       <div
         className="page-header border"
         style={{
@@ -97,7 +102,7 @@ const ActiveRoom = () => {
           <div className="m-b-5">
             <Button
               type="default"
-              className="to-dash-button d-flex justify-content-center align-items-center"
+              className="filter-button d-flex justify-content-center align-items-center"
             >
               <Link
                 to={"/dashboard"}
@@ -161,5 +166,11 @@ export default styled(ActiveRoom)`
   }
   .container-fluid{
     color: ${(props)=> props.theme.colors.white}
+  }
+  .filter-button{
+    background-color: transparent;
+    border-radius: 8px;
+    color: ${(props)=> props.theme.colors.textGray};
+    padding: 20px 30px;
   }
 `;
