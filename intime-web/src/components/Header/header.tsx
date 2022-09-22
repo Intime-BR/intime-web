@@ -6,10 +6,11 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
-import React, { useState } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import logo from "../../assets/logos/logo.svg";
 import clock from "../../assets/logos/clock.svg";
-import "./header.css"
+import "./header.css";
+import { useMediaQuery } from "react-responsive";
 
 const { Header, Sider, Content } = Layout;
 
@@ -19,28 +20,85 @@ type Children = {
 
 export const HeaderApp: React.FC<Children> = (props) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [collapsedWidth, setCollapsedWidth] = useState<number>();
+  const [sideNavStyle, setSideNavStyle] = useState<CSSProperties>();
+
+  const isNormalScreen = useMediaQuery({ minWidth: 1100 });
+  const isSmallScreen = useMediaQuery({ minWidth: 691 });
+  const isMobile = useMediaQuery({ minWidth: 690 });
+
+  const customNavStyle: CSSProperties = {
+    position: "absolute",
+    top: "0",
+    left: "0",
+    zIndex: "10",
+    height: "100vh",
+  };
+
+  const handleCollaps = () => {
+    if (!isNormalScreen) {
+      return isSmallScreen
+        ? (setCollapsedWidth(80), setCollapsed(true), setSideNavStyle({}))
+        : isMobile &&
+            (setCollapsedWidth(0),
+            setCollapsed(true),
+            setSideNavStyle(customNavStyle));
+    } else {
+      setCollapsed(false);
+      setSideNavStyle({});
+    }
+  };
+
+  useEffect(() => {
+    handleCollaps();
+  }, [isNormalScreen, isSmallScreen, isMobile]);
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" style={{background:'#17192E'}}>
-          <img
-            src={collapsed ? clock : logo}
-            alt="intime"
-            style={{
-              width: "90%",
-              height: "48px",
-              margin: "8px 0px",
-              padding: "1%",
-            }}
-          />
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        collapsedWidth={collapsedWidth}
+        style={sideNavStyle}
+      >
+        <div className="logo" style={{ background: "#17192E" }}>
+          {(isNormalScreen || isSmallScreen) && (
+            <img
+              src={collapsed ? clock : logo}
+              alt="intime"
+              style={{
+                width: "90%",
+                height: "48px",
+                margin: "8px 0px",
+                padding: "1%",
+              }}
+            />
+          )}
         </div>
-
+        {!isMobile ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              padding: "24px 24px",
+              alignItems: "center",
+              fontSize: "14px",
+              height: "64px",
+              background: "#17192e",
+              color: "white",
+            }}
+          >
+            <MenuFoldOutlined onClick={() => setCollapsed(!collapsed)} />
+          </div>
+        ) : (
+          false
+        )}
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
-          style={{justifyContent:"space-between"}}
+          style={{ justifyContent: "space-between" }}
           items={[
             {
               key: "1",
