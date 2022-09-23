@@ -22,7 +22,7 @@ const DataTableModal = ({
   onCancel,
   okButtonText,
   children,
-  width
+  width,
 }: DataTableModalProps) => {
   return (
     <Modal
@@ -31,6 +31,7 @@ const DataTableModal = ({
       onOk={onOk}
       visible={isVisible}
       onCancel={onCancel}
+      cancelText={"Cancelar"}
       okText={okButtonText}
       width={width}
     >
