@@ -103,9 +103,7 @@ const Login = ({ className }: LoginProps) => {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
               >
-                <Form.Item
-                  label="Informe seu email"
-                  rules={[
+                <Form.Item label="Informe seu email" rules={[
                     {
                       type: "email",
                       message: "Digite um e-mail válido",
@@ -114,19 +112,10 @@ const Login = ({ className }: LoginProps) => {
                       required: true,
                       message: "Por favor, informe seu E-mail",
                     },
-                  ]}
-                >
+                  ]} required>
                   <Input onChange={(e) => handleEmailInput(e.target.value)} />
                 </Form.Item>
-                <Form.Item
-                  label="Informe sua senha"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Por favor, informe sua senha!",
-                    },
-                  ]}
-                >
+                <Form.Item label="Informe sua senha" required>
                   <Input onChange={(e) => handleSenhaInput(e.target.value)} />
                 </Form.Item>
                 <Form.Item>
