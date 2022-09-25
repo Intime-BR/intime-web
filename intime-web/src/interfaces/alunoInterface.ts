@@ -5,11 +5,20 @@ export interface AlunoInterface {
   student: String;
   enrollment: Number;
   classroom?: String;
-  subject?: String;
+  subject?: Subject;
   status?: string[];
   financialResponsable?: String;
   pedagogicalResponsable?: String;
   phoneNumber?: String;
   homePhoneNumber?: String;
   address?: Cep;
+}
+
+export interface Subject {
+  materia?: Teste;
+}
+
+export interface Teste {
+  nome: String;
+  professor: Number;
 }
