@@ -4,7 +4,7 @@ import bottomBall from "../../assets/others/bottomBall.svg";
 import styled from "styled-components";
 import react, { useCallback, useState } from "react";
 import BaseContainer from "../BaseContainer/baseContainer";
-import { Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
 import { RequiredMark } from "antd/lib/form/Form";
 import ForgotPasswordModal from "./forgotPasswordModal";
@@ -18,6 +18,13 @@ type LoginProps = {
 };
 
 const Login = ({ className }: LoginProps) => {
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [email, setEmail] = useState<string>();
   const [senha, setSenha] = useState<string>();
@@ -93,8 +100,19 @@ const Login = ({ className }: LoginProps) => {
                 initialValues={{ requiredMarkValue: requiredMark }}
                 onValuesChange={onRequiredTypeChange}
                 requiredMark={requiredMark}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
               >
-                <Form.Item label="Informe seu email" required>
+                <Form.Item label="Informe seu email" rules={[
+                    {
+                      type: "email",
+                      message: "Digite um e-mail válido",
+                    },
+                    {
+                      required: true,
+                      message: "Por favor, informe seu E-mail",
+                    },
+                  ]} required>
                   <Input onChange={(e) => handleEmailInput(e.target.value)} />
                 </Form.Item>
                 <Form.Item label="Informe sua senha" required>
@@ -240,16 +258,6 @@ export default styled(Login)`
     width: 120px;
   }
 
-  /* .login-button {
-    color: ${(props) => props.theme.colors.white};
-    font-size: 16px;
-    width: 100%;
-    height: 40px;
-    background: ${(props) => props.theme.colors.lightPrimary};
-    border: 1px solid ${(props) => props.theme.colors.white};
-    border-radius: 6px;
-  } */
-
   .title {
     font-weight: 600;
     font-size: 24px;
@@ -272,5 +280,15 @@ export default styled(Login)`
   .forgetPassword {
     color: ${(props) => props.theme.colors.textGray};
     text-decoration: underline;
+  }
+
+  .btnLogin {
+    color: ${(props) => props.theme.colors.white};
+    font-size: 16px;
+    width: 100%;
+    height: 40px;
+    background: ${(props) => props.theme.colors.lightPrimary};
+    border: 1px solid ${(props) => props.theme.colors.white};
+    border-radius: 6px;
   }
 `;
