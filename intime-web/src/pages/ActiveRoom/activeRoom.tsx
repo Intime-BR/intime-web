@@ -7,13 +7,15 @@ import DataTable from "../../components/DataTable/dataTable";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
 import styled from "styled-components";
+import { useCallback } from "react";
+import { Aluno } from "../../interfaces/interfaces";
+import { findByFilter } from "../../services/activeRoomService";
 
 type ActiveRoomProps = {
   className?: string;
-}
+};
 
-
-const ActiveRoom = ({className} : ActiveRoomProps) => {
+const ActiveRoom = ({ className }: ActiveRoomProps) => {
   const handleData = () => {
     return [
       {
@@ -78,6 +80,10 @@ const ActiveRoom = ({className} : ActiveRoomProps) => {
       },
     ];
   };
+
+  const getAll = useCallback(async () => {
+    const data = await findByFilter();
+  }, []);
 
   return (
     <div className={className}>
@@ -155,22 +161,22 @@ export default styled(ActiveRoom)`
     font-family: "Montserrat", sans-serif;
     font-size: 16px;
   }
-  .header-content{
+  .header-content {
     padding: 0px;
   }
-  .to-dash-button{
+  .to-dash-button {
     background: transparent;
     border-radius: 8px;
-    color: ${(props)=> props.theme.colors.textGray};
+    color: ${(props) => props.theme.colors.textGray};
     padding: 20px 30px;
   }
-  .container-fluid{
-    color: ${(props)=> props.theme.colors.white}
+  .container-fluid {
+    color: ${(props) => props.theme.colors.white};
   }
-  .filter-button{
+  .filter-button {
     background-color: transparent;
     border-radius: 8px;
-    color: ${(props)=> props.theme.colors.textGray};
+    color: ${(props) => props.theme.colors.textGray};
     padding: 20px 30px;
   }
 `;
