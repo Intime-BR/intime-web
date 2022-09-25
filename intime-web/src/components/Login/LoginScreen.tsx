@@ -2,7 +2,7 @@ import phones from "../../assets/others/phones.svg";
 import logo_purple from "../../assets/logos/logo_purple.svg";
 import bottomBall from "../../assets/others/bottomBall.svg";
 import styled from "styled-components";
-import react, { useState } from "react";
+import react, { useCallback, useState } from "react";
 import BaseContainer from "../BaseContainer/baseContainer";
 import { Form, Input } from "antd";
 import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
@@ -10,6 +10,8 @@ import { RequiredMark } from "antd/lib/form/Form";
 import ForgotPasswordModal from "./forgotPasswordModal";
 import { modalVisibility } from "../../utils/exports";
 import BaseButton from "../Button/baseButton";
+import { Navigate } from "react-router-dom";
+import { loginVerify } from "../../services/loginService";
 
 type LoginProps = {
   className?: string;
@@ -17,10 +19,40 @@ type LoginProps = {
 
 const Login = ({ className }: LoginProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>();
+  const [senha, setSenha] = useState<string>();
 
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] =
     useState<RequiredMark>("optional");
+
+  const handleEmailInput = (value: string) => {
+    setEmail(value);
+    console.log(email);
+  };
+
+  const handleSenhaInput = (value: string) => {
+    setSenha(value);
+  };
+
+  const callback = useCallback(async () => {
+    const { status, data } = await loginVerify({
+      email: email,
+      senha: senha,
+    });
+
+    if (status == 200) {
+      if (data) {
+        localStorage.setItem("logged", "1");
+        window.location.reload();
+      } else {
+        alert("USUARIO E SENHA TA ERRADO");
+      }
+    } else {
+      throw new Error();
+    }
+  }, [email, senha]);
+  // localStorage.setItem("logged", "1");
 
   const onRequiredTypeChange = ({
     requiredMarkValue,
@@ -63,13 +95,13 @@ const Login = ({ className }: LoginProps) => {
                 requiredMark={requiredMark}
               >
                 <Form.Item label="Informe seu email" required>
-                  <Input />
+                  <Input onChange={(e) => handleEmailInput(e.target.value)} />
                 </Form.Item>
                 <Form.Item label="Informe sua senha" required>
-                  <Input />
+                  <Input onChange={(e) => handleSenhaInput(e.target.value)} />
                 </Form.Item>
                 <Form.Item>
-                  <BaseButton text="Entrar agora" />
+                  <BaseButton text="Entrar agora" onClick={callback} />
                 </Form.Item>
               </Form>
 
