@@ -10,11 +10,20 @@ import Dashboard from "./pages/Dashboard/dashboard";
 import ActiveRoom from "./pages/ActiveRoom/activeRoom";
 import Login from "./pages/Login/login";
 import NotFound from "./pages/NotFound/notFound";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Protected from "./protected";
+import { ConvertStringToBool } from "./utils/exports";
 
 const AppRoute = () => {
-  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
+    ConvertStringToBool[localStorage.getItem("logged")!]()
+  );
+
+  useEffect(() => {
+    localStorage.getItem("logged")
+      ? false
+      : localStorage.setItem("logged", "0");
+  }, [isLoggedIn]);
 
   return isLoggedIn ? (
     <Router>

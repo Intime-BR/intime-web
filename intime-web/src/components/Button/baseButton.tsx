@@ -1,15 +1,20 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import styled from "styled-components";
 
 type ButtonProps = {
   className?: string;
   col?: string;
   text?: string;
+  onClick?: () => void;
 };
 
-const BaseButton = ({ className, col, text }: ButtonProps) => {
+const BaseButton = ({ className, col, text, onClick }: ButtonProps) => {
   return (
-    <button className={`col-md-${col} ${className}`} type="button">
+    <button
+      className={`col-md-${col} ${className}`}
+      type="button"
+      onClick={onClick}
+    >
       {text}
     </button>
   );
