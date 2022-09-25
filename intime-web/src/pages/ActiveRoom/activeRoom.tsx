@@ -7,7 +7,7 @@ import DataTable from "../../components/DataTable/dataTable";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
 import styled from "styled-components";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Aluno } from "../../interfaces/interfaces";
 import { findByFilter } from "../../services/activeRoomService";
 
@@ -16,74 +16,18 @@ type ActiveRoomProps = {
 };
 
 const ActiveRoom = ({ className }: ActiveRoomProps) => {
-  const handleData = () => {
-    return [
-      {
-        id: 1,
-        student: "Estevão Boaventura",
-        enrollment: 12000604,
-        classroom: "3B1",
-        subject: "Matemática",
-        status: ["Presente"],
-        financialResponsable: "Sirleia Gomes de Souza",
-        pedagogicalResponsable: "Geraldo Fernando Gomes",
-        phoneNumber: "31999999999",
-        homePhoneNumber: "31999999999",
-        address: {
-          cep: "30575180",
-          logradouro: "Modestinda de Souza",
-          complementos: "120",
-          bairro: "Industrial",
-          localidade: "Contagem",
-          numero: "56",
-        },
-      },
-      {
-        id: 2,
-        student: "Nicolle",
-        enrollment: 12002097,
-        classroom: "3B1",
-        subject: "Portugues",
-        status: ["Ausente"],
-        financialResponsable: "Sirleia Gomes de Souza",
-        pedagogicalResponsable: "Geraldo Fernando Gomes",
-        phoneNumber: "31999999999",
-        homePhoneNumber: "31999999999",
-        address: {
-          cep: "30575180",
-          logradouro: "Modestinda de Souza",
-          complementos: "120",
-          bairro: "Industrial",
-          numero: "56",
-          localidade: "Contagem",
-        },
-      },
-      {
-        id: 3,
-        student: "Derick",
-        enrollment: 12000522,
-        classroom: "3B1",
-        subject: "Portugues",
-        status: ["Pendente"],
-        financialResponsable: "Sirleia Gomes de Souza",
-        pedagogicalResponsable: "Geraldo Fernando Gomes",
-        phoneNumber: "31999999999",
-        homePhoneNumber: "31999999999",
-        address: {
-          cep: "30575180",
-          logradouro: "Modestinda de Souza",
-          complementos: "120",
-          bairro: "Industrial",
-          numero: "56",
-          localidade: "Contagem",
-        },
-      },
-    ];
-  };
+  const [metrics, setMetrics] = useState<Aluno[]>();
 
-  const getAll = useCallback(async () => {
-    const data = await findByFilter();
+  const findStudents = useCallback(async () => {
+    const { status, data } = await findByFilter();
+    if (status !== 200) throw new Error();
+    console.log(data);
+    setMetrics(data);
   }, []);
+
+  useEffect(() => {
+    findStudents();
+  }, [findStudents]);
 
   return (
     <div className={className}>
@@ -144,7 +88,7 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
             <SearchSelect placeHolder="Selecione a Disciplina" />
           </div>
         </div>
-        <DataTable data={handleData()} />
+        <DataTable data={metrics} />
       </BaseContainer>
     </div>
   );

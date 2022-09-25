@@ -10,12 +10,13 @@ import { Form, Input, Space, Table, Tabs, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Avatar } from "antd";
 import { Badge } from "antd";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { modalVisibility } from "../../utils/exports";
 import DataTableModal from "./dataTableModal";
 import CommomText from "../CommomText/commomText";
 import { RequiredMark } from "antd/lib/form/Form";
 import StudentMetric from "../StudentMetric/studentMetric";
+import { findByFilter } from "../../services/activeRoomService";
 
 type DataTableProps = {
   className?: string;
@@ -25,6 +26,7 @@ type DataTableProps = {
 const DataTable = ({ className, data }: DataTableProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [aluno, setAluno] = useState<Aluno>();
+  const [metrics, setMetrics] = useState<{ students: Aluno }>();
 
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] =
@@ -43,78 +45,6 @@ const DataTable = ({ className, data }: DataTableProps) => {
     setAluno(data);
   };
 
-  const metrics: Metrics[] = [
-    {
-      subject: "Matemática",
-      availableClasses: 40,
-      presences: 22,
-      absences: 10,
-      pendences: 8,
-      percent: 35,
-      status: "normal",
-    },
-
-    {
-      subject: "Português",
-      availableClasses: 40,
-      presences: 8,
-      absences: 13,
-      pendences: 19,
-      percent: 12,
-      status: "exception",
-    },
-
-    {
-      subject: "DevWeb",
-      availableClasses: 40,
-      presences: 37,
-      absences: 3,
-      pendences: 0,
-      percent: 100,
-      status: "success",
-    },
-
-    {
-      subject: "Framework",
-      availableClasses: 40,
-      presences: 22,
-      absences: 10,
-      pendences: 8,
-      percent: 70,
-      status: "normal",
-    },
-
-    {
-      subject: "Framework",
-      availableClasses: 40,
-      presences: 22,
-      absences: 10,
-      pendences: 8,
-      percent: 70,
-      status: "normal",
-    },
-
-    {
-      subject: "Framework",
-      availableClasses: 40,
-      presences: 22,
-      absences: 10,
-      pendences: 8,
-      percent: 70,
-      status: "normal",
-    },
-
-    {
-      subject: "Framework",
-      availableClasses: 40,
-      presences: 22,
-      absences: 10,
-      pendences: 8,
-      percent: 70,
-      status: "normal",
-    },
-  ];
-
   const columns: ColumnsType<Aluno> = [
     {
       title: "Aluno",
@@ -124,7 +54,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
         <div className="d-flex align-items-center">
           <Avatar
             style={{
-              backgroundColor: "rgba(39, 52, 182, 0.8)",
+              backgroundColor: "rgba(134, 139, 189, 0.8)",
               color: "white",
               display: "flex",
               justifyContent: "center",
@@ -175,9 +105,14 @@ const DataTable = ({ className, data }: DataTableProps) => {
     },
     {
       title: "Matéria",
-      dataIndex: "subject",
+      dataIndex: "subject[0].materia.nome",
       key: "subject",
-      render: (text) => <a>{text}</a>,
+      render: (_, { subject }) => (
+        <>
+              <a>{subject[0]?.materia?.nome || "vazio"}</a>
+        </>
+      ),
+      // render: (text) => <a>{text}</a>,
     },
 
     {
@@ -200,11 +135,11 @@ const DataTable = ({ className, data }: DataTableProps) => {
 
   const handleTagColor = (tag: String) => {
     switch (tag) {
-      case "Presente":
+      case "presente":
         return "#2EB73C";
-      case "Pendente":
+      case "pendente":
         return "#EBAA02";
-      case "Ausente":
+      case "ausente":
         return "rgba(255, 0, 0, 0.66)";
     }
   };
@@ -376,9 +311,9 @@ const DataTable = ({ className, data }: DataTableProps) => {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Métricas" key="2">
               <div className="row">
-                {metrics.map((item) => {
+                {/* {metrics?.map((item) => {
                   return <StudentMetric metrics={item} />;
-                })}
+                })} */}
               </div>
             </Tabs.TabPane>
           </Tabs>
