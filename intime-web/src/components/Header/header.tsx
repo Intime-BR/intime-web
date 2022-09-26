@@ -3,6 +3,7 @@ import {
   MenuUnfoldOutlined,
   UserOutlined,
   DashboardOutlined,
+  PlusCircleOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
@@ -122,6 +123,17 @@ export const HeaderApp: React.FC<Children> = (props) => {
                 </Link>
               ),
               label: "Salas ativas",
+            },
+            {
+              key: "3",
+              icon: (
+                <Link to="/register-users">
+                  <div className="icon-style">
+                  <PlusCircleOutlined />
+                  </div>
+                </Link>
+              ),
+              label: "Cadastro de usuários",
             },
           ]}
         />

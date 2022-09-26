@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound/notFound";
 import { useEffect, useState } from "react";
 import Protected from "./protected";
 import { ConvertStringToBool } from "./utils/exports";
+import RegisterUsers from "./pages/RegisterUsers/registerUsers";
 
 const AppRoute = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
@@ -30,6 +31,7 @@ const AppRoute = () => {
           <Route path="/" element={<Dashboard />} />
           <Route path="/active-room" element={<ActiveRoom />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/register-users" element={<RegisterUsers />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Protected>
