@@ -6,24 +6,24 @@ import {
   FileDoneOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
+import { Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Avatar } from "antd";
 import { Badge } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { modalVisibility } from "../../utils/exports";
-import DataTableModal from "./dataTableModal";
+import DataTableUsersModal from "./dataTableUsersModal";
 import CommomText from "../CommomText/commomText";
 import { RequiredMark } from "antd/lib/form/Form";
 import StudentMetric from "../StudentMetric/studentMetric";
 import { findByFilter } from "../../services/activeRoomService";
 
-type DataTableProps = {
+type DataTableUsersProps = {
   className?: string;
   data?: Aluno[];
 };
 
-const DataTable = ({ className, data }: DataTableProps) => {
+const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [aluno, setAluno] = useState<Aluno>();
   const [metrics, setMetrics] = useState<{ students: Aluno }>();
@@ -47,7 +47,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
 
   const columns: ColumnsType<Aluno> = [
     {
-      title: "Aluno",
+      title: "Usuário",
       dataIndex: "student",
       key: "student",
       render: (text) => (
@@ -70,51 +70,17 @@ const DataTable = ({ className, data }: DataTableProps) => {
       ),
     },
     {
-      title: "Matrícula",
+      title: "E-mail",
       dataIndex: "enrollment",
       key: "enrollment",
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Status",
-      key: "status",
-      dataIndex: "status",
-      render: (_, { status }) => (
-        <>
-          {status?.map((tag) => {
-            return (
-              <Tag
-                className="rounded"
-                style={{ padding: "2px 10px", fontSize: "13px" }}
-                color={handleTagColor(tag)}
-                key={tag}
-              >
-                <Badge status="default" />
-                {tag}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    {
-      title: "Sala",
+      title: "Data de Cadastro",
       dataIndex: "classroom",
       key: "classroom",
       render: (text) => <a>{text}</a>,
     },
-    {
-      title: "Matéria",
-      dataIndex: "subject[0].materia.nome",
-      key: "subject",
-      render: (_, { subject }) => (
-        <>
-              <a>{subject[0]?.materia?.nome || "vazio"}</a>
-        </>
-      ),
-      // render: (text) => <a>{text}</a>,
-    },
-
     {
       title: "Ações",
       key: "action",
@@ -146,10 +112,9 @@ const DataTable = ({ className, data }: DataTableProps) => {
 
   return (
     <div className={className}>
-      <Table scroll={{ x: true }} columns={columns} dataSource={data} 
-       locale={{ emptyText: (<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Não há dados" />)
-       }}  />
-      <DataTableModal
+      <Table scroll={{ x: true }} columns={columns} dataSource={data} locale={{ emptyText: (<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Não há dados" />)
+       }} />
+      <DataTableUsersModal
         title="Editar Dados"
         isVisible={isVisible}
         onCancel={() => setIsVisible(modalVisibility(isVisible))}
@@ -320,11 +285,11 @@ const DataTable = ({ className, data }: DataTableProps) => {
             </Tabs.TabPane>
           </Tabs>
         </div>
-      </DataTableModal>
+      </DataTableUsersModal>
     </div>
   );
 };
-export default styled(DataTable)`
+export default styled(DataTableUsers)`
   width: 100%;
   height: 100%;
 `;
