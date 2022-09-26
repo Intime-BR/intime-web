@@ -1,4 +1,4 @@
-import { Button, Empty } from "antd";
+import { Button, Empty, Spin } from "antd";
 
 import { DashboardOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { useCallback, useEffect, useState } from "react";
 import { Aluno } from "../../interfaces/interfaces";
 import { findByFilter } from "../../services/activeRoomService";
+import "./activeRoom.css"
 
 type ActiveRoomProps = {
   className?: string;
@@ -17,12 +18,14 @@ type ActiveRoomProps = {
 
 const ActiveRoom = ({ className }: ActiveRoomProps) => {
   const [metrics, setMetrics] = useState<Aluno[]>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const findStudents = useCallback(async () => {
     const { status, data } = await findByFilter();
     if (status !== 200) throw new Error();
     console.log(data);
     setMetrics(data);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -88,7 +91,16 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
             <SearchSelect placeHolder="Selecione a Disciplina" />
           </div>
         </div>
+        {!loading ? (
         <DataTable data={metrics} />
+        ) : (
+          <div
+            className="d-flex justify-content-center"
+            style={{ marginTop: "20px" }}
+          >
+            <Spin />
+          </div>
+        )}
       </BaseContainer>
     </div>
   );

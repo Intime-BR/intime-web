@@ -1,0 +1,13 @@
+.ant-spin-dot-item {
+    position: absolute;
+    display: block;
+    width: 9px;
+    height: 9px;
+    background-color: #6470E8;
+    border-radius: 100%;
+    transform: scale(0.75);
+    transform-origin: 50% 50%;
+    opacity: 0.3;
+    -webkit-animation: antSpinMove 1s infinite linear alternate;
+    animation: antSpinMove 1s infinite linear alternate;
+}
