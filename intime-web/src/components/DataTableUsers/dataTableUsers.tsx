@@ -86,9 +86,7 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
             <EditFilled />
           </a>
           <a>
-            <DeleteOutlined
-              onClick={() => console.log("INFO BUTTON")}
-            />
+            <DeleteOutlined onClick={() => console.log("INFO BUTTON")} />
           </a>
         </Space>
       ),
@@ -108,8 +106,19 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
 
   return (
     <div className={className}>
-      <Table scroll={{ x: true }} columns={columns} dataSource={data} locale={{ emptyText: (<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Não há dados" />)
-       }} />
+      <Table
+        scroll={{ x: true }}
+        columns={columns}
+        dataSource={data}
+        locale={{
+          emptyText: (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description="Não há dados"
+            />
+          ),
+        }}
+      />
       <DataTableUsersModal
         title="Editar Dados"
         isVisible={isVisible}
@@ -117,8 +126,7 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
         onOk={() => setIsVisible(modalVisibility(isVisible))}
         okButtonText="Salvar"
         width="70%"
-      >
-      </DataTableUsersModal>
+      ></DataTableUsersModal>
     </div>
   );
 };

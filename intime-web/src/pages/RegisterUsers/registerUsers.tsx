@@ -12,62 +12,104 @@ import { modalVisibility } from "../../utils/exports";
 import { Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
 import { RequiredMark } from "antd/lib/form/Form";
 import { User } from "../../interfaces/interfaces";
-import { findByFilter } from "../../services/registerUserService";
+import { createUser, findByFilter } from "../../services/registerUserService";
 
 type RegisterUsersProps = {
   className?: string;
 };
 
-
 type DataTableModalProps = {
-    className?: String;
-    isVisible?: boolean;
-    title?: String;
-    onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-    onOk?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-    okButtonText?: String;
-    children?: JSX.Element | JSX.Element[];
-    width?: string | number;
-    height?: string | number;
-    centered: boolean
-  };
+  className?: String;
+  isVisible?: boolean;
+  title?: String;
+  onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  onOk?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  okButtonText?: String;
+  children?: JSX.Element | JSX.Element[];
+  width?: string | number;
+  height?: string | number;
+  centered: boolean;
+};
 
 const RegisterUsers = ({ className }: RegisterUsersProps) => {
-    const [listUsers, setlistUsers] = useState<User[]>();
-    const [isVisible, setIsVisible] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [form] = Form.useForm();
-    const [requiredMark, setRequiredMarkType] =
+  const [inputValue, setInputValue] = useState<{
+    nome?: string;
+    email?: string;
+    senha?: string;
+    data?: Date;
+  }>();
+
+  const handleEmail = (email: string) => {
+    setInputValue({
+      nome: inputValue?.nome,
+      email: email,
+      senha: inputValue?.senha,
+    });
+    console.log(inputValue?.email);
+  };
+
+  const handleNome = (nome: string) => {
+    setInputValue({
+      nome: nome,
+      email: inputValue?.email,
+      senha: inputValue?.senha,
+    });
+    // console.log(inputValue?.nome);
+  };
+
+  const handleSenha = (senha: string) => {
+    setInputValue({
+      senha: senha,
+      email: inputValue?.email,
+      nome: inputValue?.nome,
+    });
+  };
+
+  const createUsers = useCallback(async () => {
+    setInputValue({
+      senha: inputValue?.senha,
+      email: inputValue?.email,
+      nome: inputValue?.nome,
+      data: new Date(),
+    });
+    const { status, data } = await createUser({
+      nome: inputValue?.nome,
+      email: inputValue?.email,
+      senha: inputValue?.senha,
+      criado_em: inputValue?.data,
+    });
+    if (status !== 200) throw new Error();
+  }, [inputValue]);
+
+  const [listUsers, setlistUsers] = useState<User[]>();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [form] = Form.useForm();
+  const [requiredMark, setRequiredMarkType] =
     useState<RequiredMark>("optional");
-    const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
-    const findUsers = useCallback(async () => {
-        const { status, data } = await findByFilter();
-        if (status !== 200) throw new Error();
-        console.log(data);
-        setlistUsers(data);
-        setLoading(false);
-      }, []);
-    
-      useEffect(() => {
-        findUsers();
-      }, [findUsers]);
-    
+  const findUsers = useCallback(async () => {
+    const { status, data } = await findByFilter();
+    if (status !== 200) throw new Error();
+    setlistUsers(data);
+    setLoading(false);
+  }, []);
 
-    const onRequiredTypeChange = ({
-        requiredMarkValue,
-      }: {
-        requiredMarkValue: RequiredMark;
-      }) => {
-        setRequiredMarkType(requiredMarkValue);
-      };
+  useEffect(() => {
+    findUsers();
+  }, [findUsers]);
 
+  const onRequiredTypeChange = ({
+    requiredMarkValue,
+  }: {
+    requiredMarkValue: RequiredMark;
+  }) => {
+    setRequiredMarkType(requiredMarkValue);
+  };
 
-    const handleUser = () => {
-        setIsVisible(modalVisibility(isVisible));
-      };
-    
-
+  const handleUser = () => {
+    setIsVisible(modalVisibility(isVisible));
+  };
 
   return (
     <div className={className}>
@@ -125,73 +167,95 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
         centered
         isVisible={isVisible}
         onCancel={() => setIsVisible(modalVisibility(isVisible))}
-        onOk={() => setIsVisible(modalVisibility(isVisible))}
+        onOk={createUsers}
         okButtonText="Salvar"
       >
-           <Form
-                form={form}
-                layout="vertical"
-                initialValues={{ requiredMarkValue: requiredMark }}
-                onValuesChange={onRequiredTypeChange}
-                requiredMark={requiredMark}
+        <Form
+          form={form}
+          layout="vertical"
+          initialValues={{ requiredMarkValue: requiredMark }}
+          onValuesChange={onRequiredTypeChange}
+          requiredMark={requiredMark}
+        >
+          <div className="row">
+            <div className="col-12">
+              <Form.Item label="Usuário" required>
+                <Input
+                  className="w-100"
+                  onChange={(e) => handleNome(e.target.value)}
+                />
+              </Form.Item>
+            </div>
+            <div className="col-12">
+              <Form.Item
+                label="E-mail"
+                rules={[
+                  {
+                    type: "email",
+                    message: "Digite um e-mail válido",
+                  },
+                  {
+                    required: true,
+                    message: "Por favor, informe seu E-mail",
+                  },
+                ]}
+                required
               >
-                <div className="row">
-                  <div className="col-12">
-                    <Form.Item label="Usuário" required>
-                      <Input className="w-100" />
-                    </Form.Item>
-                  </div>
-                  <div className="col-12">
-                    <Form.Item label="E-mail" rules={[
-                        {
-                        type: "email",
-                        message: "Digite um e-mail válido",
-                        },
-                        {
-                        required: true,
-                        message: "Por favor, informe seu E-mail",
-                        },
-                    ]} required>
-                      <Input className="w-100"/>
-                    </Form.Item>
-                  </div>
-                  <div className="col-12">
-                    <Form.Item label="Data de Cadastro" required>
-                    <DatePicker className="w-100" format={dateFormatList} placeholder="" />
-                    </Form.Item>
-                  </div>
-                </div>
-              </Form>
+                <Input
+                  className="w-100"
+                  onChange={(e) => handleEmail(e.target.value)}
+                />
+              </Form.Item>
+            </div>
+            <div className="col-12">
+              <Form.Item
+                label="Senha"
+                rules={[
+                  {
+                    required: true,
+                    message: "Por favor, informe sua senha",
+                  },
+                ]}
+                required
+              >
+                <Input
+                  className="w-100"
+                  onChange={(e) => handleSenha(e.target.value)}
+                />
+              </Form.Item>
+            </div>
+          </div>
+        </Form>
       </DataTableModal>
     </div>
   );
 };
 
 const DataTableModal = ({
-    className,
-    isVisible,
-    title,
-    onOk,
-    onCancel,
-    okButtonText,
-    children,
-    width,
-  }: DataTableModalProps) => {
-    return (
-      <Modal
-        title={title}
-        centered
-        onOk={onOk}
-        visible={isVisible}
-        onCancel={onCancel}
-        cancelText={"Cancelar"}
-        okText={okButtonText}
-        width={width}
-      >
-        {children}
-      </Modal>
-    );
-  };
+  className,
+  isVisible,
+  title,
+  onOk,
+  onCancel,
+  okButtonText,
+  children,
+  width,
+}: DataTableModalProps) => {
+  return (
+    <Modal
+      title={title}
+      centered
+      onOk={onOk}
+      visible={isVisible}
+      onCancel={onCancel}
+      cancelText={"Cancelar"}
+      okText={okButtonText}
+      width={width}
+    >
+      {children}
+    </Modal>
+  );
+};
 
 export default styled(RegisterUsers)`
   width: 100%;
