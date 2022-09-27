@@ -54,7 +54,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
         <div className="d-flex align-items-center">
           <Avatar
             style={{
-              backgroundColor: "rgba(134, 139, 189, 0.8)",
+              backgroundColor: "rgba(39,52,182, 0.6)",
               color: "white",
               display: "flex",
               justifyContent: "center",

@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { useCallback, useEffect, useState } from "react";
 import { Aluno } from "../../interfaces/interfaces";
 import { findByFilter } from "../../services/activeRoomService";
-import "./activeRoom.css"
+import "./activeRoom.css";
 
 type ActiveRoomProps = {
   className?: string;
@@ -45,8 +45,8 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
         <div className="d-sm-flex m-b-5 align-items-center justify-content-between">
           <div className="media align-items-center m-b-5">
             <div className="media-body m-l-15">
-              <h5 className="mb-0">Análise de presenças</h5>
-              <span className="text-gray font-size-13">
+              <h5 className="mb-0 title-header">Análise de presenças</h5>
+              <span className="text-gray description">
                 Visualize e gerencie os dados de cada turma, filtrando seus
                 alunos e corrigindo pendências justificadas.
               </span>
@@ -92,7 +92,7 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
           </div>
         </div>
         {!loading ? (
-        <DataTable data={metrics} />
+          <DataTable data={metrics} />
         ) : (
           <div
             className="d-flex justify-content-center"
@@ -113,9 +113,14 @@ export default styled(ActiveRoom)`
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
   }
+  .title-header {
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+  }
   .description {
     font-family: "Montserrat", sans-serif;
-    font-size: 16px;
+    font-size: 15px;
   }
   .header-content {
     padding: 0px;

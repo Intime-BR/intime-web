@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Aluno, Metrics } from "../../interfaces/interfaces";
 import {
+  DeleteOutlined,
   EditFilled,
   ExclamationCircleOutlined,
   FileDoneOutlined,
@@ -90,7 +91,7 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
             <EditFilled onClick={() => handleCurrentAluno(record)} />
           </a>
           <a>
-            <ExclamationCircleOutlined
+            <DeleteOutlined
               onClick={() => console.log("INFO BUTTON")}
             />
           </a>

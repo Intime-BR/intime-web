@@ -4,7 +4,7 @@ import bottomBall from "../../assets/others/bottomBall.svg";
 import styled from "styled-components";
 import react, { useCallback, useState } from "react";
 import BaseContainer from "../BaseContainer/baseContainer";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Spin } from "antd";
 import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
 import { RequiredMark } from "antd/lib/form/Form";
 import ForgotPasswordModal from "./forgotPasswordModal";
@@ -28,6 +28,7 @@ const Login = ({ className }: LoginProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [email, setEmail] = useState<string>();
   const [senha, setSenha] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] =
@@ -43,6 +44,7 @@ const Login = ({ className }: LoginProps) => {
   };
 
   const callback = useCallback(async () => {
+    setLoading(true);
     const { status, data } = await loginVerify({
       email: email,
       senha: senha,
@@ -51,6 +53,7 @@ const Login = ({ className }: LoginProps) => {
     if (status == 200) {
       if (data) {
         localStorage.setItem("logged", "1");
+        setLoading(false);
         window.location.reload();
       } else {
         alert("USUARIO E SENHA TA ERRADO");
@@ -103,7 +106,9 @@ const Login = ({ className }: LoginProps) => {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
               >
-                <Form.Item label="Informe seu email" rules={[
+                <Form.Item
+                  label="Informe seu email"
+                  rules={[
                     {
                       type: "email",
                       message: "Digite um e-mail válido",
@@ -112,14 +117,24 @@ const Login = ({ className }: LoginProps) => {
                       required: true,
                       message: "Por favor, informe seu E-mail",
                     },
-                  ]} required>
+                  ]}
+                  required
+                >
                   <Input onChange={(e) => handleEmailInput(e.target.value)} />
                 </Form.Item>
                 <Form.Item label="Informe sua senha" required>
                   <Input onChange={(e) => handleSenhaInput(e.target.value)} />
                 </Form.Item>
                 <Form.Item>
-                  <BaseButton text="Entrar agora" onClick={callback} />
+                  {!loading ? (
+                    <Button className="btnLogin" onClick={callback}>
+                      Entrar agora
+                    </Button>
+                  ) : (
+                    <Button className="btnLogin">
+                      <Spin />
+                    </Button>
+                  )}
                 </Form.Item>
               </Form>
 
@@ -287,8 +302,22 @@ export default styled(Login)`
     font-size: 16px;
     width: 100%;
     height: 40px;
-    background: ${(props) => props.theme.colors.lightPrimary};
+    background: ${(props) => props.theme.colors.primary};
     border: 1px solid ${(props) => props.theme.colors.white};
     border-radius: 6px;
+  }
+
+  .ant-spin-dot-item {
+    position: absolute;
+    display: block;
+    width: 9px;
+    height: 9px;
+    background-color: #ffffff;
+    border-radius: 100%;
+    transform: scale(0.75);
+    transform-origin: 50% 50%;
+    opacity: 0.3;
+    -webkit-animation: antSpinMove 1s infinite linear alternate;
+    animation: antSpinMove 1s infinite linear alternate;
   }
 `;

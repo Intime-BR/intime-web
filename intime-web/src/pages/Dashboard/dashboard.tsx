@@ -46,7 +46,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <div className="d-sm-flex m-b-5 align-items-center justify-content-between">
           <div className="media align-items-center m-b-6">
             <div className="media-body header-content">
-              <h5 className="mb-0 title">Dados Gerais</h5>
+              <h5 className="mb-0 title-header">Dados Gerais</h5>
               <span className="text-gray description">
                 Consulte os dados de todas as turmas em tempo real, analise as
                 estatísticas e melhore o desempenho escolar.
@@ -200,16 +200,21 @@ export default styled(Dashboard)`
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
   }
+  .title-header {
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+  }
   .description {
     font-family: "Montserrat", sans-serif;
-    font-size: 16px;
+    font-size: 15px;
   }
-  .header-content{
+  .header-content {
     padding: 0px 12px;
   }
 
-  .filter-button{
-    background: ${(props)=> props.theme.colors.primary};
+  .filter-button {
+    background: ${(props) => props.theme.colors.primary};
     border-radius: 8px;
     color: white;
     padding: 20px 30px;
