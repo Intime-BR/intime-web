@@ -1,6 +1,6 @@
 export interface UserInterface {
-  usuario?: string;
+  nome?: string;
   email?: string;
   senha?: string;
-  dataCadastro?: Date
+  criado_em?: Date
 }
