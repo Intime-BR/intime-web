@@ -2,7 +2,7 @@ import phones from "../../assets/others/phones.svg";
 import logo_purple from "../../assets/logos/logo_purple.svg";
 import bottomBall from "../../assets/others/bottomBall.svg";
 import styled from "styled-components";
-import react, { useCallback, useState } from "react";
+import react, { useCallback, useEffect, useState } from "react";
 import BaseContainer from "../BaseContainer/baseContainer";
 import { Button, Form, Input, Spin } from "antd";
 import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
@@ -18,6 +18,11 @@ type LoginProps = {
 };
 
 const Login = ({ className }: LoginProps) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>();
+  const [senha, setSenha] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
+
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };
@@ -25,11 +30,7 @@ const Login = ({ className }: LoginProps) => {
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>();
-  const [senha, setSenha] = useState<string>();
-  const [loading, setLoading] = useState<boolean>(false);
-
+ 
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] =
     useState<RequiredMark>("optional");
@@ -49,18 +50,18 @@ const Login = ({ className }: LoginProps) => {
       email: email,
       senha: senha,
     });
+    console.log(data);
 
-    if (status == 200) {
-      if (data) {
-        localStorage.setItem("logged", "1");
-        setLoading(false);
-        window.location.reload();
-      } else {
-        alert("USUARIO E SENHA TA ERRADO");
-      }
-    } else {
-      throw new Error();
+    if(data) {
+      localStorage.setItem("logged", "1");
+      setLoading(false);
+      window.location.reload();
     }
+    else{
+      alert("Usuário ou Senha inválidos!");
+      setLoading(false);
+    }
+
   }, [email, senha]);
   // localStorage.setItem("logged", "1");
 
