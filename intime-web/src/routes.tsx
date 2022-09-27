@@ -40,8 +40,7 @@ const AppRoute = () => {
             path="/active-room"
             element={
               <HeaderApp>
-                {" "}
-                <ActiveRoom />{" "}
+                <ActiveRoom />
               </HeaderApp>
             }
           />
