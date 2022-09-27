@@ -1,4 +1,11 @@
-import { DashboardOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  DashboardOutlined,
+  LockOutlined,
+  MailOutlined,
+  PlusOutlined,
+  UserAddOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Button, DatePicker, Modal } from "antd";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -54,7 +61,6 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
       email: inputValue?.email,
       senha: inputValue?.senha,
     });
-    // console.log(inputValue?.nome);
   };
 
   const handleSenha = (senha: string) => {
@@ -179,7 +185,11 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
         >
           <div className="row">
             <div className="col-12">
-              <Form.Item label="Usuário" required>
+              <label className="d-flex align-items-center">
+                <UserOutlined />
+                <span style={{marginLeft: '5px'}}>Usuário</span>
+              </label>
+              <Form.Item required>
                 <Input
                   className="w-100"
                   onChange={(e) => handleNome(e.target.value)}
@@ -187,8 +197,11 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
               </Form.Item>
             </div>
             <div className="col-12">
+              <label className="d-flex align-items-center">
+                <MailOutlined />
+                <span style={{marginLeft: '5px'}}>E-mail</span>
+              </label>
               <Form.Item
-                label="E-mail"
                 rules={[
                   {
                     type: "email",
@@ -208,8 +221,11 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
               </Form.Item>
             </div>
             <div className="col-12">
+              <label className="d-flex align-items-center">
+                <LockOutlined />
+                <span style={{marginLeft: '5px'}}>Senha</span>
+              </label>
               <Form.Item
-                label="Senha"
                 rules={[
                   {
                     required: true,

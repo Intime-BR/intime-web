@@ -18,6 +18,7 @@ import CommomText from "../CommomText/commomText";
 import { RequiredMark } from "antd/lib/form/Form";
 import StudentMetric from "../StudentMetric/studentMetric";
 import { findByFilter } from "../../services/activeRoomService";
+import { updateUser } from "../../services/registerUserService";
 
 type DataTableUsersProps = {
   className?: string;
@@ -29,6 +30,54 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
   const [user, setUser] = useState<User>();
   const [metrics, setMetrics] = useState<{ students: User }>();
 
+  const [inputValue, setInputValue] = useState<{
+    nome?: string;
+    email?: string;
+    senha?: string;
+    data?: Date;
+  }>();
+
+  const handleEmail = (email: string) => {
+    setUser({
+      nome: user?.nome,
+      email: email,
+    });
+    setInputValue({
+      nome: inputValue?.nome,
+      email: email,
+      senha: inputValue?.senha,
+    });
+  };
+
+  const updateUsers = useCallback(async () => {
+    setInputValue({
+      senha: inputValue?.senha,
+      email: inputValue?.email,
+      nome: inputValue?.nome,
+      data: new Date(),
+    });
+
+    const { status, data } = await updateUser({
+      nome: inputValue?.nome,
+      email: inputValue?.email,
+      senha: inputValue?.senha,
+      criado_em: inputValue?.data,
+    });
+    if (status !== 200) throw new Error();
+  }, [inputValue]);
+
+  const handleUser = (nome: string) => {
+    setUser({
+      nome: nome,
+      email: user?.email,
+    });
+    setInputValue({
+      nome: nome,
+      email: inputValue?.email,
+      senha: inputValue?.senha,
+    });
+  };
+
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] =
     useState<RequiredMark>("optional");
@@ -39,6 +88,11 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
     requiredMarkValue: RequiredMark;
   }) => {
     setRequiredMarkType(requiredMarkValue);
+  };
+
+  const handleCurrentUser = (data: User) => {
+    setIsVisible(modalVisibility(isVisible));
+    setUser(data);
   };
 
   const columns: ColumnsType<User> = [
@@ -83,7 +137,7 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
       render: (_, record) => (
         <Space size="middle">
           <a>
-            <EditFilled />
+            <EditFilled onClick={() => handleCurrentUser(record)} />
           </a>
           <a>
             <DeleteOutlined onClick={() => console.log("INFO BUTTON")} />
@@ -123,10 +177,48 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
         title="Editar Dados"
         isVisible={isVisible}
         onCancel={() => setIsVisible(modalVisibility(isVisible))}
-        onOk={() => setIsVisible(modalVisibility(isVisible))}
+        onOk={updateUsers}
         okButtonText="Salvar"
-        width="70%"
-      ></DataTableUsersModal>
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          initialValues={{ requiredMarkValue: requiredMark }}
+          onValuesChange={onRequiredTypeChange}
+          requiredMark={requiredMark}
+        >
+          <div className="row">
+            <div className="col-12">
+              <Form.Item label="Usuário" required>
+                <Input
+                  onChange={(e) => handleUser(e.target.value)}
+                  value={user?.nome}
+                />
+              </Form.Item>
+            </div>
+            <div className="col-12">
+              <Form.Item label="E-mail" required>
+                <Input
+                  onChange={(e) => handleEmail(e.target.value)}
+                  value={user?.email}
+                />
+              </Form.Item>
+            </div>
+
+            {/* <div className="col-12">
+              <Form.Item label="Senha" required>
+                <Input value={user?.senha?.toString()} />
+              </Form.Item>
+            </div>  */}
+            {/* 
+            <div className="col-12">
+              <Form.Item label="Data de Cadastro" required>
+                <Input value={user?.criado_em?.toString()} />
+              </Form.Item>
+            </div> */}
+          </div>
+        </Form>
+      </DataTableUsersModal>
     </div>
   );
 };

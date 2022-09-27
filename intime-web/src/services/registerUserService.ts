@@ -19,3 +19,13 @@ export const createUser = (user: User) =>
     senha: user.senha,
     data: new Date(),
   });
+
+export const updateUser = (user: User) => {
+  Api.post<{ user: User }>("/users/update"),
+    {
+      nome: user.nome,
+      email: user.email,
+      senha: user.senha,
+      data: new Date(),
+    };
+};
