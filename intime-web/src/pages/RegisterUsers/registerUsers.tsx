@@ -7,10 +7,12 @@ import DataTable from "../../components/DataTable/dataTable";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
 import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import DataTableUsers from "../../components/DataTableUsers/dataTableUsers";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { modalVisibility } from "../../utils/exports";
 import { Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
 import { RequiredMark } from "antd/lib/form/Form";
+import { User } from "../../interfaces/interfaces";
+import { findByFilter } from "../../services/registerUserService";
 
 type RegisterUsersProps = {
   className?: string;
@@ -31,11 +33,26 @@ type DataTableModalProps = {
   };
 
 const RegisterUsers = ({ className }: RegisterUsersProps) => {
+    const [listUsers, setlistUsers] = useState<User[]>();
     const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [form] = Form.useForm();
     const [requiredMark, setRequiredMarkType] =
     useState<RequiredMark>("optional");
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
+
+    const findUsers = useCallback(async () => {
+        const { status, data } = await findByFilter();
+        if (status !== 200) throw new Error();
+        console.log(data);
+        setlistUsers(data);
+        setLoading(false);
+      }, []);
+    
+      useEffect(() => {
+        findUsers();
+      }, [findUsers]);
+    
 
     const onRequiredTypeChange = ({
         requiredMarkValue,
@@ -100,7 +117,7 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
             <SearchSelect placeHolder="Selecione o E-mail" />
           </div>
         </div>
-        <DataTableUsers />
+        <DataTableUsers data={listUsers} />
       </BaseContainer>
 
       <DataTableModal
