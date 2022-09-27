@@ -7,8 +7,6 @@ type ProtectedProps = {
 };
 
 const Protected = ({ isLoggedIn, children }: ProtectedProps) => {
-  const params = useParams();
-  console.log(params);
   if (!isLoggedIn) {
     return <Navigate to="/" replace />;
   }

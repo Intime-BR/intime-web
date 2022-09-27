@@ -36,7 +36,6 @@ const Login = ({ className }: LoginProps) => {
 
   const handleEmailInput = (value: string) => {
     setEmail(value);
-    console.log(email);
   };
 
   const handleSenhaInput = (value: string) => {

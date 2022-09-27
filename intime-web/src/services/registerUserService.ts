@@ -9,5 +9,13 @@ export const loginVerify = (user: User) =>
     usuario: user.nome,
     email: user.email,
     senha: user.senha,
-    dataCadastro: new Date()
+    dataCadastro: new Date(),
+  });
+
+export const createUser = (user: User) =>
+  Api.post<{ user: User }>("/users/create", {
+    nome: user.nome,
+    email: user.email,
+    senha: user.senha,
+    data: new Date(),
   });
