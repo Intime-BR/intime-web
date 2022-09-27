@@ -12,6 +12,6 @@ const Protected = ({ isLoggedIn, children }: ProtectedProps) => {
   if (!isLoggedIn) {
     return <Navigate to="/" replace />;
   }
-  return <HeaderApp>{children}</HeaderApp>;
+  return children;
 };
 export default Protected;

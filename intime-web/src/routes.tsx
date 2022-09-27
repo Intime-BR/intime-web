@@ -28,10 +28,39 @@ const AppRoute = () => {
     <Router>
       <Protected isLoggedIn={isLoggedIn}>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/active-room" element={<ActiveRoom />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/register-users" element={<RegisterUsers />} />
+          <Route
+            path="/"
+            element={
+              <HeaderApp>
+                <Dashboard />
+              </HeaderApp>
+            }
+          />
+          <Route
+            path="/active-room"
+            element={
+              <HeaderApp>
+                {" "}
+                <ActiveRoom />{" "}
+              </HeaderApp>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <HeaderApp>
+                <Dashboard />
+              </HeaderApp>
+            }
+          />
+          <Route
+            path="/register-users"
+            element={
+              <HeaderApp>
+                <RegisterUsers />
+              </HeaderApp>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Protected>

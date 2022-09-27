@@ -15,11 +15,11 @@ import { useMediaQuery } from "react-responsive";
 
 const { Header, Sider, Content } = Layout;
 
-type Children = {
-  children?: JSX.Element | JSX.Element[];
+type ChildrenProps = {
+  children?: any;
 };
 
-export const HeaderApp: React.FC<Children> = (props) => {
+export const HeaderApp = (props: ChildrenProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const [collapsedWidth, setCollapsedWidth] = useState<number>();
   const [sideNavStyle, setSideNavStyle] = useState<CSSProperties>();
@@ -129,7 +129,7 @@ export const HeaderApp: React.FC<Children> = (props) => {
               icon: (
                 <Link to="/register-users">
                   <div className="icon-style">
-                  <PlusCircleOutlined />
+                    <PlusCircleOutlined />
                   </div>
                 </Link>
               ),
