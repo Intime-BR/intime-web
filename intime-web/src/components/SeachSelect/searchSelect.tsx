@@ -9,7 +9,7 @@ type DataSelectProps = {
   onChange?: (value: any, option: any) => void;
   onSearch?: (value: String) => void;
   data?: Array<any>;
-  placeHolder?: String;
+  placeHolder?: string;
 };
 
 const DataSelect = ({
@@ -21,6 +21,7 @@ const DataSelect = ({
 }: DataSelectProps) => (
   <div className={`${className}`}>
     <Select
+      aria-valuetext={placeHolder}
       className="select"
       showSearch
       placeholder={placeHolder}
@@ -60,5 +61,4 @@ export default styled(DataSelect)`
     height: 40px;
     padding: 5px 11px;
   }
-  
 `;
