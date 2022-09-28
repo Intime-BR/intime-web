@@ -187,7 +187,7 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
             <div className="col-12">
               <label className="d-flex align-items-center">
                 <UserOutlined />
-                <span style={{marginLeft: '5px'}}>Usuário</span>
+                <span style={{ marginLeft: "5px" }}>Usuário</span>
               </label>
               <Form.Item required>
                 <Input
@@ -197,9 +197,9 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
               </Form.Item>
             </div>
             <div className="col-12">
-              <label className="d-flex align-items-center">
+              <label htmlFor="email" className="d-flex align-items-center">
                 <MailOutlined />
-                <span style={{marginLeft: '5px'}}>E-mail</span>
+                <span style={{ marginLeft: "5px" }}>E-mail</span>
               </label>
               <Form.Item
                 rules={[
@@ -215,15 +215,16 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
                 required
               >
                 <Input
+                  id="email"
                   className="w-100"
                   onChange={(e) => handleEmail(e.target.value)}
                 />
               </Form.Item>
             </div>
             <div className="col-12">
-              <label className="d-flex align-items-center">
+              <label htmlFor="senha" className="d-flex align-items-center">
                 <LockOutlined />
-                <span style={{marginLeft: '5px'}}>Senha</span>
+                <span style={{ marginLeft: "5px" }}>Senha</span>
               </label>
               <Form.Item
                 rules={[
@@ -235,6 +236,7 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
                 required
               >
                 <Input
+                  id="senha"
                   className="w-100"
                   onChange={(e) => handleSenha(e.target.value)}
                 />

@@ -13,7 +13,7 @@ const NotFound = ({ className }: NotFound) => {
     <div className={className}>
       <div className="container">
         <div className="logo">
-          <img src={LogoPurple} alt="" width={"200px"} />
+          <img src={LogoPurple} alt="LOGO DA EMPRESA INTIME" width={"200px"} />
         </div>
         <div className="center-container row">
           <div className=" col-lg-6 col-sm-12 text-content">
@@ -22,12 +22,16 @@ const NotFound = ({ className }: NotFound) => {
             <p>Não conseguimos encontrar o que você está procurando.</p>
 
             <Link to="/dashboard">
-            <button>Dashboard</button>
+              <button>Dashboard</button>
             </Link>
           </div>
 
           <div className="image col-lg-6 col-sm-12">
-            <img src={Cat} alt="" width={"100%"} />
+            <img
+              src={Cat}
+              alt="IMAGE DE NOT FOUND COM GATINHO"
+              width={"100%"}
+            />
           </div>
         </div>
       </div>

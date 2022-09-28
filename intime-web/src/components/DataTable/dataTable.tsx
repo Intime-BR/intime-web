@@ -109,7 +109,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
       key: "subject",
       render: (_, { subject }) => (
         <>
-              <a>{subject[0]?.materia?.nome || "vazio"}</a>
+          <a>{subject[0]?.materia?.nome || "vazio"}</a>
         </>
       ),
       // render: (text) => <a>{text}</a>,
@@ -146,9 +146,19 @@ const DataTable = ({ className, data }: DataTableProps) => {
 
   return (
     <div className={className}>
-      <Table scroll={{ x: true }} columns={columns} dataSource={data} 
-       locale={{ emptyText: (<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Não há dados" />)
-       }}  />
+      <Table
+        scroll={{ x: true }}
+        columns={columns}
+        dataSource={data}
+        locale={{
+          emptyText: (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description="Não há dados"
+            />
+          ),
+        }}
+      />
       <DataTableModal
         title="Editar Dados"
         isVisible={isVisible}
@@ -189,7 +199,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
                 marginBottom: "8px",
               }}
               src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              alt=""
+              alt="foto de perfil do usuario"
             />
             <div className="d-flex flex-column">
               <CommomText
@@ -222,61 +232,97 @@ const DataTable = ({ className, data }: DataTableProps) => {
               >
                 <div className="row">
                   <div className="col-4">
-                    <Form.Item label="Nome" required>
-                      <Input disabled value={aluno?.student.toString()} />
+                    <Form.Item htmlFor="nome" label="Nome" required>
+                      <Input
+                        id="nome"
+                        disabled
+                        value={aluno?.student.toString()}
+                      />
                     </Form.Item>
                   </div>
                   <div className="col-4">
-                    <Form.Item label="Matrícula" required>
-                      <Input disabled value={aluno?.enrollment.toString()} />
+                    <Form.Item htmlFor="matricula" label="Matrícula" required>
+                      <Input
+                        id="matricula"
+                        disabled
+                        value={aluno?.enrollment.toString()}
+                      />
                     </Form.Item>
                   </div>
                   <div className="col-4">
-                    <Form.Item label="Turma" required>
-                      <Input disabled value={aluno?.classroom?.toString()} />
+                    <Form.Item htmlFor="turma" label="Turma" required>
+                      <Input
+                        id="turma"
+                        disabled
+                        value={aluno?.classroom?.toString()}
+                      />
                     </Form.Item>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-4">
-                    <Form.Item label="Responsável Fianceiro" required>
+                    <Form.Item
+                      htmlFor="responsavel_financeiro"
+                      label="Responsável Fianceiro"
+                      required
+                    >
                       <Input
+                        id="responsavel_financeiro"
                         disabled
                         value={aluno?.financialResponsable?.toString()}
                       />
                     </Form.Item>
                   </div>
                   <div className="col-4">
-                    <Form.Item label="Responsável Pedagógico" required>
+                    <Form.Item
+                      htmlFor="responsavel_financeiro"
+                      label="Responsável Pedagógico"
+                      required
+                    >
                       <Input
+                        id="responsavel_pedagogico"
                         disabled
                         value={aluno?.pedagogicalResponsable?.toString()}
                       />
                     </Form.Item>
                   </div>
                   <div className="col-4">
-                    <Form.Item label="Telefone" required>
-                      <Input disabled value={aluno?.phoneNumber?.toString()} />
+                    <Form.Item htmlFor="telefone" label="Telefone" required>
+                      <Input
+                        id="telefone"
+                        disabled
+                        value={aluno?.phoneNumber?.toString()}
+                      />
                     </Form.Item>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-4">
-                    <Form.Item label="Telefone Fixo" required>
+                    <Form.Item
+                      htmlFor="telefone_fixo"
+                      label="Telefone Fixo"
+                      required
+                    >
                       <Input
+                        id="telefone_fixo"
                         disabled
                         value={aluno?.homePhoneNumber?.toString()}
                       />
                     </Form.Item>
                   </div>
                   <div className="col-4">
-                    <Form.Item label="CEP" required>
-                      <Input disabled value={aluno?.address?.cep?.toString()} />
+                    <Form.Item htmlFor="cep" label="CEP" required>
+                      <Input
+                        id="cep"
+                        disabled
+                        value={aluno?.address?.cep?.toString()}
+                      />
                     </Form.Item>
                   </div>
                   <div className="col-4">
-                    <Form.Item label="Rua" required>
+                    <Form.Item htmlFor="rua" label="Rua" required>
                       <Input
+                        id="rua"
                         disabled
                         value={aluno?.address?.logradouro?.toString()}
                       />
@@ -285,24 +331,27 @@ const DataTable = ({ className, data }: DataTableProps) => {
                 </div>
                 <div className="row">
                   <div className="col-4">
-                    <Form.Item label="Número" required>
+                    <Form.Item htmlFor="numero" label="Número" required>
                       <Input
+                        id="numero"
                         disabled
                         value={aluno?.address?.numero?.toString()}
                       />
                     </Form.Item>
                   </div>
                   <div className="col-4">
-                    <Form.Item label="Bairro" required>
+                    <Form.Item htmlFor="bairro" label="Bairro" required>
                       <Input
+                        id="bairro"
                         disabled
                         value={aluno?.address?.bairro?.toString()}
                       />
                     </Form.Item>
                   </div>
                   <div className="col-4">
-                    <Form.Item label="Cidade" required>
+                    <Form.Item htmlFor="cidade" label="Cidade" required>
                       <Input
+                        id="cidade"
                         disabled
                         value={aluno?.address?.localidade?.toString()}
                       />

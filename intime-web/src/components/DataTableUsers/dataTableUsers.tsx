@@ -189,16 +189,18 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
         >
           <div className="row">
             <div className="col-12">
-              <Form.Item label="Usuário" required>
+              <Form.Item htmlFor="usuario" label="Usuário" required>
                 <Input
+                  id="usuario"
                   onChange={(e) => handleUser(e.target.value)}
                   value={user?.nome}
                 />
               </Form.Item>
             </div>
             <div className="col-12">
-              <Form.Item label="E-mail" required>
+              <Form.Item htmlFor="email" label="E-mail" required>
                 <Input
+                  id="email"
                   onChange={(e) => handleEmail(e.target.value)}
                   value={user?.email}
                 />

@@ -67,7 +67,7 @@ export const HeaderApp = (props: ChildrenProps) => {
           {(isNormalScreen || isSmallScreen) && (
             <img
               src={collapsed ? clock : logo}
-              alt="intime"
+              alt="logotipo"
               style={{
                 width: "90%",
                 height: "48px",

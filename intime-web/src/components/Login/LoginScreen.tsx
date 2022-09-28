@@ -30,7 +30,7 @@ const Login = ({ className }: LoginProps) => {
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
- 
+
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] =
     useState<RequiredMark>("optional");
@@ -51,16 +51,14 @@ const Login = ({ className }: LoginProps) => {
     });
     console.log(data);
 
-    if(data) {
+    if (data) {
       localStorage.setItem("logged", "1");
       setLoading(false);
       window.location.reload();
-    }
-    else{
+    } else {
       alert("Usuário ou Senha inválidos!");
       setLoading(false);
     }
-
   }, [email, senha]);
   // localStorage.setItem("logged", "1");
 
@@ -85,16 +83,16 @@ const Login = ({ className }: LoginProps) => {
               Gerencie as turmas e receba feedbacks de performance e
               desenvolvimento.
             </p>
-            <img className="phones" src={phones} />
+            <img className="phones" src={phones} alt="exemplo aplicativo" />
             <div className="ball-container">
-              <img className="bottom-ball" src={bottomBall} alt="" />
+              <img className="bottom-ball" src={bottomBall} alt="bola" />
             </div>
           </div>
         </div>
         <div className="col-lg-8 col-md-6 col-sm-12">
           <div className="right-side">
             <div className="container login-card">
-              <img className="logo" src={logo_purple} alt="" />
+              <img className="logo" src={logo_purple} alt="logotipo" />
               <p className="title mt-4">Seja bem-vindo!</p>
               <p className="desc">Faça login para gerenciar suas informações</p>
               <Form
@@ -108,6 +106,7 @@ const Login = ({ className }: LoginProps) => {
               >
                 <Form.Item
                   label="Informe seu email"
+                  htmlFor="email"
                   rules={[
                     {
                       type: "email",
@@ -120,10 +119,17 @@ const Login = ({ className }: LoginProps) => {
                   ]}
                   required
                 >
-                  <Input onChange={(e) => handleEmailInput(e.target.value)} />
+                  <Input
+                    id="email"
+                    onChange={(e) => handleEmailInput(e.target.value)}
+                  />
                 </Form.Item>
-                <Form.Item label="Informe sua senha" required>
-                  <Input onChange={(e) => handleSenhaInput(e.target.value)} />
+                <Form.Item label="Informe sua senha" htmlFor="senha" required>
+                  <Input
+                    id="senha"
+                    type="password"
+                    onChange={(e) => handleSenhaInput(e.target.value)}
+                  />
                 </Form.Item>
                 <Form.Item>
                   {!loading ? (
