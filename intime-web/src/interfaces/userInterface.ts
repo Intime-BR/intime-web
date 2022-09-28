@@ -3,4 +3,5 @@ export interface UserInterface {
   email?: string;
   senha?: string;
   criado_em?: Date
+  hash_id?: string;
 }

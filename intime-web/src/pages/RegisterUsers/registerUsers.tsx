@@ -20,6 +20,7 @@ import { Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
 import { RequiredMark } from "antd/lib/form/Form";
 import { User } from "../../interfaces/interfaces";
 import { createUser, findByFilter } from "../../services/registerUserService";
+import { ToastContainer, toast } from "react-toastify";
 
 type RegisterUsersProps = {
   className?: string;
@@ -84,7 +85,17 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
       senha: inputValue?.senha,
       criado_em: inputValue?.data,
     });
-    if (status !== 200) throw new Error();
+
+    setIsVisible(false);
+    toast.success("Parabéns, usuário cadastrado!", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+    
+
+    if (status !== 200) {
+      throw new Error();
+    }
+   
   }, [inputValue]);
 
   const [listUsers, setlistUsers] = useState<User[]>();

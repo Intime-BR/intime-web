@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Avatar } from "antd";
+import { Avatar, Modal } from "antd";
 import { Badge } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { modalVisibility } from "../../utils/exports";
@@ -18,7 +18,9 @@ import CommomText from "../CommomText/commomText";
 import { RequiredMark } from "antd/lib/form/Form";
 import StudentMetric from "../StudentMetric/studentMetric";
 import { findByFilter } from "../../services/activeRoomService";
-import { updateUser } from "../../services/registerUserService";
+import { deleteUser, updateUser } from "../../services/registerUserService";
+import { ToastContainer, toast } from "react-toastify";
+import './dataTable.css'
 
 type DataTableUsersProps = {
   className?: string;
@@ -28,7 +30,20 @@ type DataTableUsersProps = {
 const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [user, setUser] = useState<User>();
+  const [currentHash, setCurrentHash] = useState<any>();
+  const [currentPassword, setCurrentPassword] = useState<any>();
   const [metrics, setMetrics] = useState<{ students: User }>();
+
+  // useEffect(() => {
+  //   findUser();
+  // }, [findStudents]);
+
+  // const showToastMessage = () => {
+  //   console.log("oii");
+  //   toast.success("Parabéns! O item foi deletado com sucesso!", {
+  //     position: toast.POSITION.TOP_RIGHT,
+  //   });
+  // };
 
   const [inputValue, setInputValue] = useState<{
     nome?: string;
@@ -37,10 +52,24 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
     data?: Date;
   }>();
 
+  const handleSenha = (senha: string) => {
+    setUser({
+      nome: user?.nome,
+      email: user?.email,
+      senha: senha,
+    });
+    setInputValue({
+      nome: inputValue?.nome,
+      email: inputValue?.email,
+      senha: senha,
+    });
+  };
+
   const handleEmail = (email: string) => {
     setUser({
       nome: user?.nome,
       email: email,
+      senha: user?.senha,
     });
     setInputValue({
       nome: inputValue?.nome,
@@ -51,25 +80,34 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
 
   const updateUsers = useCallback(async () => {
     setInputValue({
-      senha: inputValue?.senha,
       email: inputValue?.email,
       nome: inputValue?.nome,
+      senha: inputValue?.senha,
       data: new Date(),
     });
+    await updateUser(
+      {
+        nome: inputValue?.nome,
+        email: inputValue?.email,
+        criado_em: inputValue?.data,
+        senha: inputValue?.senha,
+      },
+      currentHash
+    );
 
-    const { status, data } = await updateUser({
-      nome: inputValue?.nome,
-      email: inputValue?.email,
-      senha: inputValue?.senha,
-      criado_em: inputValue?.data,
+    setIsVisible(false);
+    toast.success("Parabéns! Usuário atualizado com sucesso!", {
+      position: toast.POSITION.TOP_RIGHT,
     });
-    if (status !== 200) throw new Error();
-  }, [inputValue]);
+
+    console.log(data);
+  }, [inputValue, currentPassword]);
 
   const handleUser = (nome: string) => {
     setUser({
       nome: nome,
       email: user?.email,
+      senha: user?.senha,
     });
     setInputValue({
       nome: nome,
@@ -91,9 +129,40 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
   };
 
   const handleCurrentUser = (data: User) => {
+    console.log("data", data);
+    setCurrentHash(data.hash_id);
+    setCurrentPassword(data.senha);
     setIsVisible(modalVisibility(isVisible));
     setUser(data);
   };
+
+  const confirm = (user: User) => {
+    setCurrentHash(user.hash_id);
+    Modal.confirm({
+      title: "Deseja realmente excluir?",
+      icon: <ExclamationCircleOutlined />,
+      content:
+        "Atenção ao excluir o dado, você não poderá mais utilizá-lo dentro do sistema.",
+      okText: "Confirmar",
+      cancelText: "Cancelar",
+
+      onOk() {
+        deleteUsers(user);
+        setIsVisible(false);
+      },
+    });
+  };
+
+  const deleteUsers = useCallback(
+    async (user: User) => {
+      console.log(user.hash_id);
+      await deleteUser(user.hash_id);
+      toast.success("Parabéns! Usuário deletado com sucesso!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    },
+    [inputValue, currentPassword]
+  );
 
   const columns: ColumnsType<User> = [
     {
@@ -140,26 +209,16 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
             <EditFilled onClick={() => handleCurrentUser(record)} />
           </a>
           <a>
-            <DeleteOutlined onClick={() => console.log("INFO BUTTON")} />
+            <DeleteOutlined onClick={() => confirm(record)} />
           </a>
         </Space>
       ),
     },
   ];
 
-  const handleTagColor = (tag: String) => {
-    switch (tag) {
-      case "presente":
-        return "#2EB73C";
-      case "pendente":
-        return "#EBAA02";
-      case "ausente":
-        return "rgba(255, 0, 0, 0.66)";
-    }
-  };
-
   return (
     <div className={className}>
+      <ToastContainer />
       <Table
         scroll={{ x: true }}
         columns={columns}
@@ -206,12 +265,15 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
                 />
               </Form.Item>
             </div>
-
-            {/* <div className="col-12">
+            {/* 
+            <div className="col-12">
               <Form.Item label="Senha" required>
-                <Input value={user?.senha?.toString()} />
+                <Input
+                  onChange={(e) => handleSenha(e.target.value)}
+                  value={user?.senha?.toString()}
+                />
               </Form.Item>
-            </div>  */}
+            </div> */}
             {/* 
             <div className="col-12">
               <Form.Item label="Data de Cadastro" required>

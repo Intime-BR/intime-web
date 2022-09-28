@@ -1,0 +1,7 @@
+.ant-btn-primary {
+    color: #fff;
+    border-color: #6470E8;
+    background: #6470E8;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+}
