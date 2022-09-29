@@ -79,7 +79,10 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
     toast.success("Parabéns! Usuário atualizado com sucesso!", {
       position: toast.POSITION.TOP_RIGHT,
     });
-    window.location.reload();
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }, [inputValue, currentPassword]);
 
   const handleUser = (nome: string) => {

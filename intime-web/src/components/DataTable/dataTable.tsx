@@ -263,7 +263,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
                   <div className="col-4">
                     <Form.Item
                       htmlFor="responsavel_financeiro"
-                      label="Responsável Fianceiro"
+                      label="Responsável Financeiro"
                       required
                     >
                       <Input
