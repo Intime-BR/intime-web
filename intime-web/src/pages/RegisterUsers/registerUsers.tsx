@@ -90,12 +90,10 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
     toast.success("Parabéns, usuário cadastrado!", {
       position: toast.POSITION.TOP_RIGHT,
     });
-    
 
     if (status !== 200) {
       throw new Error();
     }
-   
   }, [inputValue]);
 
   const [listUsers, setlistUsers] = useState<User[]>();
@@ -114,7 +112,7 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
 
   useEffect(() => {
     findUsers();
-  }, [findUsers]);
+  }, [findUsers, isVisible]);
 
   const onRequiredTypeChange = ({
     requiredMarkValue,

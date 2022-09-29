@@ -16,15 +16,20 @@ import { ConvertStringToBool } from "./utils/exports";
 import RegisterUsers from "./pages/RegisterUsers/registerUsers";
 
 const AppRoute = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
-    ConvertStringToBool[localStorage.getItem("logged") || 0]()
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("logged")?.toString() || "false"
   );
 
+  const clearStorage = () => {
+    localStorage.clear();
+    return true;
+  };
+
   useEffect(() => {
-    isLoggedIn ? false : localStorage.setItem("logged", "0");
+    isLoggedIn ? false : clearStorage() && setIsLoggedIn("false");
   }, [isLoggedIn]);
 
-  return isLoggedIn ? (
+  return isLoggedIn == "true" ? (
     <Router>
       <Protected isLoggedIn={isLoggedIn}>
         <Routes>

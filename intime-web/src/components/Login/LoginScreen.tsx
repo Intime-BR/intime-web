@@ -10,8 +10,9 @@ import { RequiredMark } from "antd/lib/form/Form";
 import ForgotPasswordModal from "./forgotPasswordModal";
 import { modalVisibility } from "../../utils/exports";
 import BaseButton from "../Button/baseButton";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { loginVerify } from "../../services/loginService";
+import { toast, ToastContainer } from "react-toastify";
 
 type LoginProps = {
   className?: string;
@@ -22,6 +23,7 @@ const Login = ({ className }: LoginProps) => {
   const [email, setEmail] = useState<string>();
   const [senha, setSenha] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const onFinish = (values: any) => {
     console.log("Success:", values);
@@ -49,18 +51,18 @@ const Login = ({ className }: LoginProps) => {
       email: email,
       senha: senha,
     });
-    console.log(data);
-
     if (data) {
-      localStorage.setItem("logged", "1");
+      localStorage.setItem("logged", "true");
       setLoading(false);
-      window.location.reload();
+      setTimeout(() => window.location.reload(), 450);
     } else {
-      alert("Usuário ou Senha inválidos!");
+      toast.error("Email ou senha inválidos", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       setLoading(false);
+      localStorage.clear();
     }
   }, [email, senha]);
-  // localStorage.setItem("logged", "1");
 
   const onRequiredTypeChange = ({
     requiredMarkValue,
@@ -72,6 +74,7 @@ const Login = ({ className }: LoginProps) => {
 
   return (
     <div className={className}>
+      <ToastContainer />
       <div className="row">
         <div className=" col-lg-4 col-md-6 col-sm-12">
           <div className="left-side">

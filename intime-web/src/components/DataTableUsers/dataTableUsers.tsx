@@ -20,7 +20,7 @@ import StudentMetric from "../StudentMetric/studentMetric";
 import { findByFilter } from "../../services/activeRoomService";
 import { deleteUser, updateUser } from "../../services/registerUserService";
 import { ToastContainer, toast } from "react-toastify";
-import './dataTable.css'
+import "./dataTable.css";
 
 type DataTableUsersProps = {
   className?: string;
@@ -30,8 +30,8 @@ type DataTableUsersProps = {
 const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [user, setUser] = useState<User>();
-  const [currentHash, setCurrentHash] = useState<any>();
-  const [currentPassword, setCurrentPassword] = useState<any>();
+  const [currentHash, setCurrentHash] = useState<string>();
+  const [currentPassword, setCurrentPassword] = useState<string>();
   const [metrics, setMetrics] = useState<{ students: User }>();
 
   // useEffect(() => {
