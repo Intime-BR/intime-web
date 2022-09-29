@@ -21,6 +21,7 @@ import { findByFilter } from "../../services/activeRoomService";
 import { deleteUser, updateUser } from "../../services/registerUserService";
 import { ToastContainer, toast } from "react-toastify";
 import "./dataTable.css";
+import { useNavigate } from "react-router-dom";
 
 type DataTableUsersProps = {
   className?: string;
@@ -32,19 +33,7 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
   const [user, setUser] = useState<User>();
   const [currentHash, setCurrentHash] = useState<string>();
   const [currentPassword, setCurrentPassword] = useState<string>();
-  const [metrics, setMetrics] = useState<{ students: User }>();
-
-  // useEffect(() => {
-  //   findUser();
-  // }, [findStudents]);
-
-  // const showToastMessage = () => {
-  //   console.log("oii");
-  //   toast.success("Parabéns! O item foi deletado com sucesso!", {
-  //     position: toast.POSITION.TOP_RIGHT,
-  //   });
-  // };
-
+  const [controller, setController] = useState(false);
   const [inputValue, setInputValue] = useState<{
     nome?: string;
     email?: string;
@@ -52,18 +41,9 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
     data?: Date;
   }>();
 
-  const handleSenha = (senha: string) => {
-    setUser({
-      nome: user?.nome,
-      email: user?.email,
-      senha: senha,
-    });
-    setInputValue({
-      nome: inputValue?.nome,
-      email: inputValue?.email,
-      senha: senha,
-    });
-  };
+  useEffect(() => {
+    window;
+  }, [controller]);
 
   const handleEmail = (email: string) => {
     setUser({
@@ -99,8 +79,7 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
     toast.success("Parabéns! Usuário atualizado com sucesso!", {
       position: toast.POSITION.TOP_RIGHT,
     });
-
-    console.log(data);
+    window.location.reload();
   }, [inputValue, currentPassword]);
 
   const handleUser = (nome: string) => {
@@ -129,7 +108,6 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
   };
 
   const handleCurrentUser = (data: User) => {
-    console.log("data", data);
     setCurrentHash(data.hash_id);
     setCurrentPassword(data.senha);
     setIsVisible(modalVisibility(isVisible));
@@ -145,10 +123,10 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
         "Atenção ao excluir o dado, você não poderá mais utilizá-lo dentro do sistema.",
       okText: "Confirmar",
       cancelText: "Cancelar",
-
       onOk() {
         deleteUsers(user);
         setIsVisible(false);
+        window.location.reload();
       },
     });
   };
@@ -265,21 +243,6 @@ const DataTableUsers = ({ className, data }: DataTableUsersProps) => {
                 />
               </Form.Item>
             </div>
-            {/* 
-            <div className="col-12">
-              <Form.Item label="Senha" required>
-                <Input
-                  onChange={(e) => handleSenha(e.target.value)}
-                  value={user?.senha?.toString()}
-                />
-              </Form.Item>
-            </div> */}
-            {/* 
-            <div className="col-12">
-              <Form.Item label="Data de Cadastro" required>
-                <Input value={user?.criado_em?.toString()} />
-              </Form.Item>
-            </div> */}
           </div>
         </Form>
       </DataTableUsersModal>

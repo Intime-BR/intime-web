@@ -14,7 +14,7 @@ import DataTable from "../../components/DataTable/dataTable";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
 import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import DataTableUsers from "../../components/DataTableUsers/dataTableUsers";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { modalVisibility } from "../../utils/exports";
 import { Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
 import { RequiredMark } from "antd/lib/form/Form";
@@ -46,6 +46,12 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
     senha?: string;
     data?: Date;
   }>();
+  const [listUsers, setlistUsers] = useState<User[]>();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [form] = Form.useForm();
+  const [requiredMark, setRequiredMarkType] =
+    useState<RequiredMark>("optional");
 
   const handleEmail = (email: string) => {
     setInputValue({
@@ -53,7 +59,6 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
       email: email,
       senha: inputValue?.senha,
     });
-    console.log(inputValue?.email);
   };
 
   const handleNome = (nome: string) => {
@@ -95,13 +100,6 @@ const RegisterUsers = ({ className }: RegisterUsersProps) => {
       throw new Error();
     }
   }, [inputValue]);
-
-  const [listUsers, setlistUsers] = useState<User[]>();
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [form] = Form.useForm();
-  const [requiredMark, setRequiredMarkType] =
-    useState<RequiredMark>("optional");
 
   const findUsers = useCallback(async () => {
     const { status, data } = await findByFilter();
