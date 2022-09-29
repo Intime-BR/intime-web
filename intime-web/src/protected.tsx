@@ -1,8 +1,7 @@
 import { Navigate, useParams } from "react-router-dom";
-import { HeaderApp } from "./components/Header/header";
 
 type ProtectedProps = {
-  isLoggedIn: boolean;
+  isLoggedIn: boolean | string;
   children: any;
 };
 
