@@ -150,12 +150,9 @@ const Dashboard = ({ className }: DashBoardProps) => {
         shadow="none"
       >
         <div className="col-md-12 col-lg-6 col-sm-12 mt-3 mb-3">
-          <ProgressBarElementor />
-        </div>
-        <div className="col-md-6 col-lg-3 col-sm-12 mt-3 mb-3">
           <DailyAbsence />
         </div>
-        <div className="col-md-6 col-lg-3 col-sm-12 mt-3 mb-3">
+        <div className="col-md-12 col-lg-6 col-sm-12 mt-3 mb-3">
           <PresenceForSubject />
         </div>
       </BaseContainer>

@@ -78,7 +78,7 @@ const PresenceForSubject = ({
               cy="50%"
               labelLine={false}
               label={renderCustomizedLabel}
-              outerRadius={80}
+              outerRadius={115}
               dataKey="value"
             >
               {data.map((entry, index) => (

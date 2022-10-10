@@ -1,12 +1,9 @@
 import styled from "styled-components";
-import { PieChart, Pie, Cell, Label } from "recharts";
-
+import { PieChart, Pie, Cell, Label, Legend } from "recharts";
 
 const data = [
-  { name: "Group A", value: 400, color:'#0088FE' },
-  { name: "Group B", value: 300, color:'#00C49F' },
-  { name: "Group C", value: 300, color:'#FFBB28'},
-  { name: "Group D", value: 200, color:'#FF8042'},
+  { name: "Alunos Totais", value: 2000, color: "#00C49F" },
+  { name: "Alunos Faltosos", value: 210, color: "#ff4842" },
 ];
 
 type DailyAbsence = {
@@ -31,20 +28,23 @@ const DailyAbsence = ({
       <p>Média geral da escola</p>
       <div className="d-flex justify-content-center">
         <PieChart width={300} height={280}>
+          <Legend
+            layout="horizontal"
+            verticalAlign="bottom"
+            align="center"
+            iconSize={5}
+          />
           <Pie
             data={data}
-            innerRadius={60}
-            outerRadius={80}
+            innerRadius={90}
+            outerRadius={115}
             fill="#8884d8"
             paddingAngle={5}
             dataKey="value"
           >
             <Label className="value-label" value="12,5%" position="center" />
             {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={entry.color}
-              />
+              <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
           </Pie>
         </PieChart>
