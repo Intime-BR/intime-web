@@ -6,14 +6,16 @@ type ButtonProps = {
   col?: string;
   text?: string;
   onClick?: () => void;
+  style?: React.CSSProperties
 };
 
-const BaseButton = ({ className, col, text, onClick }: ButtonProps) => {
+const BaseButton = ({ className, col, text, onClick, style}: ButtonProps) => {
   return (
     <button
       className={`col-md-${col} ${className}`}
       type="button"
       onClick={onClick}
+      style={style}
     >
       {text}
     </button>

@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import Protected from "./protected";
 import { ConvertStringToBool } from "./utils/exports";
 import RegisterUsers from "./pages/RegisterUsers/registerUsers";
+import { ToastContainer } from "react-toastify";
 
 const AppRoute = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -31,6 +32,7 @@ const AppRoute = () => {
 
   return isLoggedIn == "true" ? (
     <Router>
+      <ToastContainer />
       <Protected isLoggedIn={isLoggedIn}>
         <Routes>
           <Route

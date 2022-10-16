@@ -5,17 +5,18 @@ import DynamicLineChart from "../../components/MiddleContent/lineChart";
 import DynamicSuggestionsCard from "../../components/MiddleContent/suggestionsCard";
 import SuggestionCardContent from "../../components/MiddleContent/suggestionCardContent";
 import PresenceForSubject from "../../components/BottomCharts/ChartPresenceForSubject";
-import ProgressBarElementor from "../../components/BottomCharts/ChartProgressBar";
 import DailyAbsence from "../../components/BottomCharts/ChartDailyAbsence";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
 import ChartsEstimate from "../../components/ChartsEstimate/chartsEstimate";
 import styled from "styled-components";
 import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
 import CommomText from "../../components/CommomText/commomText";
 import "./dashboard.css";
 import { modalVisibility } from "../../utils/exports";
+import { Class } from "../../interfaces/interfaces";
+import { getAllClasses } from "../../services/dashboardService";
 
 type DashBoardProps = {
   className?: string;
@@ -23,7 +24,14 @@ type DashBoardProps = {
 
 const Dashboard = ({ className }: DashBoardProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const { RangePicker } = DatePicker;
+
+  const [classes, setClasses] = useState<Class[]>();
+
+  const fetchAllClasses = useCallback(async () => {
+    await getAllClasses().then((res) => {
+      setClasses(res.data);
+    });
+  }, [classes]);
 
   const handleDateChange = (
     value: DatePickerProps["value"] | RangePickerProps["value"],
@@ -32,6 +40,10 @@ const Dashboard = ({ className }: DashBoardProps) => {
     console.log("Selected Time: ", value);
     console.log("Formatted Selected Time: ", dateString);
   };
+
+  useEffect(() => {
+    fetchAllClasses();
+  }, [classes]);
 
   return (
     <div className={className}>
@@ -108,7 +120,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
         shadow="none"
       >
         <div className="col-md-12 col-lg-6 col-sm-12 mt-3">
-          <DynamicLineChart />
+          <DynamicLineChart data={classes} />
         </div>
         <div className="col-md-12 col-lg-6 col-sm-12 col-sm-12 mt-3">
           <DynamicSuggestionsCard>

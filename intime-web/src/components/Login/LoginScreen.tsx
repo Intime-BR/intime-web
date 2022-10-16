@@ -2,15 +2,13 @@ import phones from "../../assets/others/phones.svg";
 import logo_purple from "../../assets/logos/logo_purple.svg";
 import bottomBall from "../../assets/others/bottomBall.svg";
 import styled from "styled-components";
-import react, { useCallback, useEffect, useState } from "react";
-import BaseContainer from "../BaseContainer/baseContainer";
+import { useCallback, useState } from "react";
 import { Button, Form, Input, Spin } from "antd";
-import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
 import { RequiredMark } from "antd/lib/form/Form";
 import ForgotPasswordModal from "./forgotPasswordModal";
 import { modalVisibility } from "../../utils/exports";
 import BaseButton from "../Button/baseButton";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { loginVerify } from "../../services/loginService";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -23,7 +21,6 @@ const Login = ({ className }: LoginProps) => {
   const [email, setEmail] = useState<string>();
   const [senha, setSenha] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   const onFinish = (values: any) => {
     console.log("Success:", values);

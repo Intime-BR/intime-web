@@ -6,7 +6,7 @@ const data = [
   { name: "Alunos Faltosos", value: 210, color: "#ff4842" },
 ];
 
-type DailyAbsence = {
+type DailyAbsenceProps = {
   className?: string;
   room?: string;
   percentValue?: number;
@@ -18,7 +18,7 @@ const DailyAbsence = ({
   room,
   percentValue,
   color,
-}: DailyAbsence) => {
+}: DailyAbsenceProps) => {
   return (
     <div className={className}>
       <div className="title-div d-flex justify-content-between">

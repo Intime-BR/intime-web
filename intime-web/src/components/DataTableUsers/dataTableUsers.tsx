@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Aluno, Metrics, User } from "../../interfaces/interfaces";
+import { User } from "../../interfaces/interfaces";
 import {
   DeleteOutlined,
   EditFilled,
@@ -7,21 +7,16 @@ import {
   FileDoneOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
+import { Empty, Form, Input, Space, Table} from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Avatar, Modal } from "antd";
-import { Badge } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { modalVisibility } from "../../utils/exports";
 import DataTableUsersModal from "./dataTableUsersModal";
-import CommomText from "../CommomText/commomText";
 import { RequiredMark } from "antd/lib/form/Form";
-import StudentMetric from "../StudentMetric/studentMetric";
-import { findByFilter } from "../../services/activeRoomService";
 import { deleteUser, updateUser } from "../../services/registerUserService";
 import { ToastContainer, toast } from "react-toastify";
 import "./dataTable.css";
-import { useNavigate } from "react-router-dom";
 
 type DataTableUsersProps = {
   className?: string;

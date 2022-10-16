@@ -1,4 +1,4 @@
-import { Button, Empty, Spin } from "antd";
+import { Button, Spin } from "antd";
 
 import { DashboardOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";

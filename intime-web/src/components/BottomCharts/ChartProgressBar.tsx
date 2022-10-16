@@ -2,7 +2,7 @@ import Card from "antd/lib/card/Card";
 import styled from "styled-components";
 import ItemChartProgressBar from "../ItemChartProgressBar/itemChartProgressBar";
 
-type ProgressBarElementor = {
+type ProgressBarElementorProps = {
   className?: string;
   title?: String;
   content?: String;
@@ -12,11 +12,7 @@ type ProgressBarElementor = {
 
 const ProgressBarElementor = ({
   className,
-  title,
-  content,
-  variation,
-  up,
-}: ProgressBarElementor) => {
+}: ProgressBarElementorProps) => {
   return (
     <Card
       style={{

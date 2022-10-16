@@ -1,22 +1,20 @@
 import styled from "styled-components";
-import { Aluno, Metrics } from "../../interfaces/interfaces";
+import { Aluno } from "../../interfaces/interfaces";
 import {
   EditFilled,
   ExclamationCircleOutlined,
   FileDoneOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
+import { Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Avatar } from "antd";
 import { Badge } from "antd";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { modalVisibility } from "../../utils/exports";
 import DataTableModal from "./dataTableModal";
 import CommomText from "../CommomText/commomText";
 import { RequiredMark } from "antd/lib/form/Form";
-import StudentMetric from "../StudentMetric/studentMetric";
-import { findByFilter } from "../../services/activeRoomService";
 
 type DataTableProps = {
   className?: string;
@@ -26,7 +24,6 @@ type DataTableProps = {
 const DataTable = ({ className, data }: DataTableProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [aluno, setAluno] = useState<Aluno>();
-  const [metrics, setMetrics] = useState<{ students: Aluno }>();
 
   const [form] = Form.useForm();
   const [requiredMark, setRequiredMarkType] =
