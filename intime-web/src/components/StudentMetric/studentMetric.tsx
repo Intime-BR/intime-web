@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import { Badge, Card, Progress, Tag } from "antd";
+import { Card, Progress, Tag } from "antd";
 import { Metrics } from "../../interfaces/interfaces";
 
 type StudentMetricProps = {

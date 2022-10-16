@@ -1,5 +1,3 @@
-import react from 'react'
-
 type SuggestionCardContentProps = {
     className?: string;
     image: string;

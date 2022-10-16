@@ -1,4 +1,4 @@
-import { Card, Progress } from "antd";
+import { Progress } from "antd";
 import styled from "styled-components";
 
 type ItemChartProgressBar = {

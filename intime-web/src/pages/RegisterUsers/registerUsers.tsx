@@ -1,26 +1,21 @@
 import {
-  DashboardOutlined,
   LockOutlined,
   MailOutlined,
   PlusOutlined,
-  UserAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, DatePicker, Modal } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Modal } from "antd";
 import styled from "styled-components";
 import BaseContainer from "../../components/BaseContainer/baseContainer";
-import DataTable from "../../components/DataTable/dataTable";
 import SearchSelect from "../../components/SeachSelect/searchSelect";
-import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import DataTableUsers from "../../components/DataTableUsers/dataTableUsers";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { modalVisibility } from "../../utils/exports";
-import { Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
+import { Form, Input} from "antd";
 import { RequiredMark } from "antd/lib/form/Form";
 import { User } from "../../interfaces/interfaces";
 import { createUser, findByFilter } from "../../services/registerUserService";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 type RegisterUsersProps = {
   className?: string;

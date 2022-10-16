@@ -3,7 +3,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  Label,
   PieLabel,
   Legend,
 } from "recharts";
@@ -53,9 +52,6 @@ const COLORS: Array<string> = data.map((item) => item.color);
 
 const PresenceForSubject = ({
   className,
-  room,
-  percentValue,
-  color,
 }: PresenceForSubject) => {
   return (
     <div className={className}>

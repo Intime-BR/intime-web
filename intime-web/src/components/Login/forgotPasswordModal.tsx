@@ -1,7 +1,6 @@
 import { Modal } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { modalVisibility } from "../../utils/exports";
 
 type ForgotPasswordModalProps = {
   className?: string;

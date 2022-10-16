@@ -1,9 +1,7 @@
-import react, { PureComponent } from "react";
 import styled from "styled-components";
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -11,39 +9,14 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-
-const data = [
-  {
-    name: "Segunda",
-    Faltas: 2400,
-  },
-  {
-    name: "Terça",
-    Faltas: 1398,
-  },
-  {
-    name: "Quarta",
-    Faltas: 1398,
-  },
-  {
-    name: "Quinta",
-    Faltas: 1398,
-  },
-  {
-    name: "Sexta",
-    Faltas: 1398,
-  },
-  {
-    name: "Sabado",
-    Faltas: 1398,
-  },
-];
+import { Class } from "../../interfaces/interfaces";
 
 type DynamicLineChartProps = {
   className?: string;
+  data?: Class[];
 };
 
-const DynamicLineChart = ({ className }: DynamicLineChartProps) => {
+const DynamicLineChart = ({ className, data }: DynamicLineChartProps) => {
   return (
     <div className={`${className}`}>
       <ResponsiveContainer
@@ -58,19 +31,34 @@ const DynamicLineChart = ({ className }: DynamicLineChartProps) => {
           data={data}
           margin={{
             top: 30,
-            right: 30,
-            left: 5,
-            bottom: 5,
+            right: 45,
+            left: 0,
+            bottom: 12,
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="nome" />
           <YAxis />
           <Tooltip />
           <Legend />
           <Bar
-            dataKey="Faltas"
-            fill="#8884d8"
+            dataKey="qnt_presencas"
+            name="Presentes"
+            fill="#AAB1ED"
+            radius={[5, 5, 0, 0]}
+            barSize={24}
+          />
+          <Bar
+            dataKey="qnt_pendencias"
+            name="Pendentes"
+            fill="#6470E8"
+            radius={[5, 5, 0, 0]}
+            barSize={24}
+          />
+          <Bar
+            dataKey="qnt_faltas"
+            name="Ausentes"
+            fill="#2e325d"
             radius={[5, 5, 0, 0]}
             barSize={24}
           />
