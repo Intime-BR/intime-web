@@ -1,4 +1,4 @@
-import { Button, Spin } from "antd";
+import { Button, Select, Spin } from "antd";
 
 import { DashboardOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -9,8 +9,16 @@ import BaseContainer from "../../components/BaseContainer/baseContainer";
 import styled from "styled-components";
 import { useCallback, useEffect, useState } from "react";
 import { Aluno } from "../../interfaces/interfaces";
-import { findByFilter } from "../../services/activeRoomService";
+import {
+  findByFilter,
+  getAllClass,
+  getAllDiscipline,
+  getAllEnrollment,
+} from "../../services/activeRoomService";
 import "./activeRoom.css";
+import { Matriculas } from "../../interfaces/matriculasInterface";
+import { Disciplinas } from "../../interfaces/disciplinasInterface";
+import { ClassInterface } from "../../interfaces/classInterface";
 
 type ActiveRoomProps = {
   className?: string;
@@ -19,6 +27,12 @@ type ActiveRoomProps = {
 const ActiveRoom = ({ className }: ActiveRoomProps) => {
   const [metrics, setMetrics] = useState<Aluno[]>();
   const [loading, setLoading] = useState<boolean>(true);
+  const [discipline, setDiscipline] = useState<Disciplinas[]>();
+  const [classes, setClasses] = useState<ClassInterface[]>();
+  const [enrollment, setEnrollment] = useState<Matriculas[]>();
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
+  const status = ["Pendente", "Falta", "Presente"];
 
   const findStudents = useCallback(async () => {
     const { status, data } = await findByFilter();
@@ -28,9 +42,34 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
     setLoading(false);
   }, []);
 
+  const getDiscipline = useCallback(async () => {
+    await getAllDiscipline().then((res) => {
+      setDiscipline(res.data);
+    });
+  }, [discipline]);
+
+  const getClass = useCallback(async () => {
+    await getAllClass().then((res) => {
+      setClasses(res.data);
+    });
+  }, [classes]);
+
+  const getEnrollment = useCallback(async () => {
+    await getAllEnrollment().then((res) => {
+      setEnrollment(res.data);
+    });
+  }, [enrollment]);
+
   useEffect(() => {
     findStudents();
+    getDiscipline();
+    getEnrollment();
+    getClass();
   }, [findStudents]);
+
+  const handleChange = (value: string | string[]) => {
+    console.log(`Selected: ${value}`);
+  };
 
   return (
     <div className={className}>
@@ -79,16 +118,58 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
       >
         <div className="row p-3">
           <div className="col-sm-12 col-lg-3 col-md-6 mt-3 mb-3">
-            <SearchSelect placeHolder="Selecione a Matrícula" />
+            <Select
+              showSearch
+              placeholder="Selecione a Matrícula"
+              value={selectedItems}
+              onChange={setSelectedItems}
+              style={{ width: "100%" }}
+            >
+              {enrollment?.map((item) => (
+                <Select.Option value={item.matricula}>
+                  {item.matricula}
+                </Select.Option>
+              ))}
+            </Select>
           </div>
           <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-3">
-            <SearchSelect placeHolder="Selecione o Status" />
+            <Select
+              showSearch
+              placeholder="Selecione o Status"
+              value={selectedItems}
+              onChange={setSelectedItems}
+              style={{ width: "100%" }}
+            >
+              {status?.map((item) => (
+                <Select.Option value={item}>{item}</Select.Option>
+              ))}
+            </Select>
           </div>
           <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-3">
-            <SearchSelect placeHolder="Selecione a Turma" />
+            <Select
+              showSearch
+              placeholder="Selecione a Turma"
+              value={selectedItems}
+              onChange={setSelectedItems}
+              style={{ width: "100%" }}
+            >
+              {classes?.map((item) => (
+                <Select.Option value={item.nome}>{item.nome}</Select.Option>
+              ))}
+            </Select>
           </div>
           <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-3">
-            <SearchSelect placeHolder="Selecione a Disciplina" />
+            <Select
+              showSearch
+              placeholder="Selecione a Disciplina"
+              value={selectedItems}
+              onChange={setSelectedItems}
+              style={{ width: "100%" }}
+            >
+              {discipline?.map((item) => (
+                <Select.Option value={item.nome}>{item.nome}</Select.Option>
+              ))}
+            </Select>
           </div>
         </div>
         {!loading ? (

@@ -16,7 +16,8 @@ import CommomText from "../../components/CommomText/commomText";
 import "./dashboard.css";
 import { modalVisibility } from "../../utils/exports";
 import { Class } from "../../interfaces/interfaces";
-import { getAllClasses } from "../../services/dashboardService";
+import { getAllClasses, getAllFaults, getAllPendences, getAllPresents, getMostDiscipline } from "../../services/dashboardService";
+import { Card } from "../../interfaces/cardInterface";
 
 type DashBoardProps = {
   className?: string;
@@ -26,12 +27,41 @@ const Dashboard = ({ className }: DashBoardProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const [classes, setClasses] = useState<Class[]>();
+  const [presents, setPresents] = useState<Card[]>();
+  const [pendences, setPendences] = useState<Card[]>();
+  const [faults, setFaults] = useState<Card[]>();
+  const [discipline, setDiscipline] = useState<Card[]>();
 
   const fetchAllClasses = useCallback(async () => {
     await getAllClasses().then((res) => {
       setClasses(res.data);
     });
   }, [classes]);
+
+  const getPresents = useCallback(async () => {
+    await getAllPresents().then((res) => {
+      setPresents(res.data)
+    })
+  }, [presents])
+
+
+  const getPendences = useCallback(async () => {
+    await getAllPendences().then((res) => {
+      setPendences(res.data)
+    })
+  }, [pendences])
+
+  const getFaults = useCallback(async () => {
+    await getAllFaults().then((res) => {
+      setFaults(res.data)
+    })
+  }, [faults])
+
+  const getMostOnlyDiscipline = useCallback(async () => {
+    await getMostDiscipline().then((res) => {
+      setDiscipline(res.data)
+    })
+  }, [faults])
 
   const handleDateChange = (
     value: DatePickerProps["value"] | RangePickerProps["value"],
@@ -41,8 +71,14 @@ const Dashboard = ({ className }: DashBoardProps) => {
     console.log("Formatted Selected Time: ", dateString);
   };
 
+  
+
   useEffect(() => {
     fetchAllClasses();
+    getFaults();
+    getPendences();
+    getPresents();
+    getMostOnlyDiscipline();
   }, [classes]);
 
   return (
@@ -85,7 +121,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3 chartEstimate">
           <ChartsEstimate
             title={"Presentes"}
-            content={"451 alunos"}
+            content={`${presents} alunos`}
             variation={"0.7"}
             up={true}
           />
@@ -93,7 +129,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
             title={"Faltas"}
-            content={"451 alunos"}
+            content={`${faults} alunos`}
             variation={"-0.1"}
             up={false}
           />
@@ -101,15 +137,15 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
             title={"Pendentes"}
-            content={"451 alunos"}
+            content={`${pendences} alunos`}
             variation={"-0.7"}
           />
         </div>
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
             title={"Matéria Destaque"}
-            content={"Framework"}
-            variation={"0.7"}
+            content={discipline?.nome}
+            variation={discipline?.qnt_presencas}
           />
         </div>
       </BaseContainer>
