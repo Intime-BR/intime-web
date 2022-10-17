@@ -20,5 +20,4 @@ export interface Subject {
 
 export interface Teste {
   nome: String;
-  professor: Number;
 }
