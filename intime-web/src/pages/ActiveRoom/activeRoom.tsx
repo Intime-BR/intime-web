@@ -30,7 +30,10 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
   const [discipline, setDiscipline] = useState<Disciplinas[]>();
   const [classes, setClasses] = useState<ClassInterface[]>();
   const [enrollment, setEnrollment] = useState<Matriculas[]>();
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItemEnrollment, setSelectedItemEnrollment] = useState<string[]>([]);
+  const [selectedItemClass, setSelectedItemClass] = useState<string[]>([]);
+  const [selectedItemDiscipline, setSelectedItemDiscipline] = useState<string[]>([]);
+  const [selectedItemStatus, setSelectedItemStatus] = useState<string[]>([]);
 
   const status = ["Pendente", "Falta", "Presente"];
 
@@ -121,8 +124,8 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
             <Select
               showSearch
               placeholder="Selecione a Matrícula"
-              value={selectedItems}
-              onChange={setSelectedItems}
+              value={selectedItemEnrollment}
+              onChange={setSelectedItemEnrollment}
               style={{ width: "100%" }}
             >
               {enrollment?.map((item) => (
@@ -136,8 +139,8 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
             <Select
               showSearch
               placeholder="Selecione o Status"
-              value={selectedItems}
-              onChange={setSelectedItems}
+              value={selectedItemStatus}
+              onChange={setSelectedItemStatus}
               style={{ width: "100%" }}
             >
               {status?.map((item) => (
@@ -149,8 +152,8 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
             <Select
               showSearch
               placeholder="Selecione a Turma"
-              value={selectedItems}
-              onChange={setSelectedItems}
+              value={selectedItemClass}
+              onChange={setSelectedItemClass}
               style={{ width: "100%" }}
             >
               {classes?.map((item) => (
@@ -162,8 +165,8 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
             <Select
               showSearch
               placeholder="Selecione a Disciplina"
-              value={selectedItems}
-              onChange={setSelectedItems}
+              value={selectedItemDiscipline}
+              onChange={setSelectedItemDiscipline}
               style={{ width: "100%" }}
             >
               {discipline?.map((item) => (

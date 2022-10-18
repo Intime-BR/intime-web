@@ -145,7 +145,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
           <ChartsEstimate
             title={"Matéria Destaque"}
             content={discipline?.nome}
-            variation={discipline?.qnt_presencas}
+            variation={discipline?.porcentagem_presencas}
           />
         </div>
       </BaseContainer>
