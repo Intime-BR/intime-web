@@ -27,10 +27,10 @@ const Dashboard = ({ className }: DashBoardProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const [classes, setClasses] = useState<Class[]>();
-  const [presents, setPresents] = useState<Card[]>();
-  const [pendences, setPendences] = useState<Card[]>();
-  const [faults, setFaults] = useState<Card[]>();
-  const [discipline, setDiscipline] = useState<Card[]>();
+  const [presents, setPresents] = useState<Card>();
+  const [pendences, setPendences] = useState<Card>();
+  const [faults, setFaults] = useState<Card>();
+  const [discipline, setDiscipline] = useState<Card>();
 
   const fetchAllClasses = useCallback(async () => {
     await getAllClasses().then((res) => {
@@ -59,9 +59,10 @@ const Dashboard = ({ className }: DashBoardProps) => {
 
   const getMostOnlyDiscipline = useCallback(async () => {
     await getMostDiscipline().then((res) => {
+      console.log(res.data)
       setDiscipline(res.data)
     })
-  }, [faults])
+  }, [discipline])
 
   const handleDateChange = (
     value: DatePickerProps["value"] | RangePickerProps["value"],
@@ -79,7 +80,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
     getPendences();
     getPresents();
     getMostOnlyDiscipline();
-  }, [classes]);
+  }, []);
 
   return (
     <div className={className}>
@@ -121,31 +122,31 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3 chartEstimate">
           <ChartsEstimate
             title={"Presentes"}
-            content={`${presents} alunos`}
-            variation={"0.7"}
+            content={presents?.presences.toString()}
+            variation={presents?.percentage}
             up={true}
           />
         </div>
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
             title={"Faltas"}
-            content={`${faults} alunos`}
-            variation={"-0.1"}
+            content={faults?.presences.toString()}
+            variation={faults?.percentage}
             up={false}
           />
         </div>
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
-            title={"Pendentes"}
-            content={`${pendences} alunos`}
-            variation={"-0.7"}
+            title={"Atrasados"}
+            content={pendences?.presences.toString()}
+            variation={pendences?.percentage}
           />
         </div>
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
             title={"Matéria Destaque"}
             content={discipline?.nome}
-            variation={discipline?.porcentagem_presencas}
+            variation={discipline?.percentage}
           />
         </div>
       </BaseContainer>
