@@ -1,4 +1,4 @@
-import { Button, DatePicker, Drawer, Space } from "antd";
+import { Button, DatePicker, Drawer, Space, Select } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 
 import DynamicLineChart from "../../components/MiddleContent/lineChart";
@@ -18,6 +18,8 @@ import { modalVisibility } from "../../utils/exports";
 import { Class } from "../../interfaces/interfaces";
 import { getAllClasses, getAllFaults, getAllPendences, getAllPresents, getMostDiscipline } from "../../services/dashboardService";
 import { Card } from "../../interfaces/cardInterface";
+import { getAllClass } from "../../services/activeRoomService";
+import { ClassInterface } from "../../interfaces/classInterface";
 
 type DashBoardProps = {
   className?: string;
@@ -27,6 +29,8 @@ const Dashboard = ({ className }: DashBoardProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const [classes, setClasses] = useState<Class[]>();
+  const [classesItem, setItemClasses] = useState<ClassInterface[]>();
+  const [selectedItemClass, setSelectedItemClass] = useState<string[]>([]);
   const [presents, setPresents] = useState<Card>();
   const [pendences, setPendences] = useState<Card>();
   const [faults, setFaults] = useState<Card>();
@@ -72,6 +76,12 @@ const Dashboard = ({ className }: DashBoardProps) => {
     console.log("Formatted Selected Time: ", dateString);
   };
 
+  const getClass = useCallback(async () => {
+    await getAllClass().then((res) => {
+      setItemClasses(res.data);
+    });
+  }, [classesItem]);
+
   
 
   useEffect(() => {
@@ -80,6 +90,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
     getPendences();
     getPresents();
     getMostOnlyDiscipline();
+    getClass();
   }, []);
 
   return (
@@ -122,7 +133,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3 chartEstimate">
           <ChartsEstimate
             title={"Presentes"}
-            content={presents?.presences.toString()}
+            content={`${presents?.presences.toString()} Alunos `}
             variation={presents?.percentage}
             up={true}
           />
@@ -130,7 +141,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
             title={"Faltas"}
-            content={faults?.presences.toString()}
+            content={`${faults?.presences.toString()} Alunos `}
             variation={faults?.percentage}
             up={false}
           />
@@ -138,7 +149,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
             title={"Atrasados"}
-            content={pendences?.presences.toString()}
+            content={`${pendences?.presences.toString()} Alunos`}
             variation={pendences?.percentage}
           />
         </div>
@@ -215,7 +226,17 @@ const Dashboard = ({ className }: DashBoardProps) => {
         </CommomText>
         <div className="row mb-3">
           <div className="col-md-12">
-            <SearchSelect placeHolder={"Selecione a turma"} />
+          <Select
+              showSearch
+              placeholder="Selecione a Turma"
+              value={selectedItemClass}
+              onChange={setSelectedItemClass}
+              style={{ width: "100%" }}
+            >
+              {classes?.map((item) => (
+                <Select.Option value={item.nome}>{item.nome}</Select.Option>
+              ))}
+            </Select>
           </div>
         </div>
         <CommomText>Selecione um período</CommomText>
