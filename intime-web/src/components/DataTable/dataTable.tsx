@@ -1,20 +1,20 @@
-import styled from "styled-components";
-import { Aluno } from "../../interfaces/interfaces";
+import styled from 'styled-components'
+import { Aluno } from '../../interfaces/interfaces'
 import {
   EditFilled,
   ExclamationCircleOutlined,
   FileDoneOutlined,
   UserOutlined,
-} from "@ant-design/icons";
-import { Empty, Form, Input, Space, Table, Tabs, Tag } from "antd";
-import type { ColumnsType } from "antd/es/table";
-import { Avatar } from "antd";
-import { Badge } from "antd";
-import { useState } from "react";
-import { modalVisibility } from "../../utils/exports";
-import DataTableModal from "./dataTableModal";
-import CommomText from "../CommomText/commomText";
-import { RequiredMark } from "antd/lib/form/Form";
+} from '@ant-design/icons'
+import { Empty, Form, Input, Space, Table, Tabs, Tag } from 'antd'
+import type { ColumnsType } from 'antd/es/table'
+import { Avatar } from 'antd'
+import { Badge } from 'antd'
+import { useState } from 'react'
+import { modalVisibility } from '../../utils/exports'
+import DataTableModal from './dataTableModal'
+import CommomText from '../CommomText/commomText'
+import { RequiredMark } from 'antd/lib/form/Form'
 
 type DataTableProps = {
   className?: string;
@@ -22,99 +22,99 @@ type DataTableProps = {
 };
 
 const DataTable = ({ className, data }: DataTableProps) => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [aluno, setAluno] = useState<Aluno>();
+  const [isVisible, setIsVisible] = useState<boolean>(false)
+  const [aluno, setAluno] = useState<Aluno>()
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
   const [requiredMark, setRequiredMarkType] =
-    useState<RequiredMark>("optional");
+    useState<RequiredMark>('optional')
 
   const onRequiredTypeChange = ({
     requiredMarkValue,
   }: {
     requiredMarkValue: RequiredMark;
   }) => {
-    setRequiredMarkType(requiredMarkValue);
-  };
+    setRequiredMarkType(requiredMarkValue)
+  }
 
   const handleCurrentAluno = (data: Aluno) => {
-    setIsVisible(modalVisibility(isVisible));
-    setAluno(data);
-  };
+    setIsVisible(modalVisibility(isVisible))
+    setAluno(data)
+  }
 
   const columns: ColumnsType<Aluno> = [
     {
-      title: "Aluno",
-      dataIndex: "student",
-      key: "student",
+      title: 'Aluno',
+      dataIndex: 'student',
+      key: 'student',
       render: (text) => (
         <div className="d-flex align-items-center">
           <Avatar
             style={{
-              backgroundColor: "rgba(39,52,182, 0.6)",
-              color: "white",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              backgroundColor: 'rgba(39,52,182, 0.6)',
+              color: 'white',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
             className="avatar"
             icon={<UserOutlined />}
           />
-          <span className="text-nowrap" style={{ marginLeft: "8px" }}>
+          <span className="text-nowrap" style={{ marginLeft: '8px' }}>
             {text}
           </span>
         </div>
       ),
     },
     {
-      title: "Matrícula",
-      dataIndex: "enrollment",
-      key: "enrollment",
+      title: 'Matrícula',
+      dataIndex: 'enrollment',
+      key: 'enrollment',
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Status",
-      key: "status",
-      dataIndex: "status",
+      title: 'Status',
+      key: 'status',
+      dataIndex: 'status',
       render: (_, { status }) => (
         <>
           {status?.map((tag) => {
             return (
               <Tag
                 className="rounded"
-                style={{ padding: "2px 10px", fontSize: "13px" }}
+                style={{ padding: '2px 10px', fontSize: '13px' }}
                 color={handleTagColor(tag)}
                 key={tag}
               >
                 <Badge status="default" />
                 {tag}
               </Tag>
-            );
+            )
           })}
         </>
       ),
     },
     {
-      title: "Sala",
-      dataIndex: "classroom",
-      key: "classroom",
+      title: 'Sala',
+      dataIndex: 'classroom',
+      key: 'classroom',
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Matéria",
-      dataIndex: "subject[0].materia.nome",
-      key: "subject",
+      title: 'Matéria',
+      dataIndex: 'subject[0].materia.nome',
+      key: 'subject',
       render: (_, { subject }) => (
         <>
-          <a>{subject[0]?.materia?.nome || "vazio"}</a>
+          <a>{subject![0]?.materia?.nome}</a>
         </>
       ),
       // render: (text) => <a>{text}</a>,
     },
 
     {
-      title: "Ações",
-      key: "action",
+      title: 'Ações',
+      key: 'action',
       render: (_, record) => (
         <Space size="middle">
           <a>
@@ -122,24 +122,24 @@ const DataTable = ({ className, data }: DataTableProps) => {
           </a>
           <a>
             <ExclamationCircleOutlined
-              onClick={() => console.log("INFO BUTTON")}
+              onClick={() => console.log('INFO BUTTON')}
             />
           </a>
         </Space>
       ),
     },
-  ];
+  ]
 
   const handleTagColor = (tag: String) => {
     switch (tag) {
-      case "presente":
-        return "#2EB73C";
-      case "pendente":
-        return "#EBAA02";
-      case "ausente":
-        return "rgba(255, 0, 0, 0.66)";
+      case 'presente':
+        return '#2EB73C'
+      case 'pendente':
+        return '#EBAA02'
+      case 'ausente':
+        return 'rgba(255, 0, 0, 0.66)'
     }
-  };
+  }
 
   return (
     <div className={className}>
@@ -168,21 +168,21 @@ const DataTable = ({ className, data }: DataTableProps) => {
           <div className="d-flex">
             <FileDoneOutlined
               style={{
-                fontSize: "24px",
-                color: "white",
-                background: "rgba(235, 170, 2, 1)",
-                width: "32px",
-                height: "32px",
-                padding: "4px",
-                borderRadius: "6px",
-                marginRight: "6px",
+                fontSize: '24px',
+                color: 'white',
+                background: 'rgba(235, 170, 2, 1)',
+                width: '32px',
+                height: '32px',
+                padding: '4px',
+                borderRadius: '6px',
+                marginRight: '6px',
               }}
             />
             <div className="">
-              <p className="m-0" style={{ fontSize: "14px" }}>
+              <p className="m-0" style={{ fontSize: '14px' }}>
                 Visualize o relatório da aluno(a) {aluno?.student}.
               </p>
-              <p className="m-0" style={{ fontSize: "14px" }}>
+              <p className="m-0" style={{ fontSize: '14px' }}>
                 Aqui você encontra dados específicos de cada matéria.
               </p>
             </div>
@@ -190,27 +190,27 @@ const DataTable = ({ className, data }: DataTableProps) => {
           <div className="d-flex align-items-center">
             <img
               style={{
-                width: "100px",
-                objectFit: "cover",
-                padding: "6px",
-                marginBottom: "8px",
+                width: '100px',
+                objectFit: 'cover',
+                padding: '6px',
+                marginBottom: '8px',
               }}
               src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
               alt="foto de perfil do usuario"
             />
             <div className="d-flex flex-column">
               <CommomText
-                style={{ fontSize: "16px", margin: "0", padding: "0" }}
+                style={{ fontSize: '16px', margin: '0', padding: '0' }}
               >
                 Aluno: {aluno?.student}
               </CommomText>
               <CommomText
-                style={{ fontSize: "16px", margin: "0", padding: "0" }}
+                style={{ fontSize: '16px', margin: '0', padding: '0' }}
               >
                 Matrícula: {aluno?.enrollment}
               </CommomText>
               <CommomText
-                style={{ fontSize: "16px", margin: "0", padding: "0" }}
+                style={{ fontSize: '16px', margin: '0', padding: '0' }}
               >
                 Turma: {aluno?.classroom}
               </CommomText>
@@ -368,9 +368,9 @@ const DataTable = ({ className, data }: DataTableProps) => {
         </div>
       </DataTableModal>
     </div>
-  );
-};
+  )
+}
 export default styled(DataTable)`
   width: 100%;
   height: 100%;
-`;
+`

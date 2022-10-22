@@ -1,87 +1,115 @@
-import { Button, Select, Spin } from "antd";
+import { Button, Select, Spin } from 'antd'
 
-import { DashboardOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { DashboardOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 
-import DataTable from "../../components/DataTable/dataTable";
-import SearchSelect from "../../components/SeachSelect/searchSelect";
-import BaseContainer from "../../components/BaseContainer/baseContainer";
-import styled from "styled-components";
-import { useCallback, useEffect, useState } from "react";
-import { Aluno } from "../../interfaces/interfaces";
+import DataTable from '../../components/DataTable/dataTable'
+import SearchSelect from '../../components/SeachSelect/searchSelect'
+import BaseContainer from '../../components/BaseContainer/baseContainer'
+import styled from 'styled-components'
+import { useCallback, useEffect, useState } from 'react'
+import { Aluno } from '../../interfaces/interfaces'
 import {
   findByFilter,
   getAllClass,
   getAllDiscipline,
   getAllEnrollment,
-} from "../../services/activeRoomService";
-import "./activeRoom.css";
-import { Matriculas } from "../../interfaces/matriculasInterface";
-import { Disciplinas } from "../../interfaces/disciplinasInterface";
-import { ClassInterface } from "../../interfaces/classInterface";
+} from '../../services/activeRoomService'
+import './activeRoom.css'
+import { Matriculas } from '../../interfaces/matriculasInterface'
+import { Disciplinas } from '../../interfaces/disciplinasInterface'
+import { ClassInterface } from '../../interfaces/classInterface'
 
 type ActiveRoomProps = {
   className?: string;
 };
 
 const ActiveRoom = ({ className }: ActiveRoomProps) => {
-  const [metrics, setMetrics] = useState<Aluno[]>();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [discipline, setDiscipline] = useState<Disciplinas[]>();
-  const [classes, setClasses] = useState<ClassInterface[]>();
-  const [enrollment, setEnrollment] = useState<Matriculas[]>();
-  const [selectedItemEnrollment, setSelectedItemEnrollment] = useState<string[]>([]);
-  const [selectedItemClass, setSelectedItemClass] = useState<string[]>([]);
-  const [selectedItemDiscipline, setSelectedItemDiscipline] = useState<string[]>([]);
-  const [selectedItemStatus, setSelectedItemStatus] = useState<string[]>([]);
+  const [metrics, setMetrics] = useState<Aluno[]>()
+  const [filteredMetrics, setFilteredMetrics] = useState<Aluno[]>()
+  const [loading, setLoading] = useState<boolean>(true)
+  const [discipline, setDiscipline] = useState<Disciplinas[]>()
+  const [classes, setClasses] = useState<ClassInterface[]>()
+  const [enrollment, setEnrollment] = useState<Matriculas[]>()
+  const [selectedItemEnrollment, setSelectedItemEnrollment] = useState<string[]>([])
+  const [selectedItemClass, setSelectedItemClass] = useState<string[]>([])
+  const [selectedItemDiscipline, setSelectedItemDiscipline] = useState<
+    string[]
+  >([])
+  const [selectedItemStatus, setSelectedItemStatus] = useState<string[]>([])
 
-  const status = ["Pendente", "Falta", "Presente"];
+  const status = ['Pendente', 'Falta', 'Presente']
 
   const findStudents = useCallback(async () => {
-    const { status, data } = await findByFilter();
-    if (status !== 200) throw new Error();
-    console.log(data);
-    setMetrics(data);
-    setLoading(false);
-  }, []);
+    const { status, data } = await findByFilter()
+    if (status !== 200) throw new Error()
+    setMetrics(data)
+    setFilteredMetrics(data)
+    setLoading(false)
+  }, [])
 
   const getDiscipline = useCallback(async () => {
     await getAllDiscipline().then((res) => {
-      setDiscipline(res.data);
-    });
-  }, [discipline]);
+      setDiscipline(res.data)
+    })
+  }, [])
 
   const getClass = useCallback(async () => {
     await getAllClass().then((res) => {
-      setClasses(res.data);
-    });
-  }, [classes]);
+      setClasses(res.data)
+    })
+  }, [])
 
   const getEnrollment = useCallback(async () => {
     await getAllEnrollment().then((res) => {
-      setEnrollment(res.data);
-    });
-  }, [enrollment]);
+      setEnrollment(res.data)
+    })
+  }, [])
 
   useEffect(() => {
-    findStudents();
-    getDiscipline();
-    getEnrollment();
-    getClass();
-  }, [findStudents]);
+    findStudents()
+    getDiscipline()
+    getEnrollment()
+    getClass()
+  }, [findStudents, getClass, getDiscipline, getEnrollment])
 
-  const handleChange = (value: string | string[]) => {
-    console.log(`Selected: ${value}`);
-  };
+  const handleEnrollment = async (value: string) => {
+    if (filteredMetrics != metrics) {
+      setFilteredMetrics(metrics?.filter(item => item.enrollment === Number(value)))
+    }
+    value ? setFilteredMetrics(metrics?.filter(item => item.enrollment === Number(value))) : setFilteredMetrics(metrics)
+  }
+
+  const handleDisciplina = async (value: string) => {
+    console.log(value)
+    if (filteredMetrics != metrics) {
+      setFilteredMetrics(metrics?.filter(item => item.subject![0].materia.nome === value))
+    }
+    value ? setFilteredMetrics(metrics?.filter(item => !item.subject![0].materia.nome ? [] : item.subject![0].materia.nome === value)) : setFilteredMetrics(metrics)
+  }
+
+  const handleClass = async (value: string) => {
+    if (filteredMetrics != metrics) {
+      setFilteredMetrics(metrics?.filter(item => item.classroom === value))
+    }
+    value ? setFilteredMetrics(metrics?.filter(item => item.classroom === value)) : setFilteredMetrics(metrics)
+  }
+
+  // const handleEnrollment = async (value: string) => {
+  //   if (filteredMetrics != metrics) {
+  //     setFilteredMetrics(metrics?.filter(item => item.enrollment === Number(value)))
+  //   }
+  //   value ? setFilteredMetrics(metrics?.filter(item => item.enrollment === Number(value))) : setFilteredMetrics(metrics)
+  // }
 
   return (
     <div className={className}>
       <div
         className="page-header border"
         style={{
-          margin: "0px",
+          margin: '0px',
           padding: 24,
-          height: "auto",
+          height: 'auto',
         }}
       >
         <div className="d-sm-flex m-b-5 align-items-center justify-content-between">
@@ -100,16 +128,16 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
               className="filter-button d-flex justify-content-center align-items-center"
             >
               <Link
-                to={"/dashboard"}
+                to={'/dashboard'}
                 style={{
-                  textDecoration: "none",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  textDecoration: 'none',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
                 <DashboardOutlined />
-                <span style={{ marginLeft: "5px" }}>Dashboard</span>
+                <span style={{ marginLeft: '5px' }}>Dashboard</span>
               </Link>
             </Button>
           </div>
@@ -124,12 +152,16 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
             <Select
               showSearch
               placeholder="Selecione a Matrícula"
-              value={selectedItemEnrollment}
-              onChange={setSelectedItemEnrollment}
-              style={{ width: "100%" }}
+              onChange={handleEnrollment}
+              style={{ width: '100%' }}
             >
+              <Select.Option key={'default_enrollment'} value={''}>
+                <span style={{ color: 'rgba(0, 0, 0, 0.2)' }}>
+                  {'Selecione a Matrícula'}
+                </span>
+              </Select.Option>
               {enrollment?.map((item) => (
-                <Select.Option value={item.matricula}>
+                <Select.Option key={item.matricula} value={item.matricula}>
                   {item.matricula}
                 </Select.Option>
               ))}
@@ -141,10 +173,20 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
               placeholder="Selecione o Status"
               value={selectedItemStatus}
               onChange={setSelectedItemStatus}
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
             >
+              <Select.Option key={'default_status'} value={''}>
+                <span
+                  style={{
+                    color: 'rgba(0, 0, 0, 0.2)',
+                    background: 'transparent',
+                  }}
+                >
+                  {'Selecione  Status'}
+                </span>
+              </Select.Option>
               {status?.map((item) => (
-                <Select.Option value={item}>{item}</Select.Option>
+                <Select.Option key={item} value={item}>{item}</Select.Option>
               ))}
             </Select>
           </div>
@@ -152,12 +194,21 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
             <Select
               showSearch
               placeholder="Selecione a Turma"
-              value={selectedItemClass}
-              onChange={setSelectedItemClass}
-              style={{ width: "100%" }}
+              onChange={handleClass}
+              style={{ width: '100%' }}
             >
+              <Select.Option key={'default_classes'} value={''}>
+                <span
+                  style={{
+                    color: 'rgba(0, 0, 0, 0.2)',
+                    background: 'transparent',
+                  }}
+                >
+                  {'Selecione a Turma'}
+                </span>
+              </Select.Option>
               {classes?.map((item) => (
-                <Select.Option value={item.nome}>{item.nome}</Select.Option>
+                <Select.Option key={item.id} value={item.nome}>{item.nome}</Select.Option>
               ))}
             </Select>
           </div>
@@ -165,30 +216,39 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
             <Select
               showSearch
               placeholder="Selecione a Disciplina"
-              value={selectedItemDiscipline}
-              onChange={setSelectedItemDiscipline}
-              style={{ width: "100%" }}
+              onChange={handleDisciplina}
+              style={{ width: '100%' }}
             >
+              <Select.Option key={'default_discipline'} value={''}>
+                <span
+                  style={{
+                    color: 'rgba(0, 0, 0, 0.2)',
+                    background: 'transparent',
+                  }}
+                >
+                  {'Selecione Disciplina'}
+                </span>
+              </Select.Option>
               {discipline?.map((item) => (
-                <Select.Option value={item.nome}>{item.nome}</Select.Option>
+                <Select.Option key={item.nome} value={item.nome}>{item.nome}</Select.Option>
               ))}
             </Select>
           </div>
         </div>
         {!loading ? (
-          <DataTable data={metrics} />
+          <DataTable data={filteredMetrics} />
         ) : (
           <div
             className="d-flex justify-content-center"
-            style={{ marginTop: "20px" }}
+            style={{ marginTop: '20px' }}
           >
             <Spin />
           </div>
         )}
       </BaseContainer>
     </div>
-  );
-};
+  )
+}
 
 export default styled(ActiveRoom)`
   width: 100%;
@@ -224,4 +284,4 @@ export default styled(ActiveRoom)`
     color: ${(props) => props.theme.colors.textGray};
     padding: 20px 30px;
   }
-`;
+`
