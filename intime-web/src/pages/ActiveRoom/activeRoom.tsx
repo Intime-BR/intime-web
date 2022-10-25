@@ -95,13 +95,6 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
     value ? setFilteredMetrics(metrics?.filter(item => item.classroom === value)) : setFilteredMetrics(metrics)
   }
 
-  // const handleEnrollment = async (value: string) => {
-  //   if (filteredMetrics != metrics) {
-  //     setFilteredMetrics(metrics?.filter(item => item.enrollment === Number(value)))
-  //   }
-  //   value ? setFilteredMetrics(metrics?.filter(item => item.enrollment === Number(value))) : setFilteredMetrics(metrics)
-  // }
-
   return (
     <div className={className}>
       <div

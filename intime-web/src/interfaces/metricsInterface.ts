@@ -4,7 +4,5 @@ export interface MetricsInterface {
   presences?: number;
   absences?: number;
   pendences?: number;
-  percent?: number;
-  status?: "success" | "active" | "exception" | "normal"
 }
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Aluno } from '../../interfaces/interfaces'
+import { Aluno, Metrics } from '../../interfaces/interfaces'
 import {
   EditFilled,
   ExclamationCircleOutlined,
@@ -10,11 +10,13 @@ import { Empty, Form, Input, Space, Table, Tabs, Tag } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { Avatar } from 'antd'
 import { Badge } from 'antd'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { modalVisibility } from '../../utils/exports'
 import DataTableModal from './dataTableModal'
 import CommomText from '../CommomText/commomText'
 import { RequiredMark } from 'antd/lib/form/Form'
+import { getMetrics } from '../../services/datatableService'
+import StudentMetric from '../StudentMetric/studentMetric'
 
 type DataTableProps = {
   className?: string;
@@ -24,6 +26,18 @@ type DataTableProps = {
 const DataTable = ({ className, data }: DataTableProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const [aluno, setAluno] = useState<Aluno>()
+  const [metrics, setMetrics] = useState<Array<Metrics>>()
+
+
+  const fetchAllStudentPendences = useCallback(async () => {
+    await getMetrics(aluno?.classroom_id!, aluno!.id.toString()).then((res) => {
+      setMetrics(res.data)
+    })
+  }, [aluno])
+
+  useEffect(() => {
+    fetchAllStudentPendences()
+  },[fetchAllStudentPendences])
 
   const [form] = Form.useForm()
   const [requiredMark, setRequiredMarkType] =
@@ -359,9 +373,9 @@ const DataTable = ({ className, data }: DataTableProps) => {
             </Tabs.TabPane>
             <Tabs.TabPane tab="Métricas" key="2">
               <div className="row">
-                {/* {metrics?.map((item) => {
-                  return <StudentMetric metrics={item} />;
-                })} */}
+                {metrics?.map((item) => {
+                  return <StudentMetric metrics={item} />
+                })}
               </div>
             </Tabs.TabPane>
           </Tabs>
