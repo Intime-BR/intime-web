@@ -1,10 +1,10 @@
 type SuggestionCardContentProps = {
     className?: string;
     image: string;
-    name: string;
-    desc: string;
-    status: string;
-    date: string
+    name?: string;
+    desc?: string;
+    status?: number;
+    date?: string
   };
 
 const SuggestionCardContent = ({ className, image, name, desc, status, date }: SuggestionCardContentProps) => {
