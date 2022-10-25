@@ -1,6 +1,5 @@
-import { Button, DatePicker, Drawer, Space, Select } from "antd";
-import { FilterOutlined } from "@ant-design/icons";
-
+import { Button, DatePicker, Drawer, Space, Select } from 'antd'
+import { FilterOutlined } from '@ant-design/icons'
 import DynamicLineChart from "../../components/MiddleContent/lineChart";
 import DynamicSuggestionsCard from "../../components/MiddleContent/suggestionsCard";
 import SuggestionCardContent from "../../components/MiddleContent/suggestionCardContent";
@@ -22,12 +21,14 @@ import { getAllClass } from "../../services/activeRoomService";
 import { ClassInterface } from "../../interfaces/classInterface";
 import { Justifications } from "../../interfaces/justificationInterface";
 
+
 type DashBoardProps = {
   className?: string;
 };
 
 const Dashboard = ({ className }: DashBoardProps) => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false)
+
 
   const [classes, setClasses] = useState<Class[]>();
   const [classesItem, setItemClasses] = useState<ClassInterface[]>();
@@ -40,35 +41,35 @@ const Dashboard = ({ className }: DashBoardProps) => {
 
   const fetchAllClasses = useCallback(async () => {
     await getAllClasses().then((res) => {
-      setClasses(res.data);
-    });
-  }, [classes]);
+      setClasses(res.data)
+    })
+  }, [])
 
   const getPresents = useCallback(async () => {
     await getAllPresents().then((res) => {
       setPresents(res.data)
     })
-  }, [presents])
+  }, [])
 
 
   const getPendences = useCallback(async () => {
     await getAllPendences().then((res) => {
       setPendences(res.data)
     })
-  }, [pendences])
+  }, [])
 
   const getFaults = useCallback(async () => {
     await getAllFaults().then((res) => {
       setFaults(res.data)
     })
-  }, [faults])
+  }, [])
 
   const getMostOnlyDiscipline = useCallback(async () => {
     await getMostDiscipline().then((res) => {
       console.log(res.data)
       setDiscipline(res.data)
     })
-  }, [discipline])
+  }, [])
 
   const getAllJustificationsList = useCallback(async () => {
     await getAllJustifications().then((res) => {
@@ -78,39 +79,50 @@ const Dashboard = ({ className }: DashBoardProps) => {
   }, [justifications]);
 
   const handleDateChange = (
-    value: DatePickerProps["value"] | RangePickerProps["value"],
+    value: DatePickerProps['value'] | RangePickerProps['value'],
     dateString: [string, string] | string
   ) => {
-    console.log("Selected Time: ", value);
-    console.log("Formatted Selected Time: ", dateString);
-  };
+    console.log('Selected Time: ', value)
+    console.log('Formatted Selected Time: ', dateString)
+  }
 
   const getClass = useCallback(async () => {
     await getAllClass().then((res) => {
-      setItemClasses(res.data);
-    });
-  }, [classesItem]);
+      setItemClasses(res.data)
+    })
+  }, [])
 
   
 
   useEffect(() => {
+
+    fetchAllClasses()
+    getFaults()
+    getPendences()
+    getPresents()
+    getMostOnlyDiscipline()
+    getAllJustificationsList();
+    getClass()
+  }, [fetchAllClasses, getClass, getFaults, getMostOnlyDiscipline, getPendences, getPresents, getAllJustificationsList])
+
     fetchAllClasses();
     getFaults();
     getPendences();
     getPresents();
     getMostOnlyDiscipline();
     getClass();
-    getAllJustificationsList();
+    
   }, []);
+
 
   return (
     <div className={className}>
       <div
         className="page-header border"
         style={{
-          margin: "0px",
+          margin: '0px',
           padding: 24,
-          height: "auto",
+          height: 'auto',
         }}
       >
         <div className="d-sm-flex m-b-5 align-items-center justify-content-between">
@@ -142,7 +154,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
       >
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3 chartEstimate">
           <ChartsEstimate
-            title={"Presentes"}
+            title={'Presentes'}
             content={`${presents?.presences.toString()} Alunos `}
             variation={presents?.percentage}
             up={true}
@@ -150,7 +162,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
         </div>
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
-            title={"Faltas"}
+            title={'Faltas'}
             content={`${faults?.presences.toString()} Alunos `}
             variation={faults?.percentage}
             up={false}
@@ -158,14 +170,14 @@ const Dashboard = ({ className }: DashBoardProps) => {
         </div>
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
-            title={"Atrasados"}
+            title={'Atrasados'}
             content={`${pendences?.presences.toString()} Alunos`}
             variation={pendences?.percentage}
           />
         </div>
         <div className="col-md-6 col-lg-3 col-sm-12 mt-3">
           <ChartsEstimate
-            title={"Matéria Destaque"}
+            title={'Matéria Destaque'}
             content={discipline?.nome}
             variation={discipline?.percentage}
           />
@@ -182,6 +194,35 @@ const Dashboard = ({ className }: DashBoardProps) => {
         </div>
         <div className="col-md-12 col-lg-6 col-sm-12 col-sm-12 mt-3">
           <DynamicSuggestionsCard>
+
+            <SuggestionCardContent
+              image="https://joeschmoe.io/api/v1/random"
+              name={'Estevao Boaventura'}
+              desc={
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. '
+              }
+              status={'Pendente'}
+              date={'24 de maio, 2022'}
+            />
+            <SuggestionCardContent
+              image="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              name={'Estevao Boaventura'}
+              desc={
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. '
+              }
+              status={'Pendente'}
+              date={'24 de maio, 2022'}
+            />
+            <SuggestionCardContent
+              image="https://joeschmoe.io/api/v1/random"
+              name={'Estevao Boaventura'}
+              desc={
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. '
+              }
+              status={'Pendente'}
+              date={'24 de maio, 2022'}
+            />
+
             {
               justifications?.map(item => {
                 return (
@@ -200,6 +241,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
               })
             }
            
+
           </DynamicSuggestionsCard>
         </div>
       </BaseContainer>
@@ -232,7 +274,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
               placeholder="Selecione a Turma"
               value={selectedItemClass}
               onChange={setSelectedItemClass}
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
             >
               {classes?.map((item) => (
                 <Select.Option value={item.nome}>{item.nome}</Select.Option>
@@ -252,8 +294,8 @@ const Dashboard = ({ className }: DashBoardProps) => {
         </div>
       </Drawer>
     </div>
-  );
-};
+  )
+}
 
 export default styled(Dashboard)`
   width: 100%;
@@ -287,4 +329,4 @@ export default styled(Dashboard)`
     color: white;
     padding: 20px 30px;
   }
-`;
+`
