@@ -16,10 +16,11 @@ import CommomText from "../../components/CommomText/commomText";
 import "./dashboard.css";
 import { modalVisibility } from "../../utils/exports";
 import { Class } from "../../interfaces/interfaces";
-import { getAllClasses, getAllFaults, getAllPendences, getAllPresents, getMostDiscipline } from "../../services/dashboardService";
+import { getAllClasses, getAllFaults, getAllJustifications, getAllPendences, getAllPresents, getMostDiscipline } from "../../services/dashboardService";
 import { Card } from "../../interfaces/cardInterface";
 import { getAllClass } from "../../services/activeRoomService";
 import { ClassInterface } from "../../interfaces/classInterface";
+import { Justifications } from "../../interfaces/justificationInterface";
 
 type DashBoardProps = {
   className?: string;
@@ -35,6 +36,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
   const [pendences, setPendences] = useState<Card>();
   const [faults, setFaults] = useState<Card>();
   const [discipline, setDiscipline] = useState<Card>();
+  const [justifications, setJustifications] = useState<Justifications[]>();
 
   const fetchAllClasses = useCallback(async () => {
     await getAllClasses().then((res) => {
@@ -68,6 +70,13 @@ const Dashboard = ({ className }: DashBoardProps) => {
     })
   }, [discipline])
 
+  const getAllJustificationsList = useCallback(async () => {
+    await getAllJustifications().then((res) => {
+      setJustifications(res.data);
+      console.log(justifications)
+    });
+  }, [justifications]);
+
   const handleDateChange = (
     value: DatePickerProps["value"] | RangePickerProps["value"],
     dateString: [string, string] | string
@@ -91,6 +100,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
     getPresents();
     getMostOnlyDiscipline();
     getClass();
+    getAllJustificationsList();
   }, []);
 
   return (
@@ -172,33 +182,24 @@ const Dashboard = ({ className }: DashBoardProps) => {
         </div>
         <div className="col-md-12 col-lg-6 col-sm-12 col-sm-12 mt-3">
           <DynamicSuggestionsCard>
-            <SuggestionCardContent
-              image="https://joeschmoe.io/api/v1/random"
-              name={"Estevao Boaventura"}
-              desc={
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. "
-              }
-              status={"Pendente"}
-              date={"24 de maio, 2022"}
-            />
-            <SuggestionCardContent
-              image="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              name={"Estevao Boaventura"}
-              desc={
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. "
-              }
-              status={"Pendente"}
-              date={"24 de maio, 2022"}
-            />
-            <SuggestionCardContent
-              image="https://joeschmoe.io/api/v1/random"
-              name={"Estevao Boaventura"}
-              desc={
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. "
-              }
-              status={"Pendente"}
-              date={"24 de maio, 2022"}
-            />
+            {
+              justifications?.map(item => {
+                return (
+                  <div>
+                    <SuggestionCardContent
+                      image="https://joeschmoe.io/api/v1/random"
+                      name={item.nome}
+                      desc={
+                        item.descricao
+                      }
+                      status={item.foi_resolvido}
+                      date={item.data}
+                    />
+                  </div>
+                )
+              })
+            }
+           
           </DynamicSuggestionsCard>
         </div>
       </BaseContainer>
