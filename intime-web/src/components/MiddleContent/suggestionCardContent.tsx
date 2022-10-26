@@ -1,15 +1,22 @@
 type SuggestionCardContentProps = {
-    className?: string;
-    image: string;
-    name?: string;
-    desc?: string;
-    status?: number;
-    date?: string
-  };
+  className?: string;
+  image: string;
+  name?: string;
+  desc?: string;
+  status?: string;
+  date?: string;
+};
 
-const SuggestionCardContent = ({ className, image, name, desc, status, date }: SuggestionCardContentProps) => {
-    return(
-        <>
+const SuggestionCardContent = ({
+  className,
+  image,
+  name,
+  desc,
+  status,
+  date,
+}: SuggestionCardContentProps) => {
+  return (
+    <>
       <div className="div-flex-row">
         <img src={image} alt="" />
         <div className="div-flex-column">
@@ -21,7 +28,7 @@ const SuggestionCardContent = ({ className, image, name, desc, status, date }: S
           </div>
         </div>
       </div>
-        </>
-    )
+    </>
+  )
 }
-export default SuggestionCardContent;
+export default SuggestionCardContent

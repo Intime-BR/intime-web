@@ -1,25 +1,25 @@
 import { Button, DatePicker, Drawer, Space, Select } from 'antd'
 import { FilterOutlined } from '@ant-design/icons'
-import DynamicLineChart from "../../components/MiddleContent/lineChart";
-import DynamicSuggestionsCard from "../../components/MiddleContent/suggestionsCard";
-import SuggestionCardContent from "../../components/MiddleContent/suggestionCardContent";
-import PresenceForSubject from "../../components/BottomCharts/ChartPresenceForSubject";
-import DailyAbsence from "../../components/BottomCharts/ChartDailyAbsence";
-import BaseContainer from "../../components/BaseContainer/baseContainer";
-import ChartsEstimate from "../../components/ChartsEstimate/chartsEstimate";
-import styled from "styled-components";
-import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
-import { useCallback, useEffect, useState } from "react";
-import SearchSelect from "../../components/SeachSelect/searchSelect";
-import CommomText from "../../components/CommomText/commomText";
-import "./dashboard.css";
-import { modalVisibility } from "../../utils/exports";
-import { Class } from "../../interfaces/interfaces";
-import { getAllClasses, getAllFaults, getAllJustifications, getAllPendences, getAllPresents, getMostDiscipline } from "../../services/dashboardService";
-import { Card } from "../../interfaces/cardInterface";
-import { getAllClass } from "../../services/activeRoomService";
-import { ClassInterface } from "../../interfaces/classInterface";
-import { Justifications } from "../../interfaces/justificationInterface";
+import DynamicLineChart from '../../components/MiddleContent/lineChart'
+import DynamicSuggestionsCard from '../../components/MiddleContent/suggestionsCard'
+import SuggestionCardContent from '../../components/MiddleContent/suggestionCardContent'
+import PresenceForSubject from '../../components/BottomCharts/ChartPresenceForSubject'
+import DailyAbsence from '../../components/BottomCharts/ChartDailyAbsence'
+import BaseContainer from '../../components/BaseContainer/baseContainer'
+import ChartsEstimate from '../../components/ChartsEstimate/chartsEstimate'
+import styled from 'styled-components'
+import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker'
+import { useCallback, useEffect, useState } from 'react'
+import SearchSelect from '../../components/SeachSelect/searchSelect'
+import CommomText from '../../components/CommomText/commomText'
+import './dashboard.css'
+import { modalVisibility } from '../../utils/exports'
+import { Class } from '../../interfaces/interfaces'
+import { getAllClasses, getAllFaults, getAllJustifications, getAllPendences, getAllPresents, getMostDiscipline } from '../../services/dashboardService'
+import { Card } from '../../interfaces/cardInterface'
+import { getAllClass } from '../../services/activeRoomService'
+import { ClassInterface } from '../../interfaces/classInterface'
+import { Justifications } from '../../interfaces/justificationInterface'
 
 
 type DashBoardProps = {
@@ -30,14 +30,14 @@ const Dashboard = ({ className }: DashBoardProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
 
-  const [classes, setClasses] = useState<Class[]>();
-  const [classesItem, setItemClasses] = useState<ClassInterface[]>();
-  const [selectedItemClass, setSelectedItemClass] = useState<string[]>([]);
-  const [presents, setPresents] = useState<Card>();
-  const [pendences, setPendences] = useState<Card>();
-  const [faults, setFaults] = useState<Card>();
-  const [discipline, setDiscipline] = useState<Card>();
-  const [justifications, setJustifications] = useState<Justifications[]>();
+  const [classes, setClasses] = useState<Class[]>()
+  const [classesItem, setItemClasses] = useState<ClassInterface[]>()
+  const [selectedItemClass, setSelectedItemClass] = useState<string[]>([])
+  const [presents, setPresents] = useState<Card>()
+  const [pendences, setPendences] = useState<Card>()
+  const [faults, setFaults] = useState<Card>()
+  const [discipline, setDiscipline] = useState<Card>()
+  const [justifications, setJustifications] = useState<Justifications[]>()
 
   const fetchAllClasses = useCallback(async () => {
     await getAllClasses().then((res) => {
@@ -73,10 +73,10 @@ const Dashboard = ({ className }: DashBoardProps) => {
 
   const getAllJustificationsList = useCallback(async () => {
     await getAllJustifications().then((res) => {
-      setJustifications(res.data);
+      setJustifications(res.data)
       console.log(justifications)
-    });
-  }, [justifications]);
+    })
+  }, [justifications])
 
   const handleDateChange = (
     value: DatePickerProps['value'] | RangePickerProps['value'],
@@ -101,18 +101,9 @@ const Dashboard = ({ className }: DashBoardProps) => {
     getPendences()
     getPresents()
     getMostOnlyDiscipline()
-    getAllJustificationsList();
+    getAllJustificationsList()
     getClass()
   }, [fetchAllClasses, getClass, getFaults, getMostOnlyDiscipline, getPendences, getPresents, getAllJustificationsList])
-
-    fetchAllClasses();
-    getFaults();
-    getPendences();
-    getPresents();
-    getMostOnlyDiscipline();
-    getClass();
-    
-  }, []);
 
 
   return (
@@ -135,7 +126,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
               </span>
             </div>
           </div>
-          <div className="m-b-5">
+          {/* <div className="m-b-5">
             <Button
               className="filter-button d-flex justify-content-center align-items-center"
               onClick={() => setIsVisible(modalVisibility(isVisible))}
@@ -143,7 +134,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
               <FilterOutlined />
               <span>Filtros</span>
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
       <BaseContainer
@@ -195,34 +186,6 @@ const Dashboard = ({ className }: DashBoardProps) => {
         <div className="col-md-12 col-lg-6 col-sm-12 col-sm-12 mt-3">
           <DynamicSuggestionsCard>
 
-            <SuggestionCardContent
-              image="https://joeschmoe.io/api/v1/random"
-              name={'Estevao Boaventura'}
-              desc={
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. '
-              }
-              status={'Pendente'}
-              date={'24 de maio, 2022'}
-            />
-            <SuggestionCardContent
-              image="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              name={'Estevao Boaventura'}
-              desc={
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. '
-              }
-              status={'Pendente'}
-              date={'24 de maio, 2022'}
-            />
-            <SuggestionCardContent
-              image="https://joeschmoe.io/api/v1/random"
-              name={'Estevao Boaventura'}
-              desc={
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum dictum tristique. Nunc accumsan tempus ex vel bibendum. '
-              }
-              status={'Pendente'}
-              date={'24 de maio, 2022'}
-            />
-
             {
               justifications?.map(item => {
                 return (
@@ -233,7 +196,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
                       desc={
                         item.descricao
                       }
-                      status={item.foi_resolvido}
+                      status={item.status}
                       date={item.data}
                     />
                   </div>
@@ -259,7 +222,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
           <PresenceForSubject />
         </div>
       </BaseContainer>
-      <Drawer
+      {/* <Drawer
         title="Filtros"
         visible={isVisible}
         onClose={() => setIsVisible(modalVisibility(isVisible))}
@@ -292,7 +255,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
             />
           </div>
         </div>
-      </Drawer>
+      </Drawer> */}
     </div>
   )
 }

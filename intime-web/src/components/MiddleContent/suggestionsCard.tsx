@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 type DynamicSuggestionsCardProps = {
   className?: string;
@@ -15,8 +15,8 @@ const DynamicSuggestionsCard = ({
       <div className="title-div">Justificativas de pendências</div>
       {children}
     </div>
-  );
-};
+  )
+}
 
 export default styled(DynamicSuggestionsCard)`
   display: flex;
@@ -97,4 +97,4 @@ export default styled(DynamicSuggestionsCard)`
       margin-right: 6%;
     }
   }
-`;
+`
