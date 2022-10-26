@@ -39,6 +39,7 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
     const { status, data } = await findByFilter()
     if (status !== 200) throw new Error()
     setMetrics(data)
+    
     setFilteredMetrics(data)
     setLoading(false)
   }, [])
