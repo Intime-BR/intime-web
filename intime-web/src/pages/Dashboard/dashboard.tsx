@@ -66,7 +66,6 @@ const Dashboard = ({ className }: DashBoardProps) => {
 
   const getMostOnlyDiscipline = useCallback(async () => {
     await getMostDiscipline().then((res) => {
-      console.log(res.data)
       setDiscipline(res.data)
     })
   }, [])
@@ -74,9 +73,8 @@ const Dashboard = ({ className }: DashBoardProps) => {
   const getAllJustificationsList = useCallback(async () => {
     await getAllJustifications().then((res) => {
       setJustifications(res.data)
-      console.log(justifications)
     })
-  }, [justifications])
+  }, [])
 
   const handleDateChange = (
     value: DatePickerProps['value'] | RangePickerProps['value'],

@@ -81,7 +81,6 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
   }
 
   const handleDisciplina = async (value: string) => {
-    console.log(value)
     if (filteredMetrics != metrics) {
       setFilteredMetrics(metrics?.filter(item => item.subject![0].materia.nome === value))
     }
