@@ -31,11 +31,6 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
   const [discipline, setDiscipline] = useState<Disciplinas[]>()
   const [classes, setClasses] = useState<ClassInterface[]>()
   const [enrollment, setEnrollment] = useState<Matriculas[]>()
-  const [selectedItemEnrollment, setSelectedItemEnrollment] = useState<string[]>([])
-  const [selectedItemClass, setSelectedItemClass] = useState<string[]>([])
-  const [selectedItemDiscipline, setSelectedItemDiscipline] = useState<
-    string[]
-  >([])
   const [selectedItemStatus, setSelectedItemStatus] = useState<string[]>([])
 
   const status = ['Pendente', 'Falta', 'Presente']
@@ -74,24 +69,27 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
   }, [findStudents, getClass, getDiscipline, getEnrollment])
 
   const handleEnrollment = async (value: string) => {
-    if (filteredMetrics != metrics) {
-      setFilteredMetrics(metrics?.filter(item => item.enrollment === Number(value)))
+    if (filteredMetrics != metrics && filteredMetrics?.length) {
+      setFilteredMetrics(filteredMetrics?.filter(item => item.enrollment === Number(value)))
+    }else{
+      value ? setFilteredMetrics(metrics?.filter(item => item.enrollment === Number(value))) : setFilteredMetrics(metrics)
     }
-    value ? setFilteredMetrics(metrics?.filter(item => item.enrollment === Number(value))) : setFilteredMetrics(metrics)
   }
 
   const handleDisciplina = async (value: string) => {
-    if (filteredMetrics != metrics) {
-      setFilteredMetrics(metrics?.filter(item => item.subject![0].materia.nome === value))
+    if (filteredMetrics != metrics && filteredMetrics?.length) {
+      setFilteredMetrics(filteredMetrics?.filter(item => item.subject![0].materia.nome === value))
+    }else{
+      value ? setFilteredMetrics(metrics?.filter(item => !item.subject![0].materia.nome ? [] : item.subject![0].materia.nome === value)) : setFilteredMetrics(metrics)
     }
-    value ? setFilteredMetrics(metrics?.filter(item => !item.subject![0].materia.nome ? [] : item.subject![0].materia.nome === value)) : setFilteredMetrics(metrics)
   }
 
   const handleClass = async (value: string) => {
-    if (filteredMetrics != metrics) {
-      setFilteredMetrics(metrics?.filter(item => item.classroom === value))
+    if (filteredMetrics != metrics && filteredMetrics?.length) {
+      setFilteredMetrics(filteredMetrics?.filter(item => item.id === Number(value)))
+    }else{
+      value ? setFilteredMetrics(metrics?.filter(item => item.id === Number(value))) : setFilteredMetrics(metrics)
     }
-    value ? setFilteredMetrics(metrics?.filter(item => item.classroom === value)) : setFilteredMetrics(metrics)
   }
 
   return (
@@ -200,7 +198,7 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
                 </span>
               </Select.Option>
               {classes?.map((item) => (
-                <Select.Option key={item.id} value={item.nome}>{item.nome}</Select.Option>
+                <Select.Option key={item.id} value={item.id}>{item.nome}</Select.Option>
               ))}
             </Select>
           </div>

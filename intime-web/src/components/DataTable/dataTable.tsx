@@ -30,9 +30,9 @@ const DataTable = ({ className, data }: DataTableProps) => {
 
 
   const fetchAllStudentPendences = useCallback(async () => {
-    await getMetrics(aluno?.classroom_id!, aluno!.id.toString()).then((res) => {
+   aluno ? await getMetrics(aluno?.classroom_id!, aluno?.id.toString()).then((res) => {
       setMetrics(res.data)
-    })
+    }) : ''
   }, [aluno])
 
   useEffect(() => {
