@@ -1,9 +1,11 @@
 import styled from 'styled-components'
-import { Aluno, Metrics } from '../../interfaces/interfaces'
+import { Aluno, Metrics, Justifications } from '../../interfaces/interfaces'
 import {
+  ConsoleSqlOutlined,
   EditFilled,
   ExclamationCircleOutlined,
   FileDoneOutlined,
+  RedoOutlined,
   UserOutlined,
 } from '@ant-design/icons'
 import { Empty, Form, Input, Space, Table, Tabs, Tag } from 'antd'
@@ -17,6 +19,8 @@ import CommomText from '../CommomText/commomText'
 import { RequiredMark } from 'antd/lib/form/Form'
 import { getMetrics } from '../../services/datatableService'
 import StudentMetric from '../StudentMetric/studentMetric'
+import { getPendenciesStudent } from '../../services/activeRoomService'
+import { Tooltip } from 'antd'
 
 type DataTableProps = {
   className?: string;
@@ -27,6 +31,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const [aluno, setAluno] = useState<Aluno>()
   const [metrics, setMetrics] = useState<Array<Metrics>>()
+  const [pendencies, setPendencies] = useState<Justifications[]>()
 
 
   const fetchAllStudentPendences = useCallback(async () => {
@@ -35,9 +40,19 @@ const DataTable = ({ className, data }: DataTableProps) => {
     })
   }, [aluno])
 
+
+  const findPendenciesByStudent = useCallback(async () => {
+    const { status, data } = await getPendenciesStudent(aluno!.id)
+    if (status !== 200) throw new Error()
+    setPendencies(data)
+  }, [aluno])
+
   useEffect(() => {
     fetchAllStudentPendences()
-  },[fetchAllStudentPendences])
+    findPendenciesByStudent()
+  },[fetchAllStudentPendences, findPendenciesByStudent])
+
+  
 
   const [form] = Form.useForm()
   const [requiredMark, setRequiredMarkType] =
@@ -139,6 +154,61 @@ const DataTable = ({ className, data }: DataTableProps) => {
               onClick={() => console.log('INFO BUTTON')}
             />
           </a>
+        </Space>
+      ),
+    },
+  ]
+
+
+
+  const columnsPendencies: ColumnsType<Justifications> = [
+    {
+      title: 'Matéria',
+      dataIndex: 'materia',
+      key: 'materia',
+      render: (text) => (
+        <div className="d-flex align-items-center">
+          <span className="text-nowrap" style={{ marginLeft: '8px' }}>
+            {text || "matematica"}  
+          </span>
+        </div>
+      ),
+    },
+    {
+      title: 'Status',
+      key: 'status',
+      dataIndex: 'status',
+      render: (_, { status }) => (
+        <>
+             <Tag
+                className="rounded"
+                style={{ padding: '2px 10px', fontSize: '13px' }}
+                color={handleTagColor(status)}
+                key={status}
+              >
+                {status}
+              </Tag>
+        </>
+      ),
+    },
+    {
+      title: 'Data',
+      dataIndex: 'data',
+      key: 'data',
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: 'Ações',
+      key: 'action',
+      render: (_, record) => (
+        <Space size="middle">
+            <Tooltip  placement="bottom" title="Ao clicar, você atualizará o status do aluno para Presente.">
+              <a>
+                <RedoOutlined
+                  onClick={() => console.log('Atualizar')}
+                />
+              </a>
+            </Tooltip>
         </Space>
       ),
     },
@@ -376,6 +446,24 @@ const DataTable = ({ className, data }: DataTableProps) => {
                 {metrics?.map((item) => {
                   return <StudentMetric metrics={item} />
                 })}
+              </div>
+            </Tabs.TabPane>
+
+            <Tabs.TabPane tab="Pendências" key="3">
+              <div className="row">
+              <Table
+                scroll={{ x: true }}
+                columns={columnsPendencies}
+                dataSource={pendencies}
+                locale={{
+                  emptyText: (
+                    <Empty
+                      image={Empty.PRESENTED_IMAGE_SIMPLE}
+                      description="Não há dados"
+                    />
+                  ),
+                }}
+                />
               </div>
             </Tabs.TabPane>
           </Tabs>

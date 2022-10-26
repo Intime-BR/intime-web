@@ -1,3 +1,4 @@
+import { Justifications } from './../interfaces/justificationInterface'
 import { MetricsInterface } from './../interfaces/metricsInterface'
 import { ClassInterface } from './../interfaces/classInterface'
 import { Matriculas } from './../interfaces/matriculasInterface'
@@ -12,3 +13,5 @@ export const getAllEnrollment = () => Api.get<Matriculas[]>('/students/filter/ge
 export const getAllDiscipline = () => Api.get<Disciplinas[]>('/discipline/filter/list-all')
 
 export const getAllClass = () => Api.get<ClassInterface[]>('/class/filter/list-all')
+
+export const getPendenciesStudent = (hashId : number) => Api.get<Justifications[]>(`/pendencies/get/${hashId}`)

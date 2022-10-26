@@ -1,9 +1,9 @@
 import { Cep } from './interfaces'
 
 export interface AlunoInterface {
-  id: Number;
+  id: number;
   student: string;
-  enrollment: Number;
+  enrollment: number;
   classroom?: string;
   classroom_id?: number;
   subject?: [{materia: {nome: string}}];
