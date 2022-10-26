@@ -39,7 +39,7 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
     const { status, data } = await findByFilter()
     if (status !== 200) throw new Error()
     setMetrics(data)
-    
+
     setFilteredMetrics(data)
     setLoading(false)
   }, [])
@@ -70,26 +70,41 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
   }, [findStudents, getClass, getDiscipline, getEnrollment])
 
   const handleEnrollment = async (value: string) => {
-    if (filteredMetrics != metrics && filteredMetrics?.length) {
-      setFilteredMetrics(filteredMetrics?.filter(item => item.enrollment === Number(value)))
-    }else{
-      value ? setFilteredMetrics(metrics?.filter(item => item.enrollment === Number(value))) : setFilteredMetrics(metrics)
+    if (value != '') {
+      if (filteredMetrics != metrics) {
+        const filter = filteredMetrics?.filter((item) => item.enrollment === Number(value))
+        filter?.length ? setFilteredMetrics(filter) : setFilteredMetrics([])
+      } else {
+        setFilteredMetrics(
+          metrics?.filter((item) => item.enrollment === Number(value))
+        )
+      }
     }
   }
 
   const handleDisciplina = async (value: string) => {
-    if (filteredMetrics != metrics && filteredMetrics?.length) {
-      setFilteredMetrics(filteredMetrics?.filter(item => item.subject![0].materia.nome === value))
-    }else{
-      value ? setFilteredMetrics(metrics?.filter(item => !item.subject![0].materia.nome ? [] : item.subject![0].materia.nome === value)) : setFilteredMetrics(metrics)
+    if (value != '') {
+      if (filteredMetrics != metrics) {
+        const filter = filteredMetrics?.filter( (item) => item.subject![0].materia.nome === value)
+        filter?.length ? setFilteredMetrics(filter) : setFilteredMetrics([])
+      } else {
+        setFilteredMetrics(
+          metrics?.filter((item) => item.subject![0].materia.nome === value)
+        )
+      }
     }
   }
 
   const handleClass = async (value: string) => {
-    if (filteredMetrics != metrics && filteredMetrics?.length) {
-      setFilteredMetrics(filteredMetrics?.filter(item => item.id === Number(value)))
-    }else{
-      value ? setFilteredMetrics(metrics?.filter(item => item.id === Number(value))) : setFilteredMetrics(metrics)
+    if (value != '') {
+      if (filteredMetrics != metrics && filteredMetrics?.length) {
+        const filter = filteredMetrics?.filter((item) => item.classroom_id === Number(value))
+        filter?.length ? setFilteredMetrics(filter) : setFilteredMetrics([])
+      } else {
+        setFilteredMetrics(
+          metrics?.filter((item) => item.id === Number(value))
+        )
+      }
     }
   }
 
@@ -158,7 +173,7 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
               ))}
             </Select>
           </div>
-          <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-3">
+          <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-1">
             <Select
               showSearch
               placeholder="Selecione o Status"
@@ -177,11 +192,13 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
                 </span>
               </Select.Option>
               {status?.map((item) => (
-                <Select.Option key={item} value={item}>{item}</Select.Option>
+                <Select.Option key={item} value={item}>
+                  {item}
+                </Select.Option>
               ))}
             </Select>
           </div>
-          <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-3">
+          <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-1">
             <Select
               showSearch
               placeholder="Selecione a Turma"
@@ -199,11 +216,13 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
                 </span>
               </Select.Option>
               {classes?.map((item) => (
-                <Select.Option key={item.id} value={item.id}>{item.nome}</Select.Option>
+                <Select.Option key={item.id} value={item.id}>
+                  {item.nome}
+                </Select.Option>
               ))}
             </Select>
           </div>
-          <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-3">
+          <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-1">
             <Select
               showSearch
               placeholder="Selecione a Disciplina"
@@ -221,9 +240,20 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
                 </span>
               </Select.Option>
               {discipline?.map((item) => (
-                <Select.Option key={item.nome} value={item.nome}>{item.nome}</Select.Option>
+                <Select.Option key={item.nome} value={item.nome}>
+                  {item.nome}
+                </Select.Option>
               ))}
             </Select>
+          </div>
+          <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-1 w-100  d-flex justify-content-end align-items-end">
+            <Button
+              onClick={() => setFilteredMetrics(metrics)}
+              type="default"
+              className="clear-filter-button"
+            >
+              Limpar Filtros
+            </Button>
           </div>
         </div>
         {!loading ? (
@@ -274,5 +304,12 @@ export default styled(ActiveRoom)`
     border-radius: 8px;
     color: ${(props) => props.theme.colors.textGray};
     padding: 20px 30px;
+  }
+
+  .clear-filter-button {
+    background-color: ${(props) => props.theme.colors.primary};
+    border-radius: 8px;
+    color: ${(props) => props.theme.colors.white};
+    padding: 6px 8px;
   }
 `
