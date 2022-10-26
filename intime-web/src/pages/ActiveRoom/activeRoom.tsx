@@ -14,11 +14,13 @@ import {
   getAllClass,
   getAllDiscipline,
   getAllEnrollment,
+  getPendenciesStudent,
 } from '../../services/activeRoomService'
 import './activeRoom.css'
 import { Matriculas } from '../../interfaces/matriculasInterface'
 import { Disciplinas } from '../../interfaces/disciplinasInterface'
 import { ClassInterface } from '../../interfaces/classInterface'
+import { Justifications } from '../../interfaces/justificationInterface'
 
 type ActiveRoomProps = {
   className?: string;
@@ -27,6 +29,7 @@ type ActiveRoomProps = {
 const ActiveRoom = ({ className }: ActiveRoomProps) => {
   const [metrics, setMetrics] = useState<Aluno[]>()
   const [filteredMetrics, setFilteredMetrics] = useState<Aluno[]>()
+  const [pendencies, setPendencies] = useState<Justifications[]>()
   const [loading, setLoading] = useState<boolean>(true)
   const [discipline, setDiscipline] = useState<Disciplinas[]>()
   const [classes, setClasses] = useState<ClassInterface[]>()
@@ -43,6 +46,8 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
     setFilteredMetrics(data)
     setLoading(false)
   }, [])
+
+
 
   const getDiscipline = useCallback(async () => {
     await getAllDiscipline().then((res) => {
