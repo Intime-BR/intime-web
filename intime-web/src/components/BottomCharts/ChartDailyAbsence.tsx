@@ -1,16 +1,14 @@
-import styled from "styled-components";
-import { PieChart, Pie, Cell, Label, Legend } from "recharts";
-
-const data = [
-  { name: "Alunos Totais", value: 2000, color: "#00C49F" },
-  { name: "Alunos Faltosos", value: 210, color: "#ff4842" },
-];
+import styled from 'styled-components'
+import { PieChart, Pie, Cell, Label, Legend } from 'recharts'
+import { DailyAbsenceChart } from '../../interfaces/interfaces'
+import { useCallback, useEffect, useState } from 'react'
 
 type DailyAbsenceProps = {
   className?: string;
   room?: string;
   percentValue?: number;
   color?: string;
+  data: DailyAbsenceChart[] | undefined;
 };
 
 const DailyAbsence = ({
@@ -18,12 +16,24 @@ const DailyAbsence = ({
   room,
   percentValue,
   color,
+  data
 }: DailyAbsenceProps) => {
+
+  const [percent, setPercent] = useState<string>()
+
+  const handlePercent = useCallback(() => {
+    setPercent((((data![1].value * 100)) / data![0].value).toFixed(2))
+  }, [data])
+
+  useEffect(() => {
+    handlePercent()
+  },[data, handlePercent])
+
   return (
     <div className={className}>
       <div className="title-div d-flex justify-content-between">
         <span>Ausência diária</span>
-        <span style={{ color: "#9E7BE9" }}>12,5%</span>
+        <span style={{ color: '#9E7BE9' }}>{percent}%</span>
       </div>
       <p>Média geral da escola</p>
       <div className="d-flex justify-content-center">
@@ -42,16 +52,16 @@ const DailyAbsence = ({
             paddingAngle={5}
             dataKey="value"
           >
-            <Label className="value-label" value="12,5%" position="center" />
-            {data.map((entry, index) => (
+            <Label className="value-label" value={`${ (((data![1].value * 100)) / data![0].value).toFixed(2) }%`} position="center" />
+            {data?.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
           </Pie>
         </PieChart>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default styled(DailyAbsence)`
   width: 100%;
@@ -94,4 +104,4 @@ export default styled(DailyAbsence)`
     text-align: center;
     letter-spacing: -0.01em;
   }
-`;
+`
