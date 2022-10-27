@@ -30,7 +30,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
   const [aluno, setAluno] = useState<Aluno>()
   const [metrics, setMetrics] = useState<Array<Metrics>>()
   const [pendencies, setPendencies] = useState<Justifications[]>()
-
+  const [controller, setController] = useState<boolean>(false)
 
   const fetchAllStudentPendences = useCallback(async () => {
    aluno ? await getMetrics(aluno?.classroom_id!, aluno?.id.toString()).then((res) => {
@@ -48,7 +48,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
   useEffect(() => {
     fetchAllStudentPendences()
     findPendenciesByStudent()
-  },[fetchAllStudentPendences, findPendenciesByStudent])
+  },[fetchAllStudentPendences, findPendenciesByStudent, controller])
 
 
   const [form] = Form.useForm()
@@ -72,6 +72,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
   const updatePendencieByStudent = (id: number)  => {
     updatePendencieStudent(id)
     setPendencies(pendencies)
+    setController(!controller)
   }
 
   const columns: ColumnsType<Aluno> = [
