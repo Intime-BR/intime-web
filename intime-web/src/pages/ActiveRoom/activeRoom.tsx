@@ -34,9 +34,7 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
   const [discipline, setDiscipline] = useState<Disciplinas[]>()
   const [classes, setClasses] = useState<ClassInterface[]>()
   const [enrollment, setEnrollment] = useState<Matriculas[]>()
-  const [selectedItemStatus, setSelectedItemStatus] = useState<string[]>([])
-
-  const status = ['Pendente', 'Falta', 'Presente']
+  const status = ['Pendente', 'Ausente', 'Presente']
 
   const findStudents = useCallback(async () => {
     const { status, data } = await findByFilter()
@@ -44,8 +42,6 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
     setMetrics(data)
 
     setFilteredMetrics(data)
-
-    console.log(filteredMetrics)
     setLoading(false)
   }, [])
 
@@ -110,6 +106,20 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
       } else {
         setFilteredMetrics(
           metrics?.filter((item) => item.id === Number(value))
+        )
+      }
+    }
+  }
+
+  const handleStatus = async (value: string) => {
+    if (value != '') {
+      if (filteredMetrics != metrics && filteredMetrics?.length) {
+        const filter = filteredMetrics?.filter((item) => item.status === value)
+        console.log(filter)
+        filter?.length ? setFilteredMetrics(filter) : setFilteredMetrics([])
+      } else {
+        setFilteredMetrics(
+          metrics?.filter((item) => item.status === value)
         )
       }
     }
@@ -184,8 +194,8 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
             <Select
               showSearch
               placeholder="Selecione o Status"
-              value={selectedItemStatus}
-              onChange={setSelectedItemStatus}
+
+              onChange={handleStatus}
               style={{ width: '100%' }}
             >
               <Select.Option key={'default_status'} value={''}>
@@ -315,7 +325,8 @@ export default styled(ActiveRoom)`
 
   .clear-filter-button {
     background-color: ${(props) => props.theme.colors.primary};
-    border-radius: 8px;
+    border-radius: 4px;
+    border: none;
     color: ${(props) => props.theme.colors.white};
     padding: 6px 8px;
   }

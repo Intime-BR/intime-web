@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import { Aluno, Metrics, Justifications } from '../../interfaces/interfaces'
 import {
+  CheckOutlined,
+  CheckSquareOutlined,
   EditFilled,
   ExclamationCircleOutlined,
   FileDoneOutlined,
@@ -203,7 +205,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
         <Space size="middle">
             <Tooltip  placement="bottom" title="Ao clicar, você atualizará o status do aluno para Presente.">
               <a>
-                <RedoOutlined
+                <CheckOutlined
                   onClick={() => updatePendencieByStudent(aluno!.id)}
                 />
               </a>
@@ -215,11 +217,11 @@ const DataTable = ({ className, data }: DataTableProps) => {
 
   const handleTagColor = (tag: String) => {
     switch (tag) {
-      case 'presente':
+      case 'Presente':
         return '#2EB73C'
-      case 'pendente':
+      case 'Pendente':
         return '#EBAA02'
-      case 'ausente':
+      case 'Ausente':
         return 'rgba(255, 0, 0, 0.66)'
     }
   }
