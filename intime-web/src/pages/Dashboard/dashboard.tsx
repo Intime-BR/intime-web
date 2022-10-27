@@ -14,7 +14,7 @@ import SearchSelect from '../../components/SeachSelect/searchSelect'
 import CommomText from '../../components/CommomText/commomText'
 import './dashboard.css'
 import { modalVisibility } from '../../utils/exports'
-import { Class } from '../../interfaces/interfaces'
+import { Class, DailyAbsenceChart } from '../../interfaces/interfaces'
 import { getAllClasses, getAllFaults, getAllJustifications, getAllPendences, getAllPresents, getMostDiscipline } from '../../services/dashboardService'
 import { Card } from '../../interfaces/cardInterface'
 import { getAllClass } from '../../services/activeRoomService'
@@ -38,6 +38,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
   const [faults, setFaults] = useState<Card>()
   const [discipline, setDiscipline] = useState<Card>()
   const [justifications, setJustifications] = useState<Justifications[]>()
+  const [dailyAbsenceData, setDailyAbsenceData] = useState<DailyAbsenceChart[]>()
 
   const fetchAllClasses = useCallback(async () => {
     await getAllClasses().then((res) => {
@@ -214,7 +215,10 @@ const Dashboard = ({ className }: DashBoardProps) => {
         shadow="none"
       >
         <div className="col-md-12 col-lg-6 col-sm-12 mt-3 mb-3">
-          <DailyAbsence />
+          <DailyAbsence data={[
+      { name: 'Alunos Totais', value: Number(presents?.presences) + Number(presents?.presences) + Number(presents?.presences), color: '#00C49F' },
+      { name: 'Alunos Faltosos', value: Number(faults?.presences), color: '#ff4842' },
+    ]}/>
         </div>
         <div className="col-md-12 col-lg-6 col-sm-12 mt-3 mb-3">
           <PresenceForSubject />
