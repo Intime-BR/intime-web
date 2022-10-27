@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   ResponsiveContainer,
   PieChart,
@@ -9,50 +9,60 @@ import {
 } from 'recharts'
 import styled from 'styled-components'
 import { PresencesSubject } from '../../interfaces/presencesSubjectInterface'
+import { getAllPresencesForSubject } from '../../services/dashboardService'
 
 type PresenceForSubjectProps = {
   className?: string;
   room?: string;
   percentValue?: number;
   color?: string;
-  data: any;
 };
 
+const PresenceForSubject = ({ className }: PresenceForSubjectProps) => {
 
 
-const RADIAN = Math.PI / 180
-const renderCustomizedLabel: PieLabel<any> = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-  index,
-}) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5
-  const x = cx + radius * Math.cos(-midAngle * RADIAN)
-  const y = cy + radius * Math.sin(-midAngle * RADIAN)
+  const [presencesSubject, setPresencesSubject] = useState<PresencesSubject[]>()
 
-  return (
-    <text
-      x={x}
-      y={y}
-      fill="white"
-      textAnchor={x > cx ? 'start' : 'end'}
-      dominantBaseline="central"
-    >
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
-  )
-}
+  const RADIAN = Math.PI / 180
+  const renderCustomizedLabel: PieLabel<any> = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5
+    const x = cx + radius * Math.cos(-midAngle * RADIAN)
+    const y = cy + radius * Math.sin(-midAngle * RADIAN)
 
+    
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? 'start' : 'end'}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    )
+  }
+  const GetPresencesForSubject = useCallback(async () => {
+    await getAllPresencesForSubject().then((res) => {
+      setPresencesSubject(res.data)
+    })
+  }, [])
 
-const PresenceForSubject = ({
-  className,
-  data
-}: PresenceForSubjectProps) => {
-  const COLORS: Array<string> = data.map((item: any) => item.codigo_cor)
+    const COLORS: Array<string> = presencesSubject?.map((item: PresencesSubject) => item.color)
+    
+  console.log(presencesSubject)
+  useEffect(() => {
+    GetPresencesForSubject()
+  }, [GetPresencesForSubject])
+
   return (
     <div className={className}>
       <div className="title-div">
@@ -69,7 +79,7 @@ const PresenceForSubject = ({
               iconSize={5}
             />
             <Pie
-              data={data}
+              data={presencesSubject}
               cx="50%"
               cy="50%"
               labelLine={false}
@@ -77,10 +87,10 @@ const PresenceForSubject = ({
               outerRadius={115}
               dataKey="value"
             >
-              {data.map((index: any) => (
+              {presencesSubject?.map((item: PresencesSubject) => (
                 <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
+                  key={`cell-${item}`}
+                  fill={item.color}
                 />
               ))}
             </Pie>

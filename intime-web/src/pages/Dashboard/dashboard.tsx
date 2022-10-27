@@ -41,14 +41,6 @@ const Dashboard = ({ className }: DashBoardProps) => {
   const [justifications, setJustifications] = useState<Justifications[]>()
   const [dailyAbsenceData, setDailyAbsenceData] = useState<DailyAbsenceChart[]>()
 
-  const [presencesSubject, setPresencesSubject] = useState<PresencesSubject[]>()
-
-  const GetPresencesForSubject = useCallback(async () => {
-    await getAllPresencesForSubject().then((res) => {
-      setPresencesSubject(res.data)
-    })
-  }, [])
-
   const fetchAllClasses = useCallback(async () => {
     await getAllClasses().then((res) => {
       setClasses(res.data)
@@ -230,7 +222,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
     ]}/>
         </div>
         <div className="col-md-12 col-lg-6 col-sm-12 mt-3 mb-3">
-          <PresenceForSubject data={presencesSubject} />
+          <PresenceForSubject />
         </div>
       </BaseContainer>
       {/* <Drawer
