@@ -44,6 +44,8 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
     setMetrics(data)
 
     setFilteredMetrics(data)
+
+    console.log(filteredMetrics)
     setLoading(false)
   }, [])
 

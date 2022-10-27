@@ -15,3 +15,7 @@ export const getAllDiscipline = () => Api.get<Disciplinas[]>('/discipline/filter
 export const getAllClass = () => Api.get<ClassInterface[]>('/class/filter/list-all')
 
 export const getPendenciesStudent = (hashId : number) => Api.get<Justifications[]>(`/pendencies/get/${hashId}`)
+
+export const updatePendencieStudent = (id : number) => Api.put<Justifications[]>(`/pendencies/update/${id}`, {
+    status: 1
+})

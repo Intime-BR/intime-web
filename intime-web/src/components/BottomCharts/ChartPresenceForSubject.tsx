@@ -5,16 +5,16 @@ import {
   Cell,
   PieLabel,
   Legend,
-} from "recharts";
-import styled from "styled-components";
+} from 'recharts'
+import styled from 'styled-components'
 
 const data = [
-  { name: "Matemática", value: 150, color: "#00C49F" },
-  { name: "Atualidades", value: 300, color: "#FF8042" },
-  { name: "Framework", value: 400, color: "#FFBB28" },
-];
+  { name: 'Matemática', value: 150, color: '#00C49F' },
+  { name: 'Atualidades', value: 300, color: '#FF8042' },
+  { name: 'Framework', value: 400, color: '#FFBB28' },
+]
 
-const RADIAN = Math.PI / 180;
+const RADIAN = Math.PI / 180
 const renderCustomizedLabel: PieLabel<any> = ({
   cx,
   cy,
@@ -24,22 +24,22 @@ const renderCustomizedLabel: PieLabel<any> = ({
   percent,
   index,
 }) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5
+  const x = cx + radius * Math.cos(-midAngle * RADIAN)
+  const y = cy + radius * Math.sin(-midAngle * RADIAN)
 
   return (
     <text
       x={x}
       y={y}
       fill="white"
-      textAnchor={x > cx ? "start" : "end"}
+      textAnchor={x > cx ? 'start' : 'end'}
       dominantBaseline="central"
     >
       {`${(percent * 100).toFixed(0)}%`}
     </text>
-  );
-};
+  )
+}
 
 type PresenceForSubject = {
   className?: string;
@@ -48,7 +48,7 @@ type PresenceForSubject = {
   color?: string;
 };
 
-const COLORS: Array<string> = data.map((item) => item.color);
+const COLORS: Array<string> = data.map((item) => item.color)
 
 const PresenceForSubject = ({
   className,
@@ -59,7 +59,7 @@ const PresenceForSubject = ({
         <span>Presença por matéria</span>
       </div>
       <p>Matéria destaque em presenças concluídas</p>
-      <div style={{ width: "100%", height: 280 }}>
+      <div style={{ width: '100%', height: 280 }}>
         <ResponsiveContainer>
           <PieChart>
             <Legend
@@ -88,8 +88,8 @@ const PresenceForSubject = ({
         </ResponsiveContainer>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default styled(PresenceForSubject)`
   width: 100%;
@@ -122,4 +122,4 @@ export default styled(PresenceForSubject)`
     font-size: 18px;
     font-weight: 500;
   }
-`;
+`
