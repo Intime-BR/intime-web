@@ -15,11 +15,12 @@ import CommomText from '../../components/CommomText/commomText'
 import './dashboard.css'
 import { modalVisibility } from '../../utils/exports'
 import { Class, DailyAbsenceChart } from '../../interfaces/interfaces'
-import { getAllClasses, getAllFaults, getAllJustifications, getAllPendences, getAllPresents, getMostDiscipline } from '../../services/dashboardService'
+import { getAllClasses, getAllFaults, getAllJustifications, getAllPendences, getAllPresencesForSubject, getAllPresents, getMostDiscipline } from '../../services/dashboardService'
 import { Card } from '../../interfaces/cardInterface'
 import { getAllClass } from '../../services/activeRoomService'
 import { ClassInterface } from '../../interfaces/classInterface'
 import { Justifications } from '../../interfaces/justificationInterface'
+import { PresencesSubject } from '../../interfaces/presencesSubjectInterface'
 
 
 type DashBoardProps = {
@@ -39,6 +40,14 @@ const Dashboard = ({ className }: DashBoardProps) => {
   const [discipline, setDiscipline] = useState<Card>()
   const [justifications, setJustifications] = useState<Justifications[]>()
   const [dailyAbsenceData, setDailyAbsenceData] = useState<DailyAbsenceChart[]>()
+
+  const [presencesSubject, setPresencesSubject] = useState<PresencesSubject[]>()
+
+  const GetPresencesForSubject = useCallback(async () => {
+    await getAllPresencesForSubject().then((res) => {
+      setPresencesSubject(res.data)
+    })
+  }, [])
 
   const fetchAllClasses = useCallback(async () => {
     await getAllClasses().then((res) => {
@@ -221,7 +230,7 @@ const Dashboard = ({ className }: DashBoardProps) => {
     ]}/>
         </div>
         <div className="col-md-12 col-lg-6 col-sm-12 mt-3 mb-3">
-          <PresenceForSubject />
+          <PresenceForSubject data={presencesSubject} />
         </div>
       </BaseContainer>
       {/* <Drawer

@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import {
   ResponsiveContainer,
   PieChart,
@@ -7,12 +8,17 @@ import {
   Legend,
 } from 'recharts'
 import styled from 'styled-components'
+import { PresencesSubject } from '../../interfaces/presencesSubjectInterface'
 
-const data = [
-  { name: 'Matemática', value: 150, color: '#00C49F' },
-  { name: 'Atualidades', value: 300, color: '#FF8042' },
-  { name: 'Framework', value: 400, color: '#FFBB28' },
-]
+type PresenceForSubjectProps = {
+  className?: string;
+  room?: string;
+  percentValue?: number;
+  color?: string;
+  data: any;
+};
+
+
 
 const RADIAN = Math.PI / 180
 const renderCustomizedLabel: PieLabel<any> = ({
@@ -41,18 +47,12 @@ const renderCustomizedLabel: PieLabel<any> = ({
   )
 }
 
-type PresenceForSubject = {
-  className?: string;
-  room?: string;
-  percentValue?: number;
-  color?: string;
-};
-
-const COLORS: Array<string> = data.map((item) => item.color)
 
 const PresenceForSubject = ({
   className,
-}: PresenceForSubject) => {
+  data
+}: PresenceForSubjectProps) => {
+  const COLORS: Array<string> = data.map((item: any) => item.codigo_cor)
   return (
     <div className={className}>
       <div className="title-div">
@@ -77,7 +77,7 @@ const PresenceForSubject = ({
               outerRadius={115}
               dataKey="value"
             >
-              {data.map((entry, index) => (
+              {data.map((index: any) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
