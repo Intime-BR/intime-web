@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { Aluno, Metrics, Justifications } from '../../interfaces/interfaces'
 import {
-  ConsoleSqlOutlined,
   EditFilled,
   ExclamationCircleOutlined,
   FileDoneOutlined,
@@ -11,7 +10,6 @@ import {
 import { Empty, Form, Input, Space, Table, Tabs, Tag } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { Avatar } from 'antd'
-import { Badge } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
 import { modalVisibility } from '../../utils/exports'
 import DataTableModal from './dataTableModal'
@@ -19,7 +17,7 @@ import CommomText from '../CommomText/commomText'
 import { RequiredMark } from 'antd/lib/form/Form'
 import { getMetrics } from '../../services/datatableService'
 import StudentMetric from '../StudentMetric/studentMetric'
-import { getPendenciesStudent } from '../../services/activeRoomService'
+import { getPendenciesStudent, updatePendencieStudent } from '../../services/activeRoomService'
 import { Tooltip } from 'antd'
 
 type DataTableProps = {
@@ -52,7 +50,6 @@ const DataTable = ({ className, data }: DataTableProps) => {
     findPendenciesByStudent()
   },[fetchAllStudentPendences, findPendenciesByStudent])
 
-  
 
   const [form] = Form.useForm()
   const [requiredMark, setRequiredMarkType] =
@@ -69,6 +66,12 @@ const DataTable = ({ className, data }: DataTableProps) => {
   const handleCurrentAluno = (data: Aluno) => {
     setIsVisible(modalVisibility(isVisible))
     setAluno(data)
+  }
+
+
+  const updatePendencieByStudent = (id: number)  => {
+    updatePendencieStudent(id)
+    setPendencies(pendencies)
   }
 
   const columns: ColumnsType<Aluno> = [
@@ -102,24 +105,19 @@ const DataTable = ({ className, data }: DataTableProps) => {
       render: (text) => <a>{text}</a>,
     },
     {
-      title: 'Status',
+      title: 'Status Diário',
       key: 'status',
       dataIndex: 'status',
       render: (_, { status }) => (
         <>
-          {status?.map((tag) => {
-            return (
-              <Tag
+          <Tag
                 className="rounded"
                 style={{ padding: '2px 10px', fontSize: '13px' }}
-                color={handleTagColor(tag)}
-                key={tag}
+                color={handleTagColor(status)}
+                key={status}
               >
-                <Badge status="default" />
-                {tag}
-              </Tag>
-            )
-          })}
+                {status}
+          </Tag>
         </>
       ),
     },
@@ -169,7 +167,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
       render: (text) => (
         <div className="d-flex align-items-center">
           <span className="text-nowrap" style={{ marginLeft: '8px' }}>
-            {text || "matematica"}  
+            {text}  
           </span>
         </div>
       ),
@@ -205,7 +203,7 @@ const DataTable = ({ className, data }: DataTableProps) => {
             <Tooltip  placement="bottom" title="Ao clicar, você atualizará o status do aluno para Presente.">
               <a>
                 <RedoOutlined
-                  onClick={() => console.log('Atualizar')}
+                  onClick={() => updatePendencieByStudent(aluno!.id)}
                 />
               </a>
             </Tooltip>

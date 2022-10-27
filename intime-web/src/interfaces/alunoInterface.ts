@@ -7,7 +7,7 @@ export interface AlunoInterface {
   classroom?: string;
   classroom_id?: number;
   subject?: [{materia: {nome: string}}];
-  status?: string;
+  status: string;
   financialResponsable?: string;
   pedagogicalResponsable?: string;
   phoneNumber?: string;
