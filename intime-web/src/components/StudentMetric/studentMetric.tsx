@@ -4,7 +4,7 @@ import { Metrics } from '../../interfaces/interfaces'
 
 type StudentMetricProps = {
   className?: string;
-  metrics?: any;
+  metrics?: Metrics;
 };
 
 const StudentMetric = ({ className, metrics }: StudentMetricProps) => {
@@ -52,13 +52,13 @@ const StudentMetric = ({ className, metrics }: StudentMetricProps) => {
             </div>
           </div>
 
-          {/* <div className="mt-3 w-100">
+          <div className="mt-3 w-100">
             <div className="d-flex justify-content-between">
               <span>Índice de reprovaçao</span>
-              <span>{50}%</span>
+              <span>{metrics?.porcentagem_faltas}%</span>
             </div>
-            <Progress percent={50} showInfo={false} />
-          </div> */}
+            <Progress percent={metrics?.porcentagem_faltas} showInfo={false} />
+          </div>
         </div>
       </Card>
     </div>
