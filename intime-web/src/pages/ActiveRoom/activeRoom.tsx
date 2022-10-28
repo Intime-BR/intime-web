@@ -35,6 +35,12 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
   const [classes, setClasses] = useState<ClassInterface[]>()
   const [enrollment, setEnrollment] = useState<Matriculas[]>()
   const status = ['Pendente', 'Ausente', 'Presente']
+  const [selectValues, setSelectValues] = useState<{
+    enrollment: string | undefined;
+    status: string | undefined;
+    class: string | undefined;
+    subject: string | undefined;
+  }>({ enrollment: undefined, status: undefined, class: undefined, subject: undefined })
 
   const findStudents = useCallback(async () => {
     const { status, data } = await findByFilter()
@@ -44,8 +50,6 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
     setFilteredMetrics(data)
     setLoading(false)
   }, [])
-
-
 
   const getDiscipline = useCallback(async () => {
     await getAllDiscipline().then((res) => {
@@ -67,61 +71,87 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
 
   useEffect(() => {
     findStudents()
+  }, [findStudents, getClass, getDiscipline, getEnrollment])
+
+  useEffect(() => {
     getDiscipline()
     getEnrollment()
     getClass()
-  }, [findStudents, getClass, getDiscipline, getEnrollment])
+  }, [getClass, getDiscipline, getEnrollment])
 
   const handleEnrollment = async (value: string) => {
     if (value != '') {
-      if (filteredMetrics != metrics) {
-        const filter = filteredMetrics?.filter((item) => item.enrollment === Number(value))
+      if (
+        (!selectValues.enrollment && selectValues.subject) ||
+        selectValues.status ||
+        selectValues.class
+      ) {
+        const filter = filteredMetrics?.filter(
+          (item) => item.enrollment === Number(value)
+        )
         filter?.length ? setFilteredMetrics(filter) : setFilteredMetrics([])
       } else {
         setFilteredMetrics(
           metrics?.filter((item) => item.enrollment === Number(value))
         )
       }
+      setSelectValues({ ...selectValues, enrollment: value })
     }
   }
 
   const handleDisciplina = async (value: string) => {
     if (value != '') {
-      if (filteredMetrics != metrics) {
-        const filter = filteredMetrics?.filter( (item) => item.subject![0].materia.nome === value)
+      if (
+        (!selectValues.subject && selectValues.status) ||
+        selectValues.class ||
+        selectValues.enrollment
+      ) {
+        const filter = filteredMetrics?.filter(
+          (item) => item.subject![0].materia.nome === value
+        )
         filter?.length ? setFilteredMetrics(filter) : setFilteredMetrics([])
       } else {
         setFilteredMetrics(
           metrics?.filter((item) => item.subject![0].materia.nome === value)
         )
       }
+      setSelectValues({ ...selectValues, subject: value })
     }
   }
 
   const handleClass = async (value: string) => {
     if (value != '') {
-      if (filteredMetrics != metrics && filteredMetrics?.length) {
-        const filter = filteredMetrics?.filter((item) => item.classroom_id === Number(value))
+      if (
+        (!selectValues.class && selectValues.enrollment) ||
+        selectValues.status ||
+        selectValues.subject
+      ) {
+        const filter = filteredMetrics?.filter(
+          (item) => item.classroom_id === Number(value)
+        )
         filter?.length ? setFilteredMetrics(filter) : setFilteredMetrics([])
       } else {
         setFilteredMetrics(
-          metrics?.filter((item) => item.id === Number(value))
+          metrics?.filter((item) => item.classroom_id === Number(value))
         )
       }
+      setSelectValues({ ...selectValues, class: value })
     }
   }
 
   const handleStatus = async (value: string) => {
     if (value != '') {
-      if (filteredMetrics != metrics && filteredMetrics?.length) {
+      if (
+        (!selectValues.status && selectValues.class) ||
+        selectValues.enrollment ||
+        selectValues.subject
+      ) {
         const filter = filteredMetrics?.filter((item) => item.status === value)
-        console.log(filter)
         filter?.length ? setFilteredMetrics(filter) : setFilteredMetrics([])
       } else {
-        setFilteredMetrics(
-          metrics?.filter((item) => item.status === value)
-        )
+        setFilteredMetrics(metrics?.filter((item) => item.status === value))
       }
+      setSelectValues({ ...selectValues, status: value })
     }
   }
 
@@ -174,15 +204,12 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
           <div className="col-sm-12 col-lg-3 col-md-6 mt-3 mb-3">
             <Select
               showSearch
+              allowClear
               placeholder="Selecione a Matrícula"
+              value={selectValues.enrollment}
               onChange={handleEnrollment}
               style={{ width: '100%' }}
             >
-              <Select.Option key={'default_enrollment'} value={''}>
-                <span style={{ color: 'rgba(0, 0, 0, 0.2)' }}>
-                  {'Selecione a Matrícula'}
-                </span>
-              </Select.Option>
               {enrollment?.map((item) => (
                 <Select.Option key={item.matricula} value={item.matricula}>
                   {item.matricula}
@@ -192,22 +219,13 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
           </div>
           <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-1">
             <Select
+              allowClear
               showSearch
               placeholder="Selecione o Status"
-
+              value={selectValues.status}
               onChange={handleStatus}
               style={{ width: '100%' }}
             >
-              <Select.Option key={'default_status'} value={''}>
-                <span
-                  style={{
-                    color: 'rgba(0, 0, 0, 0.2)',
-                    background: 'transparent',
-                  }}
-                >
-                  {'Selecione  Status'}
-                </span>
-              </Select.Option>
               {status?.map((item) => (
                 <Select.Option key={item} value={item}>
                   {item}
@@ -217,21 +235,13 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
           </div>
           <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-1">
             <Select
+              allowClear
               showSearch
               placeholder="Selecione a Turma"
+              value={selectValues.class}
               onChange={handleClass}
               style={{ width: '100%' }}
             >
-              <Select.Option key={'default_classes'} value={''}>
-                <span
-                  style={{
-                    color: 'rgba(0, 0, 0, 0.2)',
-                    background: 'transparent',
-                  }}
-                >
-                  {'Selecione a Turma'}
-                </span>
-              </Select.Option>
               {classes?.map((item) => (
                 <Select.Option key={item.id} value={item.id}>
                   {item.nome}
@@ -242,20 +252,12 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
           <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-1">
             <Select
               showSearch
+              allowClear
               placeholder="Selecione a Disciplina"
+              value={selectValues.subject}
               onChange={handleDisciplina}
               style={{ width: '100%' }}
             >
-              <Select.Option key={'default_discipline'} value={''}>
-                <span
-                  style={{
-                    color: 'rgba(0, 0, 0, 0.2)',
-                    background: 'transparent',
-                  }}
-                >
-                  {'Selecione Disciplina'}
-                </span>
-              </Select.Option>
               {discipline?.map((item) => (
                 <Select.Option key={item.nome} value={item.nome}>
                   {item.nome}
@@ -265,7 +267,10 @@ const ActiveRoom = ({ className }: ActiveRoomProps) => {
           </div>
           <div className="col-sm-12 col-lg-3 col-md-6  mt-3 mb-1 w-100  d-flex justify-content-end align-items-end">
             <Button
-              onClick={() => setFilteredMetrics(metrics)}
+              onClick={() => {
+                setFilteredMetrics(metrics)
+                setSelectValues({...selectValues, class: undefined, subject: undefined, enrollment: undefined, status: undefined})
+              }}
               type="default"
               className="clear-filter-button"
             >
