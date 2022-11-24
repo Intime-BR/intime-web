@@ -335,4 +335,8 @@ export default styled(ActiveRoom)`
     color: ${(props) => props.theme.colors.white};
     padding: 6px 8px;
   }
+  .ant-select-selector{
+    border-radius: 8px;
+    padding: 20px 30px;
+  }
 `
